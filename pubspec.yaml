@@ -1,0 +1,56 @@
+name: joli_crm
+description: "A new Flutter project."
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  dio: any
+  flutter_bloc: any
+  retrofit: any
+  flutter_secure_storage: any
+  shared_preferences: any
+  json_annotation: any
+  dartz: any
+  awesome_snackbar_content: ^0.1.8
+  get_it: any
+  package_info_plus: any
+  easy_localization: any
+  form_validator: any
+  flutter_screenutil: any
+  flutter_svg: any
+  lottie: any
+  pinput: any
+
+
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  retrofit_generator: any
+  build_runner: any
+  json_serializable: any
+
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/translation/
+    - assets/images/
+    - assets/svgs/
+    - assets/lottie/
+
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic

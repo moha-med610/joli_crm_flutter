@@ -1,0 +1,20 @@
+{
+  "welcome_back": "مرحبا بعودتك!",
+  "Login_to_your_account": "سجل الدخول الي حسابك",
+  "email_required": "البريد الالكتروني مطلوب",
+  "invalid_email": "بريد الكتروني خطأ",
+  "password_required": "كلمه المرور مطلوبه",
+  "invalid_password_min_length": "كلمه المرور يجب ان تكون علي الاقل ٨ احرف",
+  "invalid_password_format": "كلمه المرور يجب ان تحتوي علي الاقل علي حرف كبير و حرف صغير و رمز خاص و رقم",
+  "email": "البريد الالكتروني",
+  "password": "كلمه المرور",
+  "login": "دخول",
+  "forget_password": "نسيت كلمه المرور؟",
+  "do_not_have_account": "اذا لما يكن لديك حساب من فضلك تواصل معنا عبر الهاتف: ",
+  "dashboard": "لوحه التحكم",
+  "send": "ارسال",
+  "new_password": "كلمه المرور الجديده",
+  "confirm_new_password": "تأكيد كلمه المرور",
+  "reset_password": "تغيير كلمه المرور",
+  "passwords_do_not_match": "كلمات المرور غير متطابقه"
+}

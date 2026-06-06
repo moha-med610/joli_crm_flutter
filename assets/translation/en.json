@@ -1,0 +1,20 @@
+{
+  "welcome_back": "Welcome Back!",
+  "Login_to_your_account": "Login To Your Account",
+  "email_required": "Email is Required",
+  "invalid_email": "Invalid Email",
+  "password_required": "Password is Required",
+  "invalid_password_min_length": "Password must be at least 8 characters",
+  "invalid_password_format": "Password must be at least one uppercase & one lowercase & one special character & one number",
+  "email": "Email",
+  "password": "Password",
+  "login": "Login",
+  "forget_password": "Forget Password?",
+  "do_not_have_account": "If You Don't Have An Account Please Contact us via phone: ",
+  "dashboard": "Dashboard",
+  "send": "Send",
+  "new_password": "New Password",
+  "confirm_new_password": "Confirm Password",
+  "reset_password": "Reset Password",
+  "passwords_do_not_match": "Password Do Not Match"
+}
