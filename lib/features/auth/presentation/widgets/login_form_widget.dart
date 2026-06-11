@@ -37,7 +37,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
           ),
           SizedBox(height: 10.h),
           TextFormFieldWidget(
-            validator: AppValidator.password,
+            validator: AppValidator.loginPassword,
             controller: widget._passwordController,
             hint: "password".tr(),
             isSecureText: !showPassword,

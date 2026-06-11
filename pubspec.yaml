@@ -15,7 +15,7 @@ dependencies:
   retrofit: any
   flutter_secure_storage: any
   shared_preferences: any
-  json_annotation: any
+  json_annotation: ^4.12.0
   dartz: any
   awesome_snackbar_content: ^0.1.8
   get_it: any
@@ -26,6 +26,7 @@ dependencies:
   flutter_svg: any
   lottie: any
   pinput: any
+  dart_jsonwebtoken: any
 
 
   cupertino_icons: ^1.0.8

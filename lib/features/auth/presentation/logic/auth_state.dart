@@ -19,6 +19,12 @@ class AuthSuccess extends AuthState {
   AuthSuccess(this.data);
 }
 
+class UserSuccess extends AuthState {
+  final UserResEntity data;
+
+  UserSuccess(this.data);
+}
+
 final class AuthError extends AuthState {
   final String error;
 

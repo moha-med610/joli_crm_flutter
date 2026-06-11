@@ -1,15 +1,18 @@
 import 'package:flutter/cupertino.dart';
+import 'package:joli_crm/core/enum/role_enum.dart';
 
 class AppScreens {
   final String title;
   final Icon icon;
   final Widget screen;
-  final int index;
+  final String id;
+  final List<RoleEnum> roles;
 
   AppScreens({
     required this.title,
     required this.icon,
     required this.screen,
-    required this.index,
+    required this.id,
+    required this.roles,
   });
 }

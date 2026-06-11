@@ -12,7 +12,7 @@ part of 'base_auth_data_source.dart';
 
 class _BaseAuthDataSource implements BaseAuthDataSource {
   _BaseAuthDataSource(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'http://192.168.1.8:3000/';
+    baseUrl ??= 'http://localhost:3000/';
   }
 
   final Dio _dio;
@@ -155,6 +155,33 @@ class _BaseAuthDataSource implements BaseAuthDataSource {
     late AuthResModel _value;
     try {
       _value = AuthResModel.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<UserResModel> profile() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<UserResModel>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'auth/me',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late UserResModel _value;
+    try {
+      _value = UserResModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

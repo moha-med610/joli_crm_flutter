@@ -5,4 +5,7 @@ class StorageKeys {
 
   // Shared Preferences
   static const String isDark = "is_theme_dark";
+
+  // Roles
+  static const String role = "user_role";
 }

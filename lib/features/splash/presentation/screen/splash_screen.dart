@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:joli_crm/core/utils/navigator_helper.dart';
 import 'package:joli_crm/core/widgets/app_layout.dart';
+import 'package:joli_crm/features/auth/presentation/logic/auth_cubit.dart';
 import 'package:joli_crm/features/auth/presentation/screens/login_screen.dart';
 import 'package:joli_crm/features/main/presentation/screen/main_screen.dart';
 import 'package:joli_crm/features/splash/presentation/logic/splash_cubit.dart';
@@ -42,8 +43,9 @@ class _SplashScreenState extends State<SplashScreen> {
         appBar: null,
         bgColor: const Color(0XFF004643),
         child: BlocConsumer<SplashCubit, SplashState>(
-          listener: (context, state) {
+          listener: (context, state) async {
             if (state is SplashAuthenticated) {
+              await context.read<AuthCubit>().profile();
               context.pushReplacement(MainScreen());
             }
             if (state is SplashUnAuthenticated) {

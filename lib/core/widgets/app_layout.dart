@@ -25,7 +25,7 @@ class AppLayout extends StatelessWidget {
       backgroundColor: bgColor,
       appBar: appBar,
       body: SafeArea(
-        child: Padding(padding: const EdgeInsets.all(18.0), child: child),
+        child: Padding(padding: const EdgeInsets.all(8.0), child: child),
       ),
       bottomNavigationBar: bottomNavigationBar,
       bottomSheet: bottomSheet,

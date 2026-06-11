@@ -32,16 +32,8 @@ final ThemeData darkTheme = ThemeData(
   ),
 
   primaryTextTheme: TextTheme(
-    headlineLarge: TextStyle(
-      color: const Color(0XFF004643),
-      fontSize: 24,
-      fontWeight: FontWeight.w900,
-    ),
-    labelMedium: TextStyle(
-      color: Colors.white70,
-      fontSize: 16,
-      fontWeight: FontWeight.w400,
-    ),
+    headlineLarge: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
+    labelMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
   ),
 
   elevatedButtonTheme: ElevatedButtonThemeData(
@@ -59,6 +51,25 @@ final ThemeData darkTheme = ThemeData(
           fontWeight: FontWeight.w600,
         ),
       ),
+    ),
+  ),
+
+  navigationDrawerTheme: NavigationDrawerThemeData(
+    backgroundColor: const Color(0XFF004643),
+    indicatorColor: Colors.black12,
+    labelTextStyle: WidgetStatePropertyAll(
+      TextStyle(
+        color: Colors.grey.shade50,
+        fontSize: 18,
+        fontWeight: FontWeight.w700,
+      ),
+    ),
+    iconTheme: WidgetStatePropertyAll(
+      IconThemeData(color: Colors.grey.shade50),
+    ),
+    elevation: 0.5,
+    indicatorShape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12),
     ),
   ),
 );

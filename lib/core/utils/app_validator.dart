@@ -15,6 +15,13 @@ class AppValidator {
         .build()(value);
   }
 
+  static String? loginPassword(String? value) {
+    return ValidationBuilder()
+        .required("password_required".tr())
+        .minLength(8, "invalid_password_min_length".tr())
+        .build()(value);
+  }
+
   static String? password(String? value) {
     return ValidationBuilder()
         .required("password_required".tr())

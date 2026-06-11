@@ -1,9 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:joli_crm/core/logic/app_cubit.dart';
 import 'package:joli_crm/core/navigation/app_drawer.dart';
-import 'package:joli_crm/core/navigation/drawer_items.dart';
 import 'package:joli_crm/core/widgets/app_bar_widget.dart';
 import 'package:joli_crm/core/widgets/app_layout.dart';
 import 'package:joli_crm/features/main/presentation/logic/main_cubit.dart';
@@ -13,22 +12,33 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDark = context.watch<AppCubit>().state.isDark;
+
     return BlocProvider(
-      create: (context) => MainCubit(),
+      create: (_) => MainCubit()..getScreens(),
       child: BlocBuilder<MainCubit, MainState>(
-        builder: (context, state) => AppLayout(
-          drawer: AppDrawer(),
-          appBar: AppBarWidget(
-            title: Text(
-              drawerItems[state.currentIndex].title.tr(),
-              style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                fontSize: 24.sp,
-                fontWeight: FontWeight.w600,
+        builder: (context, state) {
+          if (state.screens.isEmpty) {
+            return const SizedBox();
+          }
+
+          final currentScreen = state.screens.firstWhere(
+            (screen) => screen.id == state.currentId,
+          );
+
+          return AppLayout(
+            drawer: AppDrawer(items: state.screens),
+            appBar: AppBarWidget(
+              title: Text(
+                currentScreen.title.tr(),
+                style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                  color: isDark ? Colors.white : Colors.black,
+                ),
               ),
             ),
-          ),
-          child: drawerItems[state.currentIndex].screen,
-        ),
+            child: currentScreen.screen,
+          );
+        },
       ),
     );
   }

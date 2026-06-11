@@ -35,7 +35,7 @@ class AuthInterceptor implements Interceptor {
 
         final requestOptions = err.requestOptions;
 
-        requestOptions.headers["Authorization"] = "Bearer $newAccessToken";
+        requestOptions.headers["Authorization"] = newAccessToken;
 
         final response = await DioClient().dio.fetch(requestOptions);
 
@@ -43,6 +43,7 @@ class AuthInterceptor implements Interceptor {
       } catch (e) {
         await secureStorage.delete(key: StorageKeys.accessToken);
         await secureStorage.delete(key: StorageKeys.refreshToken);
+        prefs.remove(key: StorageKeys.role);
 
         return handler.next(err);
       }
@@ -59,7 +60,7 @@ class AuthInterceptor implements Interceptor {
     final accessToken = await secureStorage.read(key: StorageKeys.accessToken);
 
     if (accessToken != null) {
-      options.headers["authorization"] = accessToken;
+      options.headers["Authorization"] = accessToken;
     }
     handler.next(options);
   }

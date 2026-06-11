@@ -1,13 +1,15 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:joli_crm/features/auth/data/models/auth_req_model.dart';
 import 'package:joli_crm/features/auth/domain/entities/auth_res_entity.dart';
 import 'package:joli_crm/features/auth/domain/entities/login_res_entity.dart';
+import 'package:joli_crm/features/auth/domain/entities/user_entity.dart';
 import 'package:joli_crm/features/auth/domain/use_cases/forget_password_use_case.dart';
 import 'package:joli_crm/features/auth/domain/use_cases/login_use_case.dart';
 import 'package:joli_crm/features/auth/domain/use_cases/logout_use_case.dart';
+import 'package:joli_crm/features/auth/domain/use_cases/profile_use_case.dart';
 import 'package:joli_crm/features/auth/domain/use_cases/reset_password_use_case.dart';
 import 'package:joli_crm/features/auth/domain/use_cases/verify_forget_password_otp_use_case.dart';
-import 'package:meta/meta.dart';
 
 part 'auth_state.dart';
 
@@ -17,6 +19,7 @@ class AuthCubit extends Cubit<AuthState> {
   final VerifyForgetPasswordOtpUseCase verifyForgetPasswordOtpUseCase;
   final ResetPasswordUseCase resetPasswordUseCase;
   final LogoutUseCase logoutUseCase;
+  final ProfileUseCase profileUseCase;
 
   AuthCubit(
     this.loginUseCase,
@@ -24,9 +27,11 @@ class AuthCubit extends Cubit<AuthState> {
     this.verifyForgetPasswordOtpUseCase,
     this.resetPasswordUseCase,
     this.logoutUseCase,
+    this.profileUseCase,
   ) : super(AuthInitial());
 
   bool _isLoading = false;
+  UserEntity? currentUser;
 
   Future<void> login({required String email, required String password}) async {
     if (_isLoading) return;
@@ -43,6 +48,7 @@ class AuthCubit extends Cubit<AuthState> {
         emit(AuthError(err.message));
       },
       (data) {
+        currentUser = data.data;
         emit(LoginSuccess(data));
       },
     );
@@ -132,5 +138,16 @@ class AuthCubit extends Cubit<AuthState> {
     );
 
     _isLoading = false;
+  }
+
+  Future<void> profile() async {
+    emit(AuthLoading());
+
+    final result = await profileUseCase();
+
+    result.fold((err) => emit(AuthError(err.message)), (data) {
+      currentUser = data.user;
+      emit(UserSuccess(data));
+    });
   }
 }

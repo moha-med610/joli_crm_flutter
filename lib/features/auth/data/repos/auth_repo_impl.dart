@@ -8,6 +8,7 @@ import 'package:joli_crm/features/auth/data/models/auth_req_model.dart';
 import 'package:joli_crm/features/auth/data/models/auth_res_model.dart';
 import 'package:joli_crm/features/auth/domain/entities/auth_res_entity.dart';
 import 'package:joli_crm/features/auth/domain/entities/login_res_entity.dart';
+import 'package:joli_crm/features/auth/domain/entities/user_entity.dart';
 import 'package:joli_crm/features/auth/domain/repos/base_auth_repo.dart';
 import 'package:joli_crm/main.dart';
 
@@ -29,7 +30,10 @@ class AuthRepoImpl implements BaseAuthRepo {
         key: StorageKeys.refreshToken,
         value: res.refreshToken,
       );
-      return Right(res);
+
+      prefs.set(key: StorageKeys.role, value: res.data.role.name);
+
+      return Right(res.toEntity());
     } on DioException catch (e) {
       return Left(DioErrorHandler.handle(e));
     }
@@ -83,6 +87,17 @@ class AuthRepoImpl implements BaseAuthRepo {
       secureStorage.delete(key: StorageKeys.refreshToken);
 
       return Right(res);
+    } on DioException catch (e) {
+      return Left(DioErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserResEntity>> profile() async {
+    try {
+      final res = await dataSource.profile();
+
+      return Right(res.toEntity());
     } on DioException catch (e) {
       return Left(DioErrorHandler.handle(e));
     }

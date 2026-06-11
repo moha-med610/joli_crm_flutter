@@ -8,9 +8,10 @@ part of 'login_res_model.dart';
 
 LoginResModel _$LoginResModelFromJson(Map<String, dynamic> json) =>
     LoginResModel(
-      message: json['msg'] as String,
-      accessToken: json['accessToken'] as String,
-      refreshToken: json['refreshToken'] as String,
+      json['msg'] as String,
+      json['accessToken'] as String,
+      json['refreshToken'] as String,
+      UserModel.fromJson(json['data'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$LoginResModelToJson(LoginResModel instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$LoginResModelToJson(LoginResModel instance) =>
       'msg': instance.message,
       'accessToken': instance.accessToken,
       'refreshToken': instance.refreshToken,
+      'data': instance.data,
     };

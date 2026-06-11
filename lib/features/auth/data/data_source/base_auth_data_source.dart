@@ -3,6 +3,7 @@ import 'package:joli_crm/core/constants/api_constants.dart';
 import 'package:joli_crm/features/auth/data/models/auth_req_model.dart';
 import 'package:joli_crm/features/auth/data/models/auth_res_model.dart';
 import 'package:joli_crm/features/auth/data/models/login_res_model.dart';
+import 'package:joli_crm/features/auth/data/models/user_model.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'base_auth_data_source.g.dart';
@@ -27,4 +28,7 @@ abstract class BaseAuthDataSource {
 
   @POST(ApiConstants.logout)
   Future<AuthResModel> logout();
+
+  @GET(ApiConstants.profile)
+  Future<UserResModel> profile();
 }

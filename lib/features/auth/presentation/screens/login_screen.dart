@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
             if (state is LoginSuccess) {
               SnackBarWidgets.success(context, state.data.message);
-              context.push(const MainScreen());
+              context.push(MainScreen());
             }
           },
 

@@ -17,10 +17,10 @@ class DoNotHaveAccountWidget extends StatelessWidget {
         ),
         children: [
           TextSpan(
-            text: "+201020130763",
+            text: "01020130763",
             style: Theme.of(context).textTheme.labelMedium!.copyWith(
               fontSize: 14.sp,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w800,
               color: Colors.blue,
             ),
           ),
