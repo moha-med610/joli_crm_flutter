@@ -31,7 +31,6 @@ class AuthCubit extends Cubit<AuthState> {
   ) : super(AuthInitial());
 
   bool _isLoading = false;
-  UserEntity? currentUser;
 
   Future<void> login({required String email, required String password}) async {
     if (_isLoading) return;
@@ -48,7 +47,6 @@ class AuthCubit extends Cubit<AuthState> {
         emit(AuthError(err.message));
       },
       (data) {
-        currentUser = data.data;
         emit(LoginSuccess(data));
       },
     );
@@ -146,7 +144,6 @@ class AuthCubit extends Cubit<AuthState> {
     final result = await profileUseCase();
 
     result.fold((err) => emit(AuthError(err.message)), (data) {
-      currentUser = data.user;
       emit(UserSuccess(data));
     });
   }
