@@ -18,6 +18,14 @@ final class CustomerSuccess extends CustomerState {
   CustomerSuccess(this.customer);
 }
 
+final class CreateCustomerLoading extends CustomerState {}
+
+final class CreateCustomerSuccess extends CustomerState {
+  final SingleCustomer data;
+
+  CreateCustomerSuccess(this.data);
+}
+
 final class CustomerError extends CustomerState {
   final String message;
 

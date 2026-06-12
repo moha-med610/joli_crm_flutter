@@ -9,6 +9,7 @@ import 'package:joli_crm/core/widgets/snack_bar_widgets.dart';
 import 'package:joli_crm/features/customers/presentation/logic/customer_cubit.dart';
 import 'package:joli_crm/features/customers/presentation/widgets/customer_sheet.dart';
 import 'package:joli_crm/features/customers/presentation/widgets/customer_widget.dart';
+import 'package:joli_crm/features/customers/presentation/widgets/customers_loading.dart';
 
 class CustomersScreen extends StatefulWidget {
   const CustomersScreen({super.key});
@@ -42,77 +43,106 @@ class _CustomersScreenState extends State<CustomersScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => sl<CustomerCubit>()..getAllCustomers(),
-      child: AppLayout(
-        appBar: null,
-        floatingActionButton: FloatingButtonWidget(
-          onPressed: () {
-            customerSheet(
-              context,
-              cNameController: _nameController,
-              cPhoneController: _phoneController,
-              cAddressController: _addressController,
-              cCityController: _cityController,
-              cWhatsappController: _whatsappController,
-              cNotsController: _notsController,
-              formKey: _formKey,
-              onSubmit: () {
-                context.pop();
-              },
-            );
-          },
-          icon: CupertinoIcons.add,
-          label: "Add Customer",
-        ),
-        child: BlocConsumer<CustomerCubit, CustomerState>(
-          listener: (context, state) {
-            if (state is CustomerError) {
-              SnackBarWidgets.error(context, state.message);
-            }
-
-            if (state is CustomerLoading) {
-              CircularProgressIndicator();
-            }
-
-            if (state is CustomersSuccess) {
-              SnackBarWidgets.success(context, state.customers.message);
-            }
-          },
-          builder: (context, state) {
-            if (state is CustomersSuccess) {
-              if (state.customers.data.isEmpty) {
-                return Center(
-                  child: Text(
-                    "No Customers",
-                    style: Theme.of(context).primaryTextTheme.headlineLarge!
-                        .copyWith(color: Colors.grey),
-                  ),
+      child: BlocBuilder<CustomerCubit, CustomerState>(
+        builder: (context, state) {
+          return AppLayout(
+            appBar: null,
+            floatingActionButton: FloatingButtonWidget(
+              icon: CupertinoIcons.add,
+              label: "Add Customer",
+              onPressed: () {
+                customerSheet(
+                  isLoading: state is CreateCustomerLoading,
+                  context,
+                  cNameController: _nameController,
+                  cPhoneController: _phoneController,
+                  cAddressController: _addressController,
+                  cCityController: _cityController,
+                  cWhatsappController: _whatsappController,
+                  cNotsController: _notsController,
+                  formKey: _formKey,
+                  onSubmit: () {
+                    if (_formKey.currentState!.validate()) {
+                      context.read<CustomerCubit>().createCustomer(
+                        name: _nameController.text.trim(),
+                        phone: _phoneController.text.trim(),
+                        address: _addressController.text.trim(),
+                        city: _cityController.text.trim(),
+                        whatsapp: _whatsappController.text.trim().isEmpty
+                            ? null
+                            : _whatsappController.text.trim(),
+                        notes: _notsController.text.trim().isEmpty
+                            ? null
+                            : _notsController.text.trim(),
+                      );
+                      _nameController.clear();
+                      _phoneController.clear();
+                      _addressController.clear();
+                      _cityController.clear();
+                      _whatsappController.clear();
+                      _notsController.clear();
+                    } else {
+                      context.pop();
+                    }
+                  },
                 );
-              }
-              return Column(
-                children: [
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: state.customers.data.length,
-                      itemBuilder: (context, index) {
-                        final customer = state.customers.data[index];
-                        return Directionality(
-                          textDirection: TextDirection.ltr,
-                          child: CustomerWidget(
-                            title: customer.name,
-                            subtitle: customer.phone,
-                            trailing: customer.city,
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  SizedBox(height: 30),
-                ],
-              );
-            }
-            return SizedBox.shrink();
-          },
-        ),
+              },
+            ),
+            child: BlocConsumer<CustomerCubit, CustomerState>(
+              listener: (context, state) {
+                if (state is CreateCustomerSuccess) {
+                  context.pop();
+
+                  context.read<CustomerCubit>().getAllCustomers();
+
+                  SnackBarWidgets.success(context, state.data.message);
+                }
+
+                if (state is CustomerError) {
+                  SnackBarWidgets.error(context, state.message);
+                }
+              },
+              builder: (context, state) {
+                if (state is CustomerLoading) {
+                  return CustomersLoading();
+                }
+                if (state is CustomersSuccess) {
+                  if (state.customers.data.isEmpty) {
+                    return Center(
+                      child: Text(
+                        "No Customers",
+                        style: Theme.of(context).primaryTextTheme.headlineLarge!
+                            .copyWith(color: Colors.grey),
+                      ),
+                    );
+                  }
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: state.customers.data.length,
+                          itemBuilder: (context, index) {
+                            final customer = state.customers.data[index];
+                            return Directionality(
+                              textDirection: TextDirection.ltr,
+                              child: CustomerWidget(
+                                title: customer.name,
+                                subtitle: customer.phone,
+                                trailing: customer.city,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      SizedBox(height: 30),
+                    ],
+                  );
+                }
+                return SizedBox.shrink();
+              },
+            ),
+          );
+        },
       ),
     );
   }

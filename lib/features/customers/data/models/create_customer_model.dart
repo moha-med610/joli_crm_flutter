@@ -1,10 +1,15 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'create_customer_model.g.dart';
+
+@JsonSerializable()
 class CreateCustomerModel {
   final String name;
   final String phone;
   final String address;
   final String city;
   final String? whatsapp;
-  final String? nodes;
+  final String? notes;
 
   CreateCustomerModel({
     required this.name,
@@ -12,6 +17,11 @@ class CreateCustomerModel {
     required this.address,
     required this.city,
     this.whatsapp,
-    this.nodes,
+    this.notes,
   });
+
+  factory CreateCustomerModel.fromJson(Map<String, dynamic> json) =>
+      _$CreateCustomerModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CreateCustomerModelToJson(this);
 }

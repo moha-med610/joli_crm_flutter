@@ -6,22 +6,23 @@ Future<void> bottomSheetWidget(
   required List<Widget> children,
 }) async {
   return showModalBottomSheet(
-    isScrollControlled: true,
-    sheetAnimationStyle: AnimationStyle(
-      curve: Curves.bounceInOut,
-      duration: Duration(milliseconds: 300),
-      reverseCurve: Curves.bounceOut,
-    ),
-    useSafeArea: true,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadiusGeometry.vertical(top: Radius.circular(20)),
-    ),
     context: context,
+    isScrollControlled: true,
+    useSafeArea: true,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
     builder: (context) {
-      return SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
+      return Padding(
+        padding: EdgeInsets.only(
+          left: 18,
+          right: 18,
+          top: 18,
+          bottom: MediaQuery.of(context).viewInsets.bottom + 18,
+        ),
+        child: SingleChildScrollView(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 title,
@@ -29,8 +30,8 @@ Future<void> bottomSheetWidget(
                   context,
                 ).primaryTextTheme.headlineLarge!.copyWith(color: Colors.black),
               ),
-              SizedBox(height: 20),
-              Column(children: children),
+              const SizedBox(height: 20),
+              ...children,
             ],
           ),
         ),

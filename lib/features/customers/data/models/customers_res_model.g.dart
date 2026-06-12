@@ -20,9 +20,7 @@ Map<String, dynamic> _$AllCustomersModelToJson(AllCustomersModel instance) =>
 SingleCustomerModel _$SingleCustomerModelFromJson(Map<String, dynamic> json) =>
     SingleCustomerModel(
       json['msg'] as String,
-      json['data'] == null
-          ? null
-          : CustomersModel.fromJson(json['data'] as Map<String, dynamic>),
+      CreateCustomerResModel.fromJson(json['data'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$SingleCustomerModelToJson(
@@ -32,7 +30,7 @@ Map<String, dynamic> _$SingleCustomerModelToJson(
 CustomersModel _$CustomersModelFromJson(Map<String, dynamic> json) =>
     CustomersModel(
       json['_id'] as String,
-      CompanyDataModel.fromJson(json['companyId'] as Map<String, dynamic>),
+      json['companyId'] as String,
       json['name'] as String,
       json['phone'] as String,
       json['address'] as String,
@@ -62,3 +60,33 @@ CompanyDataModel _$CompanyDataModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CompanyDataModelToJson(CompanyDataModel instance) =>
     <String, dynamic>{'_id': instance.id, 'companyName': instance.companyName};
+
+CreateCustomerResModel _$CreateCustomerResModelFromJson(
+  Map<String, dynamic> json,
+) => CreateCustomerResModel(
+  json['_id'] as String,
+  json['companyId'] as String,
+  json['name'] as String,
+  json['phone'] as String,
+  json['address'] as String,
+  json['city'] as String,
+  json['whatsapp'] as String?,
+  json['notes'] as String?,
+  DateTime.parse(json['createdAt'] as String),
+  DateTime.parse(json['updatedAt'] as String),
+);
+
+Map<String, dynamic> _$CreateCustomerResModelToJson(
+  CreateCustomerResModel instance,
+) => <String, dynamic>{
+  '_id': instance.id,
+  'companyId': instance.companyId,
+  'name': instance.name,
+  'phone': instance.phone,
+  'address': instance.address,
+  'city': instance.city,
+  'whatsapp': instance.whatsapp,
+  'notes': instance.notes,
+  'createdAt': instance.createdAt.toIso8601String(),
+  'updatedAt': instance.updatedAt.toIso8601String(),
+};

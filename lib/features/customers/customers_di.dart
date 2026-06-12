@@ -2,6 +2,7 @@ import 'package:joli_crm/core/services/get_it_service.dart';
 import 'package:joli_crm/features/customers/data/data_source/customers_data_source.dart';
 import 'package:joli_crm/features/customers/data/repo/customer_repo_impl.dart';
 import 'package:joli_crm/features/customers/domain/repo/base_customer_repo.dart';
+import 'package:joli_crm/features/customers/domain/use_csaes/create_customer_use_case.dart';
 import 'package:joli_crm/features/customers/domain/use_csaes/get_all_customers_use_case.dart';
 import 'package:joli_crm/features/customers/presentation/logic/customer_cubit.dart';
 
@@ -14,7 +15,8 @@ class CustomersDi {
     sl.registerLazySingleton<BaseCustomerRepo>(() => CustomerRepoImpl(sl()));
 
     sl.registerLazySingleton(() => GetAllCustomersUseCase(sl()));
+    sl.registerLazySingleton(() => CreateCustomerUseCase(sl()));
 
-    sl.registerFactory(() => CustomerCubit(sl()));
+    sl.registerFactory(() => CustomerCubit(sl(), sl()));
   }
 }

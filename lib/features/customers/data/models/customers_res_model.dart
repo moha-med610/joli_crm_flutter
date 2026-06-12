@@ -24,7 +24,7 @@ class AllCustomersModel {
 class SingleCustomerModel {
   @JsonKey(name: "msg")
   final String message;
-  final CustomersModel? data;
+  final CreateCustomerResModel data;
 
   SingleCustomerModel(this.message, this.data);
 
@@ -33,7 +33,7 @@ class SingleCustomerModel {
 
   Map<String, dynamic> toJson() => _$SingleCustomerModelToJson(this);
 
-  SingleCustomer toEntity() => SingleCustomer(message, data?.toEntity());
+  SingleCustomer toEntity() => SingleCustomer(message, data.toEntity());
 }
 
 @JsonSerializable()
@@ -41,7 +41,7 @@ class CustomersModel {
   @JsonKey(name: "_id")
   final String id;
   @JsonKey(name: "companyId")
-  final CompanyDataModel company;
+  final String company;
   final String name;
   final String phone;
   final String address;
@@ -70,16 +70,16 @@ class CustomersModel {
   Map<String, dynamic> toJson() => _$CustomersModelToJson(this);
 
   Customers toEntity() => Customers(
-    id,
-    company.toEntity(),
-    name,
-    phone,
-    address,
-    city,
-    whatsapp,
-    notes,
-    createdAt,
-    updatedAt,
+    id: id,
+    company: company,
+    name: name,
+    phone: phone,
+    address: address,
+    city: city,
+    whatsapp: whatsapp,
+    notes: notes,
+    createdAt: createdAt,
+    updatedAt: updatedAt,
   );
 }
 
@@ -97,4 +97,50 @@ class CompanyDataModel {
   Map<String, dynamic> toJson() => _$CompanyDataModelToJson(this);
 
   CompanyData toEntity() => CompanyData(id, companyName);
+}
+
+@JsonSerializable()
+class CreateCustomerResModel {
+  @JsonKey(name: "_id")
+  final String id;
+  final String companyId;
+  final String name;
+  final String phone;
+  final String address;
+  final String city;
+  final String? whatsapp;
+  final String? notes;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+
+  CreateCustomerResModel(
+    this.id,
+    this.companyId,
+    this.name,
+    this.phone,
+    this.address,
+    this.city,
+    this.whatsapp,
+    this.notes,
+    this.createdAt,
+    this.updatedAt,
+  );
+
+  factory CreateCustomerResModel.fromJson(Map<String, dynamic> json) =>
+      _$CreateCustomerResModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CreateCustomerResModelToJson(this);
+
+  CreateCustomer toEntity() => CreateCustomer(
+    id: id,
+    companyId: companyId,
+    name: name,
+    phone: phone,
+    address: address,
+    city: city,
+    whatsapp: whatsapp,
+    notes: notes,
+    createdAt: createdAt,
+    updatedAt: updatedAt,
+  );
 }

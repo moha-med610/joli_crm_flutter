@@ -49,4 +49,20 @@ class AppValidator {
 
     return null;
   }
+
+  static String? name(String? value) {
+    return ValidationBuilder().required().build()(value);
+  }
+
+  static String? phone(String? value) {
+    return ValidationBuilder().required().build()(value);
+  }
+
+  static String? address(String? value) {
+    return ValidationBuilder().required().build()(value);
+  }
+
+  static String? city(String? value) {
+    return ValidationBuilder().required().build()(value);
+  }
 }

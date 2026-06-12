@@ -7,14 +7,14 @@ class AllCustomers {
 
 class SingleCustomer {
   final String message;
-  final Customers? data;
+  final CreateCustomer data;
 
   SingleCustomer(this.message, this.data);
 }
 
 class Customers {
   final String id;
-  final CompanyData company;
+  final String company;
   final String name;
   final String phone;
   final String address;
@@ -24,18 +24,18 @@ class Customers {
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  Customers(
-    this.id,
-    this.company,
-    this.name,
-    this.phone,
-    this.address,
-    this.city,
-    this.whatsapp,
+  Customers({
+    required this.id,
+    required this.company,
+    required this.name,
+    required this.phone,
+    required this.address,
+    required this.city,
+    required this.whatsapp,
     this.notes,
-    this.createdAt,
-    this.updatedAt,
-  );
+    required this.createdAt,
+    required this.updatedAt,
+  });
 }
 
 class CompanyData {
@@ -43,4 +43,30 @@ class CompanyData {
   final String companyName;
 
   CompanyData(this.id, this.companyName);
+}
+
+class CreateCustomer {
+  final String id;
+  final String companyId;
+  final String name;
+  final String phone;
+  final String address;
+  final String city;
+  final String? whatsapp;
+  final String? notes;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+
+  CreateCustomer({
+    required this.id,
+    required this.companyId,
+    required this.name,
+    required this.phone,
+    required this.address,
+    required this.city,
+    this.whatsapp,
+    this.notes,
+    required this.createdAt,
+    required this.updatedAt,
+  });
 }

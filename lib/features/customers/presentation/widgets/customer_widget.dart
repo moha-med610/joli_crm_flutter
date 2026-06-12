@@ -22,6 +22,10 @@ class CustomerWidget extends StatelessWidget {
         title: Text(title),
         subtitle: Text(subtitle),
         trailing: Text(trailing),
+        style: .list,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        contentPadding: EdgeInsets.all(8),
+        focusColor: Colors.grey,
       ),
     );
   }
