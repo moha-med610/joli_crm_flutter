@@ -12,6 +12,15 @@ final ThemeData lightTheme = ThemeData(
 
   drawerTheme: DrawerThemeData(backgroundColor: Colors.black54, elevation: 0.5),
 
+  bottomSheetTheme: BottomSheetThemeData(
+    backgroundColor: const Color(0XFFf5f5f5),
+  ),
+
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: const Color(0XFF004643),
+    foregroundColor: Colors.white,
+  ),
+
   inputDecorationTheme: InputDecorationTheme(
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(14),

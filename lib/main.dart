@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:joli_crm/core/constants/storage_keys.dart';
 import 'package:joli_crm/core/logic/app_cubit.dart';
 import 'package:joli_crm/core/services/get_it_service.dart';
 import 'package:joli_crm/core/services/secure_storage_service.dart';
@@ -28,9 +27,6 @@ void main() async {
   secureStorage = SecureStorageService.getInstance();
 
   // await secureStorage.deleteAll();
-
-  final role = prefs.getString(key: StorageKeys.role);
-  print(role);
 
   runApp(
     EasyLocalization(

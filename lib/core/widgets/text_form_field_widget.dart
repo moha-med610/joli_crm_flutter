@@ -11,6 +11,8 @@ class TextFormFieldWidget extends StatelessWidget {
     this.cursorColor = Colors.black,
     this.suffixIcon,
     this.validator,
+    this.minLines = 1,
+    this.maxLines = 1,
   });
 
   final TextEditingController _controller;
@@ -19,6 +21,8 @@ class TextFormFieldWidget extends StatelessWidget {
   final String hint;
   final Widget? suffixIcon;
   final String? Function(String?)? validator;
+  final int? minLines;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +32,8 @@ class TextFormFieldWidget extends StatelessWidget {
         builder: (context, state) {
           final bool isDark = context.watch<AppCubit>().state.isDark;
           return TextFormField(
+            minLines: minLines,
+            maxLines: maxLines,
             validator: validator,
             controller: _controller,
             obscureText: isSecureText,

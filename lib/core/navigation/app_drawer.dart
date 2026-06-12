@@ -17,7 +17,6 @@ class AppDrawer extends StatelessWidget {
   final List<AppScreens> items;
 
   @override
-  @override
   Widget build(BuildContext context) {
     return Drawer(
       child: SafeArea(
@@ -38,9 +37,12 @@ class AppDrawer extends StatelessWidget {
               ),
               SizedBox(height: 30),
               Expanded(
+                flex: 10,
                 child: BlocBuilder<MainCubit, MainState>(
                   builder: (context, state) {
                     return ListView.builder(
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
                       itemCount: state.screens.length,
                       itemBuilder: (context, index) {
                         final screen = state.screens[index];

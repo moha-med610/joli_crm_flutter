@@ -10,6 +10,7 @@ class AppLayout extends StatelessWidget {
     this.bottomNavigationBar,
     this.bottomSheet,
     this.drawer,
+    this.floatingActionButton,
   });
 
   final Widget child;
@@ -18,6 +19,7 @@ class AppLayout extends StatelessWidget {
   final Widget? bottomNavigationBar;
   final Widget? bottomSheet;
   final Widget? drawer;
+  final Widget? floatingActionButton;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class AppLayout extends StatelessWidget {
       bottomNavigationBar: bottomNavigationBar,
       bottomSheet: bottomSheet,
       drawer: drawer,
+      floatingActionButton: floatingActionButton,
     );
   }
 }
