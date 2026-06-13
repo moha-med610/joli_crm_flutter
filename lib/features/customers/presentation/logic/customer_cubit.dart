@@ -14,6 +14,10 @@ class CustomerCubit extends Cubit<CustomerState> {
   final CreateCustomerUseCase createCustomerUseCase;
 
   bool _isLoading = false;
+  int page = 1;
+  int limit = 20;
+  final List<Customers> customers = [];
+  bool hasMore = true;
 
   Future<void> getAllCustomers() async {
     if (_isLoading) return;
@@ -21,14 +25,41 @@ class CustomerCubit extends Cubit<CustomerState> {
     _isLoading = true;
     emit(CustomerLoading());
 
-    final result = await getAllCustomersUseCase();
+    final result = await getAllCustomersUseCase(page: page, limit: limit);
 
-    result.fold(
-      (err) => emit(CustomerError(err.message)),
-      (data) => emit(CustomersSuccess(data)),
-    );
+    result.fold((err) => emit(CustomerError(err.message)), (data) {
+      customers.addAll(data.data);
+      emit(CustomersSuccess(List.from(customers)));
+    });
 
     _isLoading = false;
+  }
+
+  Future<void> loadMore() async {
+    if (!hasMore || _isLoading) return;
+
+    _isLoading = true;
+
+    final result = await getAllCustomersUseCase(page: ++page, limit: limit);
+
+    result.fold((e) => emit(CustomerError(e.message)), (data) {
+      if (data.data.isEmpty) {
+        hasMore = false;
+      } else {
+        customers.addAll(data.data);
+      }
+      emit(CustomersSuccess(List.from(customers)));
+    });
+
+    _isLoading = false;
+  }
+
+  Future<void> refreshCustomers() async {
+    page = 1;
+    hasMore = true;
+    customers.clear();
+
+    await getAllCustomers();
   }
 
   Future<void> createCustomer({

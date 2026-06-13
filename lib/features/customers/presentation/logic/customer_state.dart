@@ -7,7 +7,7 @@ final class CustomerInitial extends CustomerState {}
 final class CustomerLoading extends CustomerState {}
 
 final class CustomersSuccess extends CustomerState {
-  final AllCustomers customers;
+  final List<Customers> customers;
 
   CustomersSuccess(this.customers);
 }

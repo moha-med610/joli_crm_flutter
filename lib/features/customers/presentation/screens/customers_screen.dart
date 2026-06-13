@@ -26,7 +26,26 @@ class _CustomersScreenState extends State<CustomersScreen> {
   final TextEditingController _whatsappController = TextEditingController();
   final TextEditingController _notsController = TextEditingController();
 
+  final ScrollController _scrollController = ScrollController();
+
   final GlobalKey<FormState> _formKey = GlobalKey();
+
+  late final CustomerCubit cubit;
+
+  @override
+  void initState() {
+    super.initState();
+
+    cubit = sl<CustomerCubit>();
+    cubit.getAllCustomers();
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >=
+          _scrollController.position.maxScrollExtent - 200) {
+        cubit.loadMore();
+      }
+    });
+  }
 
   @override
   void dispose() {
@@ -36,13 +55,16 @@ class _CustomersScreenState extends State<CustomersScreen> {
     _cityController.dispose();
     _whatsappController.dispose();
     _notsController.dispose();
+
+    _scrollController.dispose();
+    cubit.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<CustomerCubit>()..getAllCustomers(),
+    return BlocProvider.value(
+      value: cubit,
       child: BlocBuilder<CustomerCubit, CustomerState>(
         builder: (context, state) {
           return AppLayout(
@@ -84,6 +106,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
                     } else {
                       context.pop();
                     }
+                    context.pop();
                   },
                 );
               },
@@ -91,9 +114,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
             child: BlocConsumer<CustomerCubit, CustomerState>(
               listener: (context, state) {
                 if (state is CreateCustomerSuccess) {
-                  context.pop();
-
-                  context.read<CustomerCubit>().getAllCustomers();
+                  context.read<CustomerCubit>().refreshCustomers();
 
                   SnackBarWidgets.success(context, state.data.message);
                 }
@@ -103,11 +124,12 @@ class _CustomersScreenState extends State<CustomersScreen> {
                 }
               },
               builder: (context, state) {
+                final hasMore = context.read<CustomerCubit>().hasMore;
                 if (state is CustomerLoading) {
                   return CustomersLoading();
                 }
                 if (state is CustomersSuccess) {
-                  if (state.customers.data.isEmpty) {
+                  if (state.customers.isEmpty) {
                     return Center(
                       child: Text(
                         "No Customers",
@@ -116,19 +138,32 @@ class _CustomersScreenState extends State<CustomersScreen> {
                       ),
                     );
                   }
+
                   return Column(
                     children: [
                       Expanded(
                         child: ListView.builder(
-                          itemCount: state.customers.data.length,
+                          controller: _scrollController,
+                          itemCount: state.customers.length + (hasMore ? 1 : 0),
                           itemBuilder: (context, index) {
-                            final customer = state.customers.data[index];
+                            if (index == state.customers.length) {
+                              return const Padding(
+                                padding: EdgeInsets.all(16),
+                                child: Center(
+                                  child: CupertinoActivityIndicator(),
+                                ),
+                              );
+                            }
+                            final customer = state.customers[index];
                             return Directionality(
                               textDirection: TextDirection.ltr,
                               child: CustomerWidget(
                                 title: customer.name,
                                 subtitle: customer.phone,
                                 trailing: customer.city,
+                                onTap: () {
+                                  // TODO: Get Customer Id
+                                },
                               ),
                             );
                           },
@@ -138,6 +173,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
                     ],
                   );
                 }
+
                 return SizedBox.shrink();
               },
             ),

@@ -13,9 +13,12 @@ class CustomerRepoImpl implements BaseCustomerRepo {
   CustomerRepoImpl(this.dataSource);
 
   @override
-  Future<Either<Failure, AllCustomers>> getAllCustomers() async {
+  Future<Either<Failure, AllCustomers>> getAllCustomers({
+    required int page,
+    required int limit,
+  }) async {
     try {
-      final res = await dataSource.getAllCustomers();
+      final res = await dataSource.getAllCustomers(page, limit);
 
       return Right(res.toEntity());
     } on DioException catch (e) {

@@ -13,7 +13,10 @@ abstract class CustomersDataSource {
       _CustomersDataSource;
 
   @GET(ApiConstants.getAllCustomers)
-  Future<AllCustomersModel> getAllCustomers();
+  Future<AllCustomersModel> getAllCustomers(
+    @Query("page") int page,
+    @Query("limit") int limit,
+  );
 
   @GET(ApiConstants.searchCustomers)
   Future<AllCustomersModel> searchCustomers(@Query("name") String name);

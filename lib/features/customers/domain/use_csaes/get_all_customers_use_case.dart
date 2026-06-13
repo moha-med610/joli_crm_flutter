@@ -8,7 +8,10 @@ class GetAllCustomersUseCase {
 
   GetAllCustomersUseCase(this.repo);
 
-  Future<Either<Failure, AllCustomers>> call() {
-    return repo.getAllCustomers();
+  Future<Either<Failure, AllCustomers>> call({
+    required int page,
+    required int limit,
+  }) {
+    return repo.getAllCustomers(page: page, limit: limit);
   }
 }
