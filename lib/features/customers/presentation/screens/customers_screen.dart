@@ -4,9 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:joli_crm/core/services/get_it_service.dart';
 import 'package:joli_crm/core/utils/navigator_helper.dart';
 import 'package:joli_crm/core/widgets/app_layout.dart';
+import 'package:joli_crm/core/widgets/button_widget.dart';
 import 'package:joli_crm/core/widgets/floating_button_widget.dart';
 import 'package:joli_crm/core/widgets/snack_bar_widgets.dart';
 import 'package:joli_crm/features/customers/presentation/logic/customer_cubit.dart';
+import 'package:joli_crm/features/customers/presentation/screens/customer_details.dart';
 import 'package:joli_crm/features/customers/presentation/widgets/customer_sheet.dart';
 import 'package:joli_crm/features/customers/presentation/widgets/customer_widget.dart';
 import 'package:joli_crm/features/customers/presentation/widgets/customers_loading.dart';
@@ -61,6 +63,45 @@ class _CustomersScreenState extends State<CustomersScreen> {
     super.dispose();
   }
 
+  void _formSubmit() {
+    customerSheet(
+      isLoading: cubit.state is CreateCustomerLoading,
+      context,
+      cNameController: _nameController,
+      cPhoneController: _phoneController,
+      cAddressController: _addressController,
+      cCityController: _cityController,
+      cWhatsappController: _whatsappController,
+      cNotsController: _notsController,
+      formKey: _formKey,
+      onSubmit: () {
+        if (_formKey.currentState!.validate()) {
+          cubit.createCustomer(
+            name: _nameController.text.trim(),
+            phone: _phoneController.text.trim(),
+            address: _addressController.text.trim(),
+            city: _cityController.text.trim(),
+            whatsapp: _whatsappController.text.trim().isEmpty
+                ? null
+                : _whatsappController.text.trim(),
+            notes: _notsController.text.trim().isEmpty
+                ? null
+                : _notsController.text.trim(),
+          );
+          _nameController.clear();
+          _phoneController.clear();
+          _addressController.clear();
+          _cityController.clear();
+          _whatsappController.clear();
+          _notsController.clear();
+        } else {
+          context.pop();
+        }
+        context.pop();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -72,49 +113,12 @@ class _CustomersScreenState extends State<CustomersScreen> {
             floatingActionButton: FloatingButtonWidget(
               icon: CupertinoIcons.add,
               label: "Add Customer",
-              onPressed: () {
-                customerSheet(
-                  isLoading: state is CreateCustomerLoading,
-                  context,
-                  cNameController: _nameController,
-                  cPhoneController: _phoneController,
-                  cAddressController: _addressController,
-                  cCityController: _cityController,
-                  cWhatsappController: _whatsappController,
-                  cNotsController: _notsController,
-                  formKey: _formKey,
-                  onSubmit: () {
-                    if (_formKey.currentState!.validate()) {
-                      context.read<CustomerCubit>().createCustomer(
-                        name: _nameController.text.trim(),
-                        phone: _phoneController.text.trim(),
-                        address: _addressController.text.trim(),
-                        city: _cityController.text.trim(),
-                        whatsapp: _whatsappController.text.trim().isEmpty
-                            ? null
-                            : _whatsappController.text.trim(),
-                        notes: _notsController.text.trim().isEmpty
-                            ? null
-                            : _notsController.text.trim(),
-                      );
-                      _nameController.clear();
-                      _phoneController.clear();
-                      _addressController.clear();
-                      _cityController.clear();
-                      _whatsappController.clear();
-                      _notsController.clear();
-                    } else {
-                      context.pop();
-                    }
-                    context.pop();
-                  },
-                );
-              },
+              onPressed: _formSubmit,
             ),
             child: BlocConsumer<CustomerCubit, CustomerState>(
               listener: (context, state) {
                 if (state is CreateCustomerSuccess) {
-                  context.read<CustomerCubit>().refreshCustomers();
+                  cubit.refreshCustomers();
 
                   SnackBarWidgets.success(context, state.data.message);
                 }
@@ -124,7 +128,41 @@ class _CustomersScreenState extends State<CustomersScreen> {
                 }
               },
               builder: (context, state) {
-                final hasMore = context.read<CustomerCubit>().hasMore;
+                final hasMore = cubit.hasMore;
+                if (state is CustomerError) {
+                  return Container(
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          state.message,
+                          style: Theme.of(context)
+                              .primaryTextTheme
+                              .headlineLarge!
+                              .copyWith(color: Colors.grey.shade600),
+                        ),
+                        SizedBox(height: 20),
+                        ButtonWidget(
+                          width: MediaQuery.sizeOf(context).width * .3,
+                          child: Text(
+                            "Reload",
+                            style: Theme.of(
+                              context,
+                            ).primaryTextTheme.labelMedium,
+                          ),
+                          onPressed: () async {
+                            await context
+                                .read<CustomerCubit>()
+                                .getAllCustomers();
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
                 if (state is CustomerLoading) {
                   return CustomersLoading();
                 }
@@ -155,16 +193,13 @@ class _CustomersScreenState extends State<CustomersScreen> {
                               );
                             }
                             final customer = state.customers[index];
-                            return Directionality(
-                              textDirection: TextDirection.ltr,
-                              child: CustomerWidget(
-                                title: customer.name,
-                                subtitle: customer.phone,
-                                trailing: customer.city,
-                                onTap: () {
-                                  // TODO: Get Customer Id
-                                },
-                              ),
+                            return CustomerWidget(
+                              title: customer.name,
+                              subtitle: customer.phone,
+                              trailing: customer.city,
+                              onTap: () {
+                                context.push(CustomerDetails(id: customer.id));
+                              },
                             );
                           },
                         ),

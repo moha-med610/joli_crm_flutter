@@ -9,7 +9,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
   });
 
-  final Widget? title;
+  final String? title;
   final bool centerTitle;
   final Widget? leading;
   final List<Widget>? actions;
@@ -17,7 +17,12 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: title,
+      title: Text(
+        title.toString(),
+        style: Theme.of(
+          context,
+        ).textTheme.headlineLarge!.copyWith(color: Colors.black),
+      ),
       centerTitle: centerTitle,
       leading: leading,
       actions: actions,

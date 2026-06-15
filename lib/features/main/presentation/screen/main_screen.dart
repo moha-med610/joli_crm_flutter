@@ -28,14 +28,7 @@ class MainScreen extends StatelessWidget {
 
           return AppLayout(
             drawer: AppDrawer(items: state.screens),
-            appBar: AppBarWidget(
-              title: Text(
-                currentScreen.title.tr(),
-                style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                  color: isDark ? Colors.white : Colors.black,
-                ),
-              ),
-            ),
+            appBar: AppBarWidget(title: currentScreen.title.tr()),
             child: currentScreen.screen,
           );
         },

@@ -31,7 +31,8 @@ class AppDrawer extends StatelessWidget {
                   SizedBox(width: 20),
                   Text(
                     "JOLI CRM",
-                    style: Theme.of(context).primaryTextTheme.headlineLarge,
+                    style: Theme.of(context).primaryTextTheme.headlineLarge!
+                        .copyWith(color: Colors.black),
                   ),
                 ],
               ),
@@ -54,7 +55,7 @@ class AppDrawer extends StatelessWidget {
                                 .primaryTextTheme
                                 .labelMedium!
                                 .copyWith(
-                                  color: Colors.white70,
+                                  color: Colors.black,
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                 ),

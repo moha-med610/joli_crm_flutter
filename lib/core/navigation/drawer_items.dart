@@ -8,7 +8,11 @@ import 'package:joli_crm/features/dashboard/presentation/screens/dashboard_scree
 List<AppScreens> drawerItems = [
   AppScreens(
     title: "dashboard",
-    icon: Icon(CupertinoIcons.home, color: Colors.white),
+    icon: Icon(
+      CupertinoIcons.home,
+      color: Colors.black,
+      fontWeight: FontWeight.bold,
+    ),
     screen: DashboardScreen(),
     id: "dashboard",
     roles: [RoleEnum.ADMIN, RoleEnum.COMPANY],
@@ -16,7 +20,11 @@ List<AppScreens> drawerItems = [
 
   AppScreens(
     title: "Customers",
-    icon: Icon(CupertinoIcons.group_solid, color: Colors.white),
+    icon: Icon(
+      CupertinoIcons.group_solid,
+      color: Colors.black,
+      fontWeight: FontWeight.bold,
+    ),
     screen: CustomersScreen(),
     id: "customers",
     roles: [RoleEnum.COMPANY],

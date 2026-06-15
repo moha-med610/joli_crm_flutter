@@ -5,12 +5,17 @@ final ThemeData lightTheme = ThemeData(
 
   scaffoldBackgroundColor: const Color(0XFFf5f5f5),
 
+  iconTheme: IconThemeData(color: Colors.black),
+
   appBarTheme: AppBarTheme(
     backgroundColor: const Color(0XFFf5f5f5),
     surfaceTintColor: Colors.white,
   ),
 
-  drawerTheme: DrawerThemeData(backgroundColor: Colors.black54, elevation: 0.5),
+  drawerTheme: DrawerThemeData(
+    backgroundColor: Color(0XFFf5f5f5),
+    elevation: 0.5,
+  ),
 
   bottomSheetTheme: BottomSheetThemeData(
     backgroundColor: const Color(0XFFf5f5f5),

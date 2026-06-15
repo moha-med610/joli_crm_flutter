@@ -1,38 +1,22 @@
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:alert_info/alert_info.dart';
 import 'package:flutter/material.dart';
 
 class SnackBarWidgets {
-  static void error(BuildContext context, String error) {
-    final snackBar = SnackBar(
-      elevation: 0,
-      behavior: SnackBarBehavior.floating,
-      backgroundColor: Colors.transparent,
-      content: AwesomeSnackbarContent(
-        title: "Error",
-        message: error,
-        contentType: ContentType.failure,
-      ),
+  static AlertInfo error(BuildContext context, String error) {
+    return AlertInfo.show(
+      context: context,
+      text: error,
+      typeInfo: .error,
+      padding: MediaQuery.of(context).size.height * 0.08,
     );
-
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(snackBar);
   }
 
-  static void success(BuildContext context, String message) {
-    final snackBar = SnackBar(
-      elevation: 0,
-      behavior: SnackBarBehavior.floating,
-      backgroundColor: Colors.transparent,
-      content: AwesomeSnackbarContent(
-        title: "Success",
-        message: message,
-        contentType: ContentType.success,
-      ),
+  static AlertInfo success(BuildContext context, String message) {
+    return AlertInfo.show(
+      context: context,
+      text: message,
+      typeInfo: .success,
+      padding: MediaQuery.of(context).size.height * 0.08,
     );
-
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(snackBar);
   }
 }
