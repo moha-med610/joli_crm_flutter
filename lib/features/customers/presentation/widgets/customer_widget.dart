@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:joli_crm/core/utils/navigator_helper.dart';
+import 'package:joli_crm/features/customers/presentation/logic/customer_cubit.dart';
 import 'package:joli_crm/features/customers/presentation/screens/update_customer_screen.dart';
 
 class CustomerWidget extends StatelessWidget {
@@ -12,6 +14,7 @@ class CustomerWidget extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.trailing,
+    required this.customerId,
     this.valueKey,
   });
 
@@ -20,6 +23,7 @@ class CustomerWidget extends StatelessWidget {
   final String subtitle;
   final String trailing;
   final ValueKey? valueKey;
+  final String customerId;
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +49,10 @@ class CustomerWidget extends StatelessWidget {
                   foregroundColor: Colors.white,
                 ),
                 SlidableAction(
-                  onPressed: (_) {
-                    print("Delete Button");
+                  onPressed: (_) async {
+                    await context.read<CustomerCubit>().deleteCustomer(
+                      customerId: customerId,
+                    );
                   },
                   icon: CupertinoIcons.delete_solid,
                   label: "Delete",

@@ -32,10 +32,11 @@ abstract class CustomersDataSource {
   @PATCH(ApiConstants.updateCustomer)
   Future<SingleCustomerModel> updateCustomer(
     @Path("customerId") String customerId,
+    @Body() CreateCustomerModel data,
   );
 
   @DELETE(ApiConstants.deleteCustomer)
-  Future<SingleCustomerModel> deleteCustomer(
+  Future<DeleteCustomerModel> deleteCustomer(
     @Path("customerId") String customerId,
   );
 }

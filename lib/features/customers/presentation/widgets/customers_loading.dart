@@ -14,6 +14,7 @@ class CustomersLoading extends StatelessWidget {
         itemCount: 10,
         itemBuilder: (BuildContext context, int index) {
           return CustomerWidget(
+            customerId: "customerId",
             title: "title",
             subtitle: "subtitle",
             trailing: "trailing",

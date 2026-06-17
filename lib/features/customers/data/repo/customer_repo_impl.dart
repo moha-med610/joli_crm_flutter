@@ -38,4 +38,46 @@ class CustomerRepoImpl implements BaseCustomerRepo {
       return Left(DioErrorHandler.handle(e));
     }
   }
+
+  @override
+  Future<Either<Failure, SingleCustomer>> getCustomerById({
+    required String customerId,
+  }) async {
+    try {
+      final res = await dataSource.getCustomerById(customerId);
+
+      print(res);
+
+      return Right(res.toEntity());
+    } on DioException catch (e) {
+      return Left(DioErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SingleCustomer>> updateCustomer({
+    required String customerId,
+    required CreateCustomerModel data,
+  }) async {
+    try {
+      final res = await dataSource.updateCustomer(customerId, data);
+
+      return Right(res.toEntity());
+    } on DioException catch (e) {
+      return Left(DioErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, DeleteCustomer>> deleteCustomer({
+    required String customerId,
+  }) async {
+    try {
+      final res = await dataSource.deleteCustomer(customerId);
+
+      return Right(res.toEntity());
+    } on DioException catch (e) {
+      return Left(DioErrorHandler.handle(e));
+    }
+  }
 }

@@ -85,7 +85,7 @@ class _CustomersDataSource implements CustomersDataSource {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'customers',
+            'customers/${customerId}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -131,16 +131,20 @@ class _CustomersDataSource implements CustomersDataSource {
   }
 
   @override
-  Future<SingleCustomerModel> updateCustomer(String customerId) async {
+  Future<SingleCustomerModel> updateCustomer(
+    String customerId,
+    CreateCustomerModel data,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(data.toJson());
     final _options = _setStreamType<SingleCustomerModel>(
       Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'customers',
+            'customers/${customerId}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -158,25 +162,25 @@ class _CustomersDataSource implements CustomersDataSource {
   }
 
   @override
-  Future<SingleCustomerModel> deleteCustomer(String customerId) async {
+  Future<DeleteCustomerModel> deleteCustomer(String customerId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SingleCustomerModel>(
+    final _options = _setStreamType<DeleteCustomerModel>(
       Options(method: 'DELETE', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'customers',
+            'customers/${customerId}',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SingleCustomerModel _value;
+    late DeleteCustomerModel _value;
     try {
-      _value = SingleCustomerModel.fromJson(_result.data!);
+      _value = DeleteCustomerModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

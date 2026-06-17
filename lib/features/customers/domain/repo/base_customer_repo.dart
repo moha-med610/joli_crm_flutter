@@ -12,4 +12,17 @@ abstract class BaseCustomerRepo {
   Future<Either<Failure, SingleCustomer>> createCustomer(
     CreateCustomerModel data,
   );
+
+  Future<Either<Failure, SingleCustomer>> getCustomerById({
+    required String customerId,
+  });
+
+  Future<Either<Failure, SingleCustomer>> updateCustomer({
+    required String customerId,
+    required CreateCustomerModel data,
+  });
+
+  Future<Either<Failure, DeleteCustomer>> deleteCustomer({
+    required String customerId,
+  });
 }

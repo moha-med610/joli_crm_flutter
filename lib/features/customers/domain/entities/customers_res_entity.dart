@@ -7,7 +7,7 @@ class AllCustomers {
 
 class SingleCustomer {
   final String message;
-  final CreateCustomer data;
+  final Customers data;
 
   SingleCustomer(this.message, this.data);
 }
@@ -69,4 +69,11 @@ class CreateCustomer {
     required this.createdAt,
     required this.updatedAt,
   });
+}
+
+class DeleteCustomer {
+  final String message;
+  final Map<String, dynamic> data;
+
+  DeleteCustomer(this.message, this.data);
 }

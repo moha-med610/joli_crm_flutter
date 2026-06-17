@@ -53,8 +53,21 @@ final ThemeData lightTheme = ThemeData(
   ),
 
   primaryTextTheme: TextTheme(
-    headlineLarge: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
-    labelMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+    headlineLarge: TextStyle(
+      color: Colors.black,
+      fontSize: 24,
+      fontWeight: FontWeight.w900,
+    ),
+    labelLarge: TextStyle(
+      color: Colors.black,
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+    ),
+    labelMedium: TextStyle(
+      color: Colors.black,
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+    ),
   ),
 
   elevatedButtonTheme: ElevatedButtonThemeData(

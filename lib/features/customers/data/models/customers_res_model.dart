@@ -24,7 +24,7 @@ class AllCustomersModel {
 class SingleCustomerModel {
   @JsonKey(name: "msg")
   final String message;
-  final CreateCustomerResModel data;
+  final CustomersModel data;
 
   SingleCustomerModel(this.message, this.data);
 
@@ -143,4 +143,20 @@ class CreateCustomerResModel {
     createdAt: createdAt,
     updatedAt: updatedAt,
   );
+}
+
+@JsonSerializable()
+class DeleteCustomerModel {
+  @JsonKey(name: "msg")
+  final String message;
+  final Map<String, dynamic> data;
+
+  DeleteCustomerModel(this.message, this.data);
+
+  factory DeleteCustomerModel.fromJson(Map<String, dynamic> json) =>
+      _$DeleteCustomerModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DeleteCustomerModelToJson(this);
+
+  DeleteCustomer toEntity() => DeleteCustomer(message, data);
 }

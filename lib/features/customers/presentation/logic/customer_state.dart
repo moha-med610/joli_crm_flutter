@@ -13,9 +13,9 @@ final class CustomersSuccess extends CustomerState {
 }
 
 final class CustomerSuccess extends CustomerState {
-  final Customers customer;
+  final SingleCustomer data;
 
-  CustomerSuccess(this.customer);
+  CustomerSuccess(this.data);
 }
 
 final class CreateCustomerLoading extends CustomerState {}
@@ -24,6 +24,12 @@ final class CreateCustomerSuccess extends CustomerState {
   final SingleCustomer data;
 
   CreateCustomerSuccess(this.data);
+}
+
+final class DeleteCustomerSuccess extends CustomerState {
+  final DeleteCustomer data;
+
+  DeleteCustomerSuccess(this.data);
 }
 
 final class CustomerError extends CustomerState {

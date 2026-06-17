@@ -8,7 +8,7 @@ import 'package:joli_crm/core/widgets/button_widget.dart';
 import 'package:joli_crm/core/widgets/floating_button_widget.dart';
 import 'package:joli_crm/core/widgets/snack_bar_widgets.dart';
 import 'package:joli_crm/features/customers/presentation/logic/customer_cubit.dart';
-import 'package:joli_crm/features/customers/presentation/screens/customer_details.dart';
+import 'package:joli_crm/features/customers/presentation/screens/customer_details_screen.dart';
 import 'package:joli_crm/features/customers/presentation/widgets/customer_sheet.dart';
 import 'package:joli_crm/features/customers/presentation/widgets/customer_widget.dart';
 import 'package:joli_crm/features/customers/presentation/widgets/customers_loading.dart';
@@ -126,6 +126,12 @@ class _CustomersScreenState extends State<CustomersScreen> {
                 if (state is CustomerError) {
                   SnackBarWidgets.error(context, state.message);
                 }
+
+                if (state is DeleteCustomerSuccess) {
+                  context.read<CustomerCubit>().refreshCustomers();
+
+                  SnackBarWidgets.success(context, state.data.message);
+                }
               },
               builder: (context, state) {
                 final hasMore = cubit.hasMore;
@@ -194,11 +200,16 @@ class _CustomersScreenState extends State<CustomersScreen> {
                             }
                             final customer = state.customers[index];
                             return CustomerWidget(
+                              customerId: customer.id,
                               title: customer.name,
                               subtitle: customer.phone,
                               trailing: customer.city,
                               onTap: () {
-                                context.push(CustomerDetails(id: customer.id));
+                                context.push(
+                                  CustomerDetailsScreen(
+                                    customerId: customer.id,
+                                  ),
+                                );
                               },
                             );
                           },

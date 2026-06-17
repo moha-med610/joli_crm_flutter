@@ -14,8 +14,8 @@ class ApiConstants {
   // Customers
   static const String getAllCustomers = "customers";
   static const String searchCustomers = "customers/search";
-  static const String getSingleCustomer = "customers";
+  static const String getSingleCustomer = "customers/{customerId}";
   static const String createCustomer = "customers";
-  static const String updateCustomer = "customers";
-  static const String deleteCustomer = "customers";
+  static const String updateCustomer = "customers/{customerId}";
+  static const String deleteCustomer = "customers/{customerId}";
 }

@@ -20,7 +20,7 @@ Map<String, dynamic> _$AllCustomersModelToJson(AllCustomersModel instance) =>
 SingleCustomerModel _$SingleCustomerModelFromJson(Map<String, dynamic> json) =>
     SingleCustomerModel(
       json['msg'] as String,
-      CreateCustomerResModel.fromJson(json['data'] as Map<String, dynamic>),
+      CustomersModel.fromJson(json['data'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$SingleCustomerModelToJson(
@@ -90,3 +90,13 @@ Map<String, dynamic> _$CreateCustomerResModelToJson(
   'createdAt': instance.createdAt.toIso8601String(),
   'updatedAt': instance.updatedAt.toIso8601String(),
 };
+
+DeleteCustomerModel _$DeleteCustomerModelFromJson(Map<String, dynamic> json) =>
+    DeleteCustomerModel(
+      json['msg'] as String,
+      json['data'] as Map<String, dynamic>,
+    );
+
+Map<String, dynamic> _$DeleteCustomerModelToJson(
+  DeleteCustomerModel instance,
+) => <String, dynamic>{'msg': instance.message, 'data': instance.data};
