@@ -32,6 +32,12 @@ final class DeleteCustomerSuccess extends CustomerState {
   DeleteCustomerSuccess(this.data);
 }
 
+final class UpdateCustomerSuccess extends CustomerState {
+  final SingleCustomer data;
+
+  UpdateCustomerSuccess(this.data);
+}
+
 final class CustomerError extends CustomerState {
   final String message;
 

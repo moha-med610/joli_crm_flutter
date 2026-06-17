@@ -147,7 +147,7 @@ class CustomerCubit extends Cubit<CustomerState> {
     );
 
     result.fold((err) => emit(CustomerError(err.message)), (data) {
-      emit(CustomerSuccess(data));
+      emit(UpdateCustomerSuccess(data));
     });
 
     _isLoading = false;

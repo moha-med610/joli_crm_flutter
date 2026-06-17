@@ -15,6 +15,7 @@ Future<void> customerSheet(
   required TextEditingController cWhatsappController,
   required TextEditingController cNotsController,
   required GlobalKey<FormState> formKey,
+  required String buttonText,
   bool isLoading = false,
 }) {
   return bottomSheetWidget(
@@ -69,8 +70,10 @@ Future<void> customerSheet(
           : ButtonWidget(
               onPressed: onSubmit,
               child: Text(
-                "Add Customer",
-                style: Theme.of(context).primaryTextTheme.labelMedium,
+                buttonText,
+                style: Theme.of(
+                  context,
+                ).primaryTextTheme.labelMedium!.copyWith(color: Colors.white),
               ),
             ),
     ],

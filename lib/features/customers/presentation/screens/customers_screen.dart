@@ -67,6 +67,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
     customerSheet(
       isLoading: cubit.state is CreateCustomerLoading,
       context,
+      buttonText: "Add Customer",
       cNameController: _nameController,
       cPhoneController: _phoneController,
       cAddressController: _addressController,
@@ -132,6 +133,12 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
                   SnackBarWidgets.success(context, state.data.message);
                 }
+
+                if (state is UpdateCustomerSuccess) {
+                  context.read<CustomerCubit>().refreshCustomers();
+
+                  SnackBarWidgets.success(context, state.data.message);
+                }
               },
               builder: (context, state) {
                 final hasMore = cubit.hasMore;
@@ -154,9 +161,10 @@ class _CustomersScreenState extends State<CustomersScreen> {
                           width: MediaQuery.sizeOf(context).width * .3,
                           child: Text(
                             "Reload",
-                            style: Theme.of(
-                              context,
-                            ).primaryTextTheme.labelMedium,
+                            style: Theme.of(context)
+                                .primaryTextTheme
+                                .labelMedium!
+                                .copyWith(color: Colors.white),
                           ),
                           onPressed: () async {
                             await context
@@ -200,6 +208,12 @@ class _CustomersScreenState extends State<CustomersScreen> {
                             }
                             final customer = state.customers[index];
                             return CustomerWidget(
+                              name: customer.name,
+                              phone: customer.phone,
+                              whatsapp: customer.whatsapp,
+                              address: customer.address,
+                              city: customer.city,
+                              notes: customer.notes,
                               customerId: customer.id,
                               title: customer.name,
                               subtitle: customer.phone,

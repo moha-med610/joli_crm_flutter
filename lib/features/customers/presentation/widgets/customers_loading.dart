@@ -18,6 +18,10 @@ class CustomersLoading extends StatelessWidget {
             title: "title",
             subtitle: "subtitle",
             trailing: "trailing",
+            name: '',
+            phone: '',
+            address: '',
+            city: '',
           );
         },
       ),
