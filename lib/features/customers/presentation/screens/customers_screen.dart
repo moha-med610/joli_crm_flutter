@@ -65,6 +65,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
   void _formSubmit() {
     customerSheet(
+      header: "Add New Customer",
       isLoading: cubit.state is CreateCustomerLoading,
       context,
       buttonText: "Add Customer",

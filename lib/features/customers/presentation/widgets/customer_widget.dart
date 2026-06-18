@@ -90,6 +90,7 @@ class _CustomerWidgetState extends State<CustomerWidget> {
                   onPressed: (_) {
                     print(widget.phone);
                     customerSheet(
+                      header: "Update Customer",
                       context,
                       onSubmit: () {
                         if (_formKey.currentState!.validate()) {

@@ -17,10 +17,11 @@ Future<void> customerSheet(
   required GlobalKey<FormState> formKey,
   required String buttonText,
   bool isLoading = false,
+  required String header,
 }) {
   return bottomSheetWidget(
     context,
-    title: "Add New Customer",
+    title: header,
     children: [
       Form(
         key: formKey,
