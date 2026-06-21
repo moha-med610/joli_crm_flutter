@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:joli_crm/core/services/get_it_service.dart';
 import 'package:joli_crm/core/utils/app_validator.dart';
 import 'package:joli_crm/core/utils/navigator_helper.dart';
+import 'package:joli_crm/core/widgets/app_bar_widget.dart';
 import 'package:joli_crm/core/widgets/app_layout.dart';
 import 'package:joli_crm/core/widgets/button_widget.dart';
 import 'package:joli_crm/core/widgets/snack_bar_widgets.dart';
@@ -34,6 +35,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     return BlocProvider(
       create: (context) => sl<AuthCubit>(),
       child: AppLayout(
+        appBar: AppBarWidget(title: "forget_password_title".tr()),
         child: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state is AuthError) {

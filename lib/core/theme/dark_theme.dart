@@ -1,75 +1,106 @@
 import 'package:flutter/material.dart';
 
 final ThemeData darkTheme = ThemeData(
-  scaffoldBackgroundColor: const Color(0XFF161618),
+  brightness: Brightness.dark,
 
-  appBarTheme: AppBarTheme(backgroundColor: const Color(0XFF161618)),
+  scaffoldBackgroundColor: const Color(0xFF161618),
+
+  colorScheme: const ColorScheme.dark(
+    primary: Color(0xFF004643),
+    secondary: Color(0xFFABD1C6),
+    surface: Color(0xFF1E1E20),
+    onSecondaryContainer: Colors.black12,
+  ),
+
+  appBarTheme: const AppBarTheme(
+    backgroundColor: Color(0xFF161618),
+    elevation: 0,
+    foregroundColor: Colors.white,
+  ),
+
+  drawerTheme: const DrawerThemeData(
+    backgroundColor: Color(0xFF1E1E20),
+    elevation: 0,
+  ),
+
+  bottomSheetTheme: const BottomSheetThemeData(
+    backgroundColor: Color(0xFF1E1E20),
+  ),
+
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    backgroundColor: Color(0xFF004643),
+    foregroundColor: Colors.white,
+  ),
+
+  cardColor: const Color(0xFF1E1E20),
 
   inputDecorationTheme: InputDecorationTheme(
+    filled: true,
+    fillColor: const Color(0xFF252529),
+
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(14),
-      borderSide: BorderSide(color: const Color(0XFF2A2A2A), width: 1),
+      borderSide: BorderSide(color: Colors.grey.shade700, width: 1),
     ),
+
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(14),
-      borderSide: BorderSide(color: const Color(0XFF4DA3FF), width: 1),
+      borderSide: const BorderSide(color: Color(0xFF004643), width: 1.5),
     ),
+
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(14),
-      borderSide: BorderSide(color: Colors.red, width: 1),
+      borderSide: const BorderSide(color: Colors.red),
     ),
+
     focusedErrorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(14),
-      borderSide: BorderSide(color: Colors.red, width: 1),
+      borderSide: const BorderSide(color: Colors.red),
     ),
-    fillColor: Colors.grey.shade900,
-    filled: true,
+
     hintStyle: TextStyle(
-      color: Colors.grey.shade700,
-      fontSize: 20,
+      color: Colors.grey.shade500,
+      fontSize: 16,
       fontWeight: FontWeight.w500,
     ),
   ),
 
-  primaryTextTheme: TextTheme(
-    headlineLarge: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
-    labelMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+  textTheme: const TextTheme(
+    headlineLarge: TextStyle(
+      color: Colors.white,
+      fontSize: 24,
+      fontWeight: FontWeight.w900,
+    ),
+
+    labelLarge: TextStyle(
+      color: Colors.white,
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+    ),
+
+    labelMedium: TextStyle(
+      color: Colors.white70,
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+    ),
   ),
 
   elevatedButtonTheme: ElevatedButtonThemeData(
-    style: ButtonStyle(
-      elevation: const WidgetStatePropertyAll(0.8),
-      backgroundColor: const WidgetStatePropertyAll(Color(0XFF004643)),
-      shadowColor: WidgetStatePropertyAll(Colors.black),
-      shape: WidgetStatePropertyAll(
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-      ),
-      textStyle: const WidgetStatePropertyAll(
-        TextStyle(
-          color: Colors.white,
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
+    style: ElevatedButton.styleFrom(
+      elevation: 1,
+      backgroundColor: const Color(0xFF004643),
+      foregroundColor: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+      textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
     ),
   ),
 
-  navigationDrawerTheme: NavigationDrawerThemeData(
-    backgroundColor: const Color(0XFF004643),
-    indicatorColor: Colors.black12,
-    labelTextStyle: WidgetStatePropertyAll(
-      TextStyle(
-        color: Colors.grey.shade50,
-        fontSize: 18,
-        fontWeight: FontWeight.w700,
-      ),
-    ),
-    iconTheme: WidgetStatePropertyAll(
-      IconThemeData(color: Colors.grey.shade50),
-    ),
-    elevation: 0.5,
-    indicatorShape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12),
+  switchTheme: SwitchThemeData(
+    thumbColor: WidgetStateProperty.all(Colors.white),
+    trackColor: WidgetStateProperty.resolveWith(
+      (states) => states.contains(WidgetState.selected)
+          ? const Color(0xFF004643)
+          : Colors.grey.shade700,
     ),
   ),
 );

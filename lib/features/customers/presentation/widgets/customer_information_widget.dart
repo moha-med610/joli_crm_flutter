@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomerInformationWidget extends StatelessWidget {
   const CustomerInformationWidget({
@@ -17,9 +18,7 @@ class CustomerInformationWidget extends StatelessWidget {
       children: [
         Text(
           fieldName,
-          style: Theme.of(
-            context,
-          ).primaryTextTheme.labelMedium!.copyWith(fontWeight: .bold),
+          style: TextStyle(fontSize: 20.sp, fontWeight: .w900),
         ),
         Container(
           padding: .all(10),
@@ -27,14 +26,11 @@ class CustomerInformationWidget extends StatelessWidget {
           constraints: BoxConstraints(maxWidth: .infinity),
           decoration: BoxDecoration(
             borderRadius: .circular(10),
-            color: Colors.grey.shade300,
+            color: Theme.of(context).colorScheme.surface,
           ),
           child: Text(
             data,
-            style: Theme.of(context).primaryTextTheme.labelMedium!.copyWith(
-              fontWeight: .bold,
-              fontSize: 18,
-            ),
+            style: TextStyle(fontSize: 20.sp, fontWeight: .bold),
           ),
         ),
       ],

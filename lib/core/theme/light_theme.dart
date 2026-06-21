@@ -5,11 +5,22 @@ final ThemeData lightTheme = ThemeData(
 
   scaffoldBackgroundColor: const Color(0XFFf5f5f5),
 
+  colorScheme: const ColorScheme.light(
+    primary: Color(0xFF004643),
+    secondary: Color(0xFFABD1C6),
+    surface: Color(0XFFDBDBDB),
+    onSecondaryContainer: Colors.white30,
+  ),
+
   iconTheme: IconThemeData(color: Colors.black),
 
   appBarTheme: AppBarTheme(
     backgroundColor: const Color(0XFFf5f5f5),
     surfaceTintColor: Colors.white,
+  ),
+
+  switchTheme: SwitchThemeData(
+    overlayColor: WidgetStatePropertyAll(Colors.grey),
   ),
 
   drawerTheme: DrawerThemeData(
@@ -53,21 +64,9 @@ final ThemeData lightTheme = ThemeData(
   ),
 
   primaryTextTheme: TextTheme(
-    headlineLarge: TextStyle(
-      color: Colors.black,
-      fontSize: 24,
-      fontWeight: FontWeight.w900,
-    ),
-    labelLarge: TextStyle(
-      color: Colors.black,
-      fontSize: 20,
-      fontWeight: FontWeight.bold,
-    ),
-    labelMedium: TextStyle(
-      color: Colors.black,
-      fontSize: 16,
-      fontWeight: FontWeight.w400,
-    ),
+    headlineLarge: TextStyle(color: Colors.black),
+    labelLarge: TextStyle(color: Colors.black),
+    labelMedium: TextStyle(color: Colors.black),
   ),
 
   elevatedButtonTheme: ElevatedButtonThemeData(

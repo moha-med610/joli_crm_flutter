@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -90,7 +91,7 @@ class _CustomerWidgetState extends State<CustomerWidget> {
                   onPressed: (_) {
                     print(widget.phone);
                     customerSheet(
-                      header: "Update Customer",
+                      header: "update_customer".tr(),
                       context,
                       onSubmit: () {
                         if (_formKey.currentState!.validate()) {
@@ -120,7 +121,7 @@ class _CustomerWidgetState extends State<CustomerWidget> {
                         }
                         context.pop();
                       },
-                      buttonText: "Update Customer",
+                      buttonText: "update_customer".tr(),
                       cNameController: _nameController,
                       cPhoneController: _phoneController,
                       cAddressController: _addressController,
@@ -131,7 +132,7 @@ class _CustomerWidgetState extends State<CustomerWidget> {
                     );
                   },
                   icon: CupertinoIcons.pen,
-                  label: "Update",
+                  label: "update".tr(),
                   backgroundColor: Colors.blue.shade300,
                   foregroundColor: Colors.white,
                 ),
@@ -142,7 +143,7 @@ class _CustomerWidgetState extends State<CustomerWidget> {
                     );
                   },
                   icon: CupertinoIcons.delete_solid,
-                  label: "Delete",
+                  label: "delete".tr(),
                   backgroundColor: Colors.red,
                   foregroundColor: Colors.white,
                 ),
@@ -151,34 +152,22 @@ class _CustomerWidgetState extends State<CustomerWidget> {
             child: ListTile(
               title: Text(
                 widget.title,
-                style: Theme.of(context).primaryTextTheme.labelMedium!.copyWith(
-                  fontSize: 18.sp,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 22.sp, fontWeight: .bold),
               ),
               subtitle: Text(
                 widget.subtitle,
-                style: Theme.of(context).primaryTextTheme.labelMedium!.copyWith(
-                  color: Colors.grey,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
               ),
               trailing: Text(
                 widget.trailing,
-                style: Theme.of(context).primaryTextTheme.labelMedium!.copyWith(
-                  color: Colors.grey.shade900,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
               ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
-                side: BorderSide(color: Colors.grey.shade400, width: .5),
+                side: BorderSide(width: .2),
               ),
               contentPadding: EdgeInsets.all(14),
-              tileColor: Colors.grey.shade200,
+              tileColor: Theme.of(context).colorScheme.surface,
             ),
           ),
         ),

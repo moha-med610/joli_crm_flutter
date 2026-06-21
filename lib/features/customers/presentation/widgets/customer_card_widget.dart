@@ -16,7 +16,7 @@ class CustomerCardWidget extends StatelessWidget {
       padding: .all(10),
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.grey.shade200,
+        color: Theme.of(context).colorScheme.onSecondaryContainer,
         borderRadius: .circular(20),
         border: BoxBorder.all(color: Colors.grey.shade400, width: 0.5),
       ),

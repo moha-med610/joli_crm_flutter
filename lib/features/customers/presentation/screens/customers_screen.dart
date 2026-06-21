@@ -1,10 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:joli_crm/core/services/get_it_service.dart';
 import 'package:joli_crm/core/utils/navigator_helper.dart';
 import 'package:joli_crm/core/widgets/app_layout.dart';
-import 'package:joli_crm/core/widgets/button_widget.dart';
 import 'package:joli_crm/core/widgets/floating_button_widget.dart';
 import 'package:joli_crm/core/widgets/snack_bar_widgets.dart';
 import 'package:joli_crm/features/customers/presentation/logic/customer_cubit.dart';
@@ -68,10 +68,10 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
   void _formSubmit() {
     customerSheet(
-      header: "Add New Customer",
+      header: "add_new_customer".tr(),
       isLoading: cubit.state is CreateCustomerLoading,
       context,
-      buttonText: "Add Customer",
+      buttonText: "add_customer".tr(),
       cNameController: _nameController,
       cPhoneController: _phoneController,
       cAddressController: _addressController,
@@ -117,7 +117,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
             appBar: null,
             floatingActionButton: FloatingButtonWidget(
               icon: CupertinoIcons.add,
-              label: "Add Customer",
+              label: "add_customer".tr(),
               onPressed: _formSubmit,
             ),
             child: BlocConsumer<CustomerCubit, CustomerState>(
@@ -145,42 +145,6 @@ class _CustomersScreenState extends State<CustomersScreen> {
                 }
               },
               builder: (context, state) {
-                final hasMore = cubit.hasMore;
-                if (state is CustomerError) {
-                  return Container(
-                    alignment: Alignment.center,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          state.message,
-                          style: Theme.of(context)
-                              .primaryTextTheme
-                              .headlineLarge!
-                              .copyWith(color: Colors.grey.shade600),
-                        ),
-                        SizedBox(height: 20),
-                        ButtonWidget(
-                          width: MediaQuery.sizeOf(context).width * .3,
-                          child: Text(
-                            "Reload",
-                            style: Theme.of(context)
-                                .primaryTextTheme
-                                .labelMedium!
-                                .copyWith(color: Colors.white),
-                          ),
-                          onPressed: () async {
-                            await context
-                                .read<CustomerCubit>()
-                                .getAllCustomers();
-                          },
-                        ),
-                      ],
-                    ),
-                  );
-                }
-
                 if (state is CustomerLoading) {
                   return CustomersLoading();
                 }
@@ -188,7 +152,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
                   if (state.customers.isEmpty) {
                     return Center(
                       child: Text(
-                        "No Customers",
+                        "no_customer_found".tr(),
                         style: Theme.of(context).primaryTextTheme.headlineLarge!
                             .copyWith(color: Colors.grey),
                       ),
@@ -198,19 +162,14 @@ class _CustomersScreenState extends State<CustomersScreen> {
                   return CustomScrollView(
                     controller: _scrollController,
                     slivers: [
-                      SliverAppBar(
-                        pinned: false,
-                        floating: true,
-                        expandedHeight: 50,
-                        backgroundColor: Colors.transparent,
-                        elevation: 0,
-                        flexibleSpace: SearchWidget(
+                      SliverToBoxAdapter(
+                        child: SearchWidget(
                           onTap: () {
                             context.push(SearchCustomerScreen());
                           },
                         ),
                       ),
-
+                      SliverPadding(padding: .only(bottom: 10)),
                       SliverList(
                         delegate: SliverChildBuilderDelegate((context, index) {
                           final customer = state.customers[index];

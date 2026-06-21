@@ -19,7 +19,9 @@ class MainCubit extends Cubit<MainState> {
 
     final role = RoleEnum.values.firstWhere((e) => e.name == roleString);
 
-    final screens = drawerItems.where((e) => e.roles.contains(role)).toList();
+    final screens = getDrawerItems()
+        .where((e) => e.roles.contains(role))
+        .toList();
 
     emit(state.copyWith(screens: screens, currentId: screens.first.id));
   }

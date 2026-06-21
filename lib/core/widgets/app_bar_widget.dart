@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   const AppBarWidget({
@@ -19,9 +20,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(
         title.toString(),
-        style: Theme.of(
-          context,
-        ).textTheme.headlineLarge!.copyWith(color: Colors.black),
+        style: TextStyle(fontSize: 22.sp, fontWeight: .w800),
       ),
       centerTitle: centerTitle,
       leading: leading,

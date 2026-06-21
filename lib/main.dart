@@ -28,7 +28,7 @@ void main() async {
 
   runApp(
     EasyLocalization(
-      supportedLocales: [Locale("en"), Locale("ar")],
+      supportedLocales: const [Locale("en"), Locale("ar")],
       path: 'assets/translation',
       fallbackLocale: Locale("ar"),
       saveLocale: true,
@@ -48,30 +48,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = context.watch<AppCubit>().state.isDark;
     return ScreenUtilInit(
       designSize: const Size(360, 800),
-      minTextAdapt: true,
-      child: BlocBuilder<AppCubit, AppState>(
-        builder: (context, state) {
-          final isDark = state.isDark;
-          return AnimatedSwitcher(
-            duration: Duration(milliseconds: 600),
-            switchInCurve: Curves.bounceIn,
-            switchOutCurve: Curves.bounceIn,
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'JOLI_CRM',
-              localizationsDelegates: context.localizationDelegates,
-              supportedLocales: context.supportedLocales,
-              locale: context.locale,
-              theme: isDark ? darkTheme : lightTheme,
-              darkTheme: darkTheme,
-              themeMode: ThemeMode.system,
-              home: SplashScreen(),
-            ),
-          );
-        },
-      ),
+      useInheritedMediaQuery: true,
+      rebuildFactor: (old, data) => true,
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'JOLI CRM',
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          theme: isDark ? darkTheme : lightTheme,
+          darkTheme: darkTheme,
+          themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
+          home: SplashScreen(),
+        );
+      },
     );
   }
 }

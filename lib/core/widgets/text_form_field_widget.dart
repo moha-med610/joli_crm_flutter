@@ -43,11 +43,11 @@ class TextFormFieldWidget extends StatelessWidget {
               hintText: hint,
               suffixIcon: suffixIcon,
               hintStyle: TextStyle(
-                color: isDark ? Colors.white54 : Colors.black,
+                color: isDark ? Colors.grey.shade500 : Colors.black,
               ),
               suffixIconColor: isDark ? Colors.white54 : Colors.black,
             ),
-            style: TextStyle(color: isDark ? Colors.white70 : Colors.black),
+            style: TextStyle(color: isDark ? Colors.white : Colors.black),
           );
         },
       ),

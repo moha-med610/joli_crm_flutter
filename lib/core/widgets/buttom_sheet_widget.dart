@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Future<void> bottomSheetWidget(
   BuildContext context, {
@@ -26,9 +27,7 @@ Future<void> bottomSheetWidget(
             children: [
               Text(
                 title,
-                style: Theme.of(
-                  context,
-                ).primaryTextTheme.headlineLarge!.copyWith(color: Colors.black),
+                style: TextStyle(fontSize: 20.sp, fontWeight: .bold),
               ),
               const SizedBox(height: 20),
               ...children,

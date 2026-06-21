@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:joli_crm/core/constants/storage_keys.dart';
 import 'package:joli_crm/core/utils/navigator_helper.dart';
@@ -31,8 +33,7 @@ class AppDrawer extends StatelessWidget {
                   SizedBox(width: 20),
                   Text(
                     "JOLI CRM",
-                    style: Theme.of(context).primaryTextTheme.headlineLarge!
-                        .copyWith(color: Colors.black),
+                    style: TextStyle(fontSize: 24.sp, fontWeight: .bold),
                   ),
                 ],
               ),
@@ -50,15 +51,11 @@ class AppDrawer extends StatelessWidget {
                         return ListTile(
                           leading: screen.icon,
                           title: Text(
-                            screen.title,
-                            style: Theme.of(context)
-                                .primaryTextTheme
-                                .labelMedium!
-                                .copyWith(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            screen.title.tr(),
+                            style: TextStyle(
+                              fontSize: 20.sp,
+                              fontWeight: .bold,
+                            ),
                           ),
                           onTap: () {
                             context.read<MainCubit>().changeScreen(screen.id);

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class Logout extends StatelessWidget {
@@ -31,7 +32,7 @@ class Logout extends StatelessWidget {
             Icon(Icons.logout, color: Colors.white),
             SizedBox(width: 30),
             Text(
-              "Logout",
+              "logout".tr(),
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,

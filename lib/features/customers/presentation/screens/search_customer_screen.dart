@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:joli_crm/core/services/get_it_service.dart';
@@ -51,14 +52,13 @@ class _SearchCustomerScreenState extends State<SearchCustomerScreen> {
                 padding: .symmetric(horizontal: 20),
                 height: 45,
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: TextField(
                   onChanged: (value) => _onSearch(context, value),
                   cursorColor: Colors.black,
                   decoration: InputDecoration(
-                    hintText: "Find Customers",
+                    hintText: "find_customers".tr(),
                     prefixIcon: const Icon(Icons.search),
                     border: InputBorder.none,
                     contentPadding: const EdgeInsets.symmetric(vertical: 12),
@@ -91,9 +91,9 @@ class _SearchCustomerScreenState extends State<SearchCustomerScreen> {
 
                 if (state is SearchCustomersSuccess) {
                   if (state.data.data.isEmpty) {
-                    return const Center(
+                    return Center(
                       child: Text(
-                        "No customers found",
+                        "no_customer_found".tr(),
                         style: TextStyle(fontWeight: .bold, fontSize: 20),
                       ),
                     );
@@ -131,7 +131,7 @@ class _SearchCustomerScreenState extends State<SearchCustomerScreen> {
                       Icon(Icons.search, size: 80, color: Colors.grey.shade400),
                       const SizedBox(height: 12),
                       Text(
-                        "Search for a customer",
+                        "search_for_customer".tr(),
                         style: TextStyle(
                           color: Colors.grey.shade600,
                           fontSize: 16,
