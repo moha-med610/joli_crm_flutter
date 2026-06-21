@@ -8,10 +8,13 @@ import 'package:joli_crm/core/widgets/button_widget.dart';
 import 'package:joli_crm/core/widgets/floating_button_widget.dart';
 import 'package:joli_crm/core/widgets/snack_bar_widgets.dart';
 import 'package:joli_crm/features/customers/presentation/logic/customer_cubit.dart';
-import 'package:joli_crm/features/customers/presentation/screens/customer_details_screen.dart';
+import 'package:joli_crm/features/customers/presentation/screens/search_customer_screen.dart';
 import 'package:joli_crm/features/customers/presentation/widgets/customer_sheet.dart';
 import 'package:joli_crm/features/customers/presentation/widgets/customer_widget.dart';
 import 'package:joli_crm/features/customers/presentation/widgets/customers_loading.dart';
+import 'package:joli_crm/features/customers/presentation/widgets/search_widget.dart';
+
+import 'customer_details_screen.dart';
 
 class CustomersScreen extends StatefulWidget {
   const CustomersScreen({super.key});
@@ -192,45 +195,45 @@ class _CustomersScreenState extends State<CustomersScreen> {
                     );
                   }
 
-                  return Column(
-                    children: [
-                      Expanded(
-                        child: ListView.builder(
-                          controller: _scrollController,
-                          itemCount: state.customers.length + (hasMore ? 1 : 0),
-                          itemBuilder: (context, index) {
-                            if (index == state.customers.length) {
-                              return const Padding(
-                                padding: EdgeInsets.all(16),
-                                child: Center(
-                                  child: CupertinoActivityIndicator(),
-                                ),
-                              );
-                            }
-                            final customer = state.customers[index];
-                            return CustomerWidget(
-                              name: customer.name,
-                              phone: customer.phone,
-                              whatsapp: customer.whatsapp,
-                              address: customer.address,
-                              city: customer.city,
-                              notes: customer.notes,
-                              customerId: customer.id,
-                              title: customer.name,
-                              subtitle: customer.phone,
-                              trailing: customer.city,
-                              onTap: () {
-                                context.push(
-                                  CustomerDetailsScreen(
-                                    customerId: customer.id,
-                                  ),
-                                );
-                              },
-                            );
+                  return CustomScrollView(
+                    controller: _scrollController,
+                    slivers: [
+                      SliverAppBar(
+                        pinned: false,
+                        floating: true,
+                        expandedHeight: 50,
+                        backgroundColor: Colors.transparent,
+                        elevation: 0,
+                        flexibleSpace: SearchWidget(
+                          onTap: () {
+                            context.push(SearchCustomerScreen());
                           },
                         ),
                       ),
-                      SizedBox(height: 30),
+
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate((context, index) {
+                          final customer = state.customers[index];
+
+                          return CustomerWidget(
+                            name: customer.name,
+                            phone: customer.phone,
+                            whatsapp: customer.whatsapp,
+                            address: customer.address,
+                            city: customer.city,
+                            notes: customer.notes,
+                            customerId: customer.id,
+                            title: customer.name,
+                            subtitle: customer.phone,
+                            trailing: customer.city,
+                            onTap: () {
+                              context.push(
+                                CustomerDetailsScreen(customerId: customer.id),
+                              );
+                            },
+                          );
+                        }, childCount: state.customers.length),
+                      ),
                     ],
                   );
                 }

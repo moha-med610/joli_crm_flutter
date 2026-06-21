@@ -80,4 +80,17 @@ class CustomerRepoImpl implements BaseCustomerRepo {
       return Left(DioErrorHandler.handle(e));
     }
   }
+
+  @override
+  Future<Either<Failure, AllCustomers>> searchCustomers({
+    required String name,
+  }) async {
+    try {
+      final res = await dataSource.searchCustomers(name);
+
+      return Right(res.toEntity());
+    } on DioException catch (e) {
+      return Left(DioErrorHandler.handle(e));
+    }
+  }
 }

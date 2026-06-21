@@ -25,4 +25,6 @@ abstract class BaseCustomerRepo {
   Future<Either<Failure, DeleteCustomer>> deleteCustomer({
     required String customerId,
   });
+
+  Future<Either<Failure, AllCustomers>> searchCustomers({required String name});
 }

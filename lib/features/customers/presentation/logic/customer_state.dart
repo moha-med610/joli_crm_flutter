@@ -38,6 +38,14 @@ final class UpdateCustomerSuccess extends CustomerState {
   UpdateCustomerSuccess(this.data);
 }
 
+final class SearchCustomersLoading extends CustomerState {}
+
+final class SearchCustomersSuccess extends CustomerState {
+  final AllCustomers data;
+
+  SearchCustomersSuccess(this.data);
+}
+
 final class CustomerError extends CustomerState {
   final String message;
 

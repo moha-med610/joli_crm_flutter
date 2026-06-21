@@ -5,6 +5,7 @@ import 'package:joli_crm/features/customers/domain/use_csaes/create_customer_use
 import 'package:joli_crm/features/customers/domain/use_csaes/delete_customer_use_case.dart';
 import 'package:joli_crm/features/customers/domain/use_csaes/get_all_customers_use_case.dart';
 import 'package:joli_crm/features/customers/domain/use_csaes/get_customer_by_id_use_case.dart';
+import 'package:joli_crm/features/customers/domain/use_csaes/search_customers_use_case.dart';
 import 'package:joli_crm/features/customers/domain/use_csaes/update_customer_use_case.dart';
 
 part 'customer_state.dart';
@@ -16,6 +17,7 @@ class CustomerCubit extends Cubit<CustomerState> {
     this.getCustomerByIdUseCase,
     this.updateCustomerUseCase,
     this.deleteCustomerUseCase,
+    this.searchCustomersUseCase,
   ) : super(CustomerInitial());
 
   final GetAllCustomersUseCase getAllCustomersUseCase;
@@ -23,12 +25,14 @@ class CustomerCubit extends Cubit<CustomerState> {
   final GetCustomerByIdUseCase getCustomerByIdUseCase;
   final UpdateCustomerUseCase updateCustomerUseCase;
   final DeleteCustomerUseCase deleteCustomerUseCase;
+  final SearchCustomersUseCase searchCustomersUseCase;
 
   bool _isLoading = false;
   int page = 1;
   int limit = 20;
   final List<Customers> customers = [];
   bool hasMore = true;
+  String _lastQuery = "";
 
   Future<void> getAllCustomers() async {
     if (_isLoading) return;
@@ -166,5 +170,27 @@ class CustomerCubit extends Cubit<CustomerState> {
     });
 
     _isLoading = false;
+  }
+
+  Future<void> searchCustomers({required String name}) async {
+    if (_isLoading) return;
+
+    _isLoading = true;
+    _lastQuery = name;
+    emit(SearchCustomersLoading());
+
+    final result = await searchCustomersUseCase(name: name);
+
+    result.fold((err) => emit(CustomerError(err.message)), (data) {
+      emit(SearchCustomersSuccess(data));
+    });
+
+    _isLoading = false;
+  }
+
+  void refreshSearch() {
+    if (_lastQuery.trim().isEmpty) return;
+
+    searchCustomers(name: _lastQuery);
   }
 }

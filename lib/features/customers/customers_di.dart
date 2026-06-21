@@ -6,6 +6,7 @@ import 'package:joli_crm/features/customers/domain/use_csaes/create_customer_use
 import 'package:joli_crm/features/customers/domain/use_csaes/delete_customer_use_case.dart';
 import 'package:joli_crm/features/customers/domain/use_csaes/get_all_customers_use_case.dart';
 import 'package:joli_crm/features/customers/domain/use_csaes/get_customer_by_id_use_case.dart';
+import 'package:joli_crm/features/customers/domain/use_csaes/search_customers_use_case.dart';
 import 'package:joli_crm/features/customers/domain/use_csaes/update_customer_use_case.dart';
 import 'package:joli_crm/features/customers/presentation/logic/customer_cubit.dart';
 
@@ -22,7 +23,8 @@ class CustomersDi {
     sl.registerLazySingleton(() => GetCustomerByIdUseCase(sl()));
     sl.registerLazySingleton(() => UpdateCustomerUseCase(sl()));
     sl.registerLazySingleton(() => DeleteCustomerUseCase(sl()));
+    sl.registerLazySingleton(() => SearchCustomersUseCase(sl()));
 
-    sl.registerFactory(() => CustomerCubit(sl(), sl(), sl(), sl(), sl()));
+    sl.registerFactory(() => CustomerCubit(sl(), sl(), sl(), sl(), sl(), sl()));
   }
 }

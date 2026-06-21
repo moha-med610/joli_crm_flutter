@@ -26,8 +26,6 @@ void main() async {
   // Secure Storage Service
   secureStorage = SecureStorageService.getInstance();
 
-  // await secureStorage.deleteAll();
-
   runApp(
     EasyLocalization(
       supportedLocales: [Locale("en"), Locale("ar")],

@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:joli_crm/core/logic/app_cubit.dart';
 import 'package:joli_crm/core/navigation/app_drawer.dart';
 import 'package:joli_crm/core/widgets/app_bar_widget.dart';
 import 'package:joli_crm/core/widgets/app_layout.dart';
@@ -12,8 +11,6 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDark = context.watch<AppCubit>().state.isDark;
-
     return BlocProvider(
       create: (_) => MainCubit()..getScreens(),
       child: BlocBuilder<MainCubit, MainState>(
