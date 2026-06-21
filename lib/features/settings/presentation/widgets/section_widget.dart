@@ -11,8 +11,9 @@ class SectionWidget extends StatelessWidget {
       padding: .all(15),
       width: .infinity,
       decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: .circular(15),
-        border: .all(color: Colors.grey, width: .5),
+        border: .all(width: .1),
       ),
       child: Row(mainAxisAlignment: .spaceBetween, children: children),
     );
