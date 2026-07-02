@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:joli_crm/core/services/get_it_service.dart';
+import 'package:joli_crm/core/utils/date_format.dart';
 import 'package:joli_crm/core/widgets/app_bar_widget.dart';
 import 'package:joli_crm/core/widgets/app_layout.dart';
 import 'package:joli_crm/core/widgets/snack_bar_widgets.dart';
@@ -16,7 +18,7 @@ class CustomerDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppLayout(
-      appBar: AppBarWidget(title: "Customer Details"),
+      appBar: AppBarWidget(title: "customer_details".tr()),
       child: BlocProvider(
         create: (context) =>
             sl<CustomerCubit>()..getCustomerById(customerId: customerId),
@@ -42,62 +44,68 @@ class CustomerDetailsScreen extends StatelessWidget {
                   spacing: 20,
                   children: [
                     CustomerCardWidget(
-                      header: "Personal Information",
+                      header: "personal_info".tr(),
                       fields: [
                         CustomerInformationWidget(
-                          fieldName: "Customer Name",
+                          fieldName: "customer_name".tr(),
                           data: customer.name,
                         ),
                       ],
                     ),
                     CustomerCardWidget(
-                      header: "Contact Details",
+                      header: "contact_details".tr(),
                       fields: [
                         CustomerInformationWidget(
-                          fieldName: "Phone Number",
+                          fieldName: "phone".tr(),
                           data: customer.phone,
                         ),
                         SizedBox(height: 10),
                         CustomerInformationWidget(
-                          fieldName: "Whatsapp",
-                          data: customer.whatsapp ?? "---",
+                          fieldName: "whatsapp".tr(),
+                          data: customer.whatsapp ?? "",
                         ),
                       ],
                     ),
                     CustomerCardWidget(
-                      header: "Location",
+                      header: "location".tr(),
                       fields: [
                         CustomerInformationWidget(
-                          fieldName: "Address",
+                          fieldName: "address".tr(),
                           data: customer.address,
                         ),
                         SizedBox(height: 10),
                         CustomerInformationWidget(
-                          fieldName: "City",
+                          fieldName: "city".tr(),
                           data: customer.city,
                         ),
                       ],
                     ),
                     CustomerCardWidget(
-                      header: "Additional Information",
+                      header: "additional_info".tr(),
                       fields: [
                         CustomerInformationWidget(
-                          fieldName: "notes",
-                          data: customer.notes ?? "---",
+                          fieldName: "notes".tr(),
+                          data: customer.notes ?? "",
                         ),
                       ],
                     ),
                     CustomerCardWidget(
-                      header: "More",
+                      header: "more".tr(),
                       fields: [
                         CustomerInformationWidget(
-                          fieldName: "Created At",
-                          data: customer.createdAt.toLocal().toString(),
+                          fieldName: "created_at".tr(),
+                          data: DateFormatHelper.format(
+                            customer.createdAt,
+                            context.locale.toString(),
+                          ),
                         ),
                         SizedBox(height: 10),
                         CustomerInformationWidget(
-                          fieldName: "Last Update",
-                          data: customer.updatedAt.toLocal().toString(),
+                          fieldName: "last_update".tr(),
+                          data: DateFormatHelper.format(
+                            customer.updatedAt,
+                            context.locale.toString(),
+                          ),
                         ),
                       ],
                     ),

@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:joli_crm/core/network/dio/dio_client.dart';
 import 'package:joli_crm/features/auth/auth_di.dart';
 import 'package:joli_crm/features/customers/customers_di.dart';
+import 'package:joli_crm/features/products/products_di.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -12,5 +13,6 @@ class DependencyInjection {
 
     await AuthDi.init();
     await CustomersDi.init();
+    await ProductsDi.init();
   }
 }

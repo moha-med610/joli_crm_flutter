@@ -18,7 +18,7 @@ class CustomerCardWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.onSecondaryContainer,
         borderRadius: .circular(20),
-        border: BoxBorder.all(color: Colors.grey.shade400, width: 0.5),
+        border: BoxBorder.all(color: Colors.grey.shade400, width: 2),
       ),
       child: Column(
         crossAxisAlignment: .start,

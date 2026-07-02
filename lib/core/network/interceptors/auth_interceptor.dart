@@ -37,6 +37,10 @@ class AuthInterceptor implements Interceptor {
 
         requestOptions.headers["Authorization"] = newAccessToken;
 
+        if (requestOptions.data is FormData) {
+          return handler.next(err);
+        }
+
         final response = await DioClient().dio.fetch(requestOptions);
 
         return handler.resolve(response);

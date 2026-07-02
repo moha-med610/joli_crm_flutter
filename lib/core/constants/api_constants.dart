@@ -1,4 +1,5 @@
 class ApiConstants {
+  // Base Url
   static const String baseUrl = "http://localhost:3000/";
 
   // Auth
@@ -18,4 +19,12 @@ class ApiConstants {
   static const String createCustomer = "customers";
   static const String updateCustomer = "customers/{customerId}";
   static const String deleteCustomer = "customers/{customerId}";
+
+  // Products
+  static const String products = "products";
+  static const String getProductsById = "products/{productId}";
+  static const String updateProduct = "products/update/{productId}";
+  static const String deleteProduct = "products/delete/{productId}";
+  static const String createCategory = "products/add-category";
+  static const String getAllCategories = "products/categories";
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 final ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
@@ -6,10 +7,16 @@ final ThemeData darkTheme = ThemeData(
   scaffoldBackgroundColor: const Color(0xFF161618),
 
   colorScheme: const ColorScheme.dark(
-    primary: Color(0xFF004643),
-    secondary: Color(0xFFABD1C6),
-    surface: Color(0xFF1E1E20),
-    onSecondaryContainer: Colors.black12,
+    primary: Color(0xFF0EA5A4),
+    secondary: Color(0xFF7DD3C7),
+
+    surface: Color(0xFF1F1F22),
+    surfaceContainer: Color(0xFF2A2A2D),
+
+    onSurface: Colors.white,
+    onSurfaceVariant: Color(0xFFB5B5B5),
+
+    onPrimary: Colors.white,
   ),
 
   appBarTheme: const AppBarTheme(
@@ -65,26 +72,27 @@ final ThemeData darkTheme = ThemeData(
     ),
   ),
 
-  textTheme: const TextTheme(
-    headlineLarge: TextStyle(
-      color: Colors.white,
-      fontSize: 24,
-      fontWeight: FontWeight.w900,
-    ),
+  textTheme: GoogleFonts.readexProTextTheme(
+    const TextTheme(
+      headlineLarge: TextStyle(
+        color: Colors.white,
+        fontSize: 24,
+        fontWeight: FontWeight.w900,
+      ),
 
-    labelLarge: TextStyle(
-      color: Colors.white,
-      fontSize: 20,
-      fontWeight: FontWeight.bold,
-    ),
+      labelLarge: TextStyle(
+        color: Colors.white,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
 
-    labelMedium: TextStyle(
-      color: Colors.white70,
-      fontSize: 16,
-      fontWeight: FontWeight.w400,
+      labelMedium: TextStyle(
+        color: Colors.white70,
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+      ),
     ),
   ),
-
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       elevation: 1,

@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 final ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
+
+  textTheme: GoogleFonts.readexProTextTheme(),
 
   scaffoldBackgroundColor: const Color(0XFFf5f5f5),
 
   colorScheme: const ColorScheme.light(
     primary: Color(0xFF004643),
     secondary: Color(0xFFABD1C6),
-    surface: Color(0XFFDBDBDB),
-    onSecondaryContainer: Colors.white30,
+    surface: Color(0XFFdadada),
+    onSecondaryContainer: Colors.white,
   ),
 
   iconTheme: IconThemeData(color: Colors.black),

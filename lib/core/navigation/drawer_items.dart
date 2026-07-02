@@ -3,6 +3,7 @@ import 'package:joli_crm/core/enum/role_enum.dart';
 import 'package:joli_crm/core/navigation/app_screens.dart';
 import 'package:joli_crm/features/customers/presentation/screens/customers_screen.dart';
 import 'package:joli_crm/features/dashboard/presentation/screens/dashboard_screen.dart';
+import 'package:joli_crm/features/products/presentation/screens/products_screen.dart';
 import 'package:joli_crm/features/settings/presentation/screen/settings_screen.dart';
 
 List<AppScreens> getDrawerItems() => [
@@ -18,6 +19,13 @@ List<AppScreens> getDrawerItems() => [
     icon: const Icon(CupertinoIcons.group_solid, fontWeight: FontWeight.bold),
     screen: CustomersScreen(),
     id: "customers",
+    roles: [RoleEnum.COMPANY],
+  ),
+  AppScreens(
+    title: "products",
+    icon: const Icon(CupertinoIcons.cube_box_fill),
+    screen: ProductsScreen(),
+    id: "products",
     roles: [RoleEnum.COMPANY],
   ),
   AppScreens(

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:joli_crm/core/utils/app_validator.dart';
@@ -29,36 +30,36 @@ Future<void> customerSheet(
           children: [
             TextFormFieldWidget(
               controller: cNameController,
-              hint: "Name",
+              hint: "name".tr(),
               validator: AppValidator.name,
             ),
             SizedBox(height: 10),
             TextFormFieldWidget(
               controller: cPhoneController,
-              hint: "Phone",
+              hint: "phone".tr(),
               validator: AppValidator.phone,
             ),
             SizedBox(height: 10),
             TextFormFieldWidget(
               controller: cAddressController,
-              hint: "Address",
+              hint: "address".tr(),
               validator: AppValidator.address,
             ),
             SizedBox(height: 10),
             TextFormFieldWidget(
               controller: cCityController,
-              hint: "City",
+              hint: "city".tr(),
               validator: AppValidator.city,
             ),
             SizedBox(height: 10),
             TextFormFieldWidget(
               controller: cWhatsappController,
-              hint: "Whatsapp",
+              hint: "whatsapp".tr(),
             ),
             SizedBox(height: 10),
             TextFormFieldWidget(
               controller: cNotsController,
-              hint: "Nots",
+              hint: "notes".tr(),
               minLines: 5,
               maxLines: 5,
             ),

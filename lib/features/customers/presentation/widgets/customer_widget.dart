@@ -164,7 +164,7 @@ class _CustomerWidgetState extends State<CustomerWidget> {
               ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
-                side: BorderSide(width: .2),
+                side: BorderSide(width: .3, color: Colors.grey.shade600),
               ),
               contentPadding: EdgeInsets.all(14),
               tileColor: Theme.of(context).colorScheme.surface,

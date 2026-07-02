@@ -20,6 +20,7 @@ class CustomerInformationWidget extends StatelessWidget {
           fieldName,
           style: TextStyle(fontSize: 20.sp, fontWeight: .w900),
         ),
+        SizedBox(height: 5.h),
         Container(
           padding: .all(10),
           width: double.infinity,
