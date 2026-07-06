@@ -24,8 +24,8 @@ class ProductsCubit extends Cubit<ProductsState> {
 
   File? image;
   bool _isLoading = false;
-  int _page = 1;
-  int _limit = 20;
+  final int _page = 1;
+  final int _limit = 20;
 
   Future<void> pickImageFromGallery() async {
     image = await _imagePickerService.pickImageFromGallery();

@@ -36,7 +36,7 @@ class ProductsScreen extends StatelessWidget {
                   crossAxisCount: 2,
                   childAspectRatio: 0.65,
                 ),
-                itemCount: 10,
+                itemCount: state.data.data.length,
                 itemBuilder: (context, index) {
                   final product = state.data.data[index];
                   return Padding(

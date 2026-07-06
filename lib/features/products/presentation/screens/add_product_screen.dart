@@ -58,6 +58,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
             cubit.image = null;
 
             context.pop();
+            _productNameController.clear();
+            _productPriceController.clear();
+            _productDescriptionController.clear();
+            _productSizeController.clear();
           }
         },
         builder: (context, state) {
@@ -93,10 +97,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       ),
                       categoryId: "6a43f35297f8fc8fa1a40532",
                     );
-                    _productNameController.clear();
-                    _productPriceController.clear();
-                    _productDescriptionController.clear();
-                    _productSizeController.clear();
                   },
                 ),
               ),
