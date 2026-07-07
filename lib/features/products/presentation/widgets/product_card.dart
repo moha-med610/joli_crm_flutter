@@ -58,7 +58,6 @@ class ProductCardWidget extends StatelessWidget {
                   child: CachedNetworkImage(
                     imageUrl: imageUrl,
                     width: double.infinity,
-                    height: 170.h,
                     fit: BoxFit.cover,
                     placeholder: (context, url) => Container(
                       width: double.infinity,

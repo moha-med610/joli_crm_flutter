@@ -19,6 +19,8 @@ final class GetAllProductsSuccess extends ProductsState {
   GetAllProductsSuccess(this.data);
 }
 
+final class LoadMoreLoading extends ProductsState {}
+
 final class CreateProductLoading extends ProductsState {}
 
 final class CreateProductSuccess extends ProductsState {

@@ -9,13 +9,45 @@ import 'package:joli_crm/features/products/presentation/logic/products_cubit.dar
 import 'package:joli_crm/features/products/presentation/screens/add_product_screen.dart';
 import 'package:joli_crm/features/products/presentation/widgets/product_card.dart';
 
-class ProductsScreen extends StatelessWidget {
+class ProductsScreen extends StatefulWidget {
   const ProductsScreen({super.key});
 
   @override
+  State<ProductsScreen> createState() => _ProductsScreenState();
+}
+
+class _ProductsScreenState extends State<ProductsScreen> {
+  final ScrollController _scrollController = ScrollController();
+
+  late final ProductsCubit cubit;
+
+  @override
+  void initState() {
+    super.initState();
+
+    cubit = sl<ProductsCubit>();
+    cubit.getAllProducts();
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >=
+          _scrollController.position.maxScrollExtent - 200) {
+        cubit.loadMore();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+
+    cubit.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<ProductsCubit>()..getAllProducts(),
+    return BlocProvider.value(
+      value: cubit,
       child: AppLayout(
         appBar: null,
         floatingActionButton: FloatingButtonWidget(
@@ -32,6 +64,7 @@ class ProductsScreen extends StatelessWidget {
                 return Center(child: Text("No Products Found"));
               }
               return GridView.builder(
+                controller: _scrollController,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 0.65,

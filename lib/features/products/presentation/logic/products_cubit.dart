@@ -5,6 +5,7 @@ import 'package:joli_crm/core/services/image_picker_service.dart';
 import 'package:joli_crm/features/products/data/models/products_req_model.dart';
 import 'package:joli_crm/features/products/domain/entities/create_product_entity.dart';
 import 'package:joli_crm/features/products/domain/entities/get_all_products_entity.dart';
+import 'package:joli_crm/features/products/domain/entities/product_entity.dart';
 import 'package:joli_crm/features/products/domain/use_cases/create_product_use_case.dart';
 import 'package:joli_crm/features/products/domain/use_cases/get_products_use_case.dart';
 import 'package:meta/meta.dart';
@@ -24,8 +25,10 @@ class ProductsCubit extends Cubit<ProductsState> {
 
   File? image;
   bool _isLoading = false;
-  final int _page = 1;
+  int _page = 1;
   final int _limit = 20;
+  bool hasMore = true;
+  List<ProductEntity> products = [];
 
   Future<void> pickImageFromGallery() async {
     image = await _imagePickerService.pickImageFromGallery();
@@ -79,11 +82,55 @@ class ProductsCubit extends Cubit<ProductsState> {
 
     final result = await _getAllProductsUseCase(_page, _limit);
 
-    result.fold(
-      (err) => emit(ProductsError(err.message)),
-      (data) => emit(GetAllProductsSuccess(data)),
-    );
+    result.fold((err) => emit(ProductsError(err.message)), (data) {
+      products.addAll(data.data);
+
+      emit(
+        GetAllProductsSuccess(
+          GetAllProductsEntity(
+            message: data.message,
+            data: List.from(products),
+          ),
+        ),
+      );
+    });
 
     _isLoading = false;
+  }
+
+  Future<void> loadMore() async {
+    if (!hasMore || _isLoading) return;
+
+    _isLoading = true;
+    emit(LoadMoreLoading());
+
+    // await Future.delayed(Duration(seconds: 5));
+    final result = await _getAllProductsUseCase(++_page, _limit);
+
+    result.fold((err) => emit(ProductsError(err.message)), (data) {
+      if (data.data.isEmpty) {
+        hasMore = false;
+      } else {
+        products.addAll(data.data);
+      }
+      emit(
+        GetAllProductsSuccess(
+          GetAllProductsEntity(
+            message: data.message,
+            data: List.from(products),
+          ),
+        ),
+      );
+    });
+
+    _isLoading = false;
+  }
+
+  Future<void> refreshProducts() async {
+    _page = 1;
+    hasMore = true;
+    products.clear();
+
+    await getAllProducts();
   }
 }
