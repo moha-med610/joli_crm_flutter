@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
             if (state is LoginSuccess) {
               SnackBarWidgets.success(context, state.data.message);
-              context.push(MainScreen());
+              context.push(const MainScreen());
             }
           },
 
@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: MediaQuery.of(context).size.height * 0.8,
                 child: Column(
                   children: [
-                    HeaderWidget(),
+                    const HeaderWidget(),
                     SizedBox(height: 50.h),
                     LoginFormWidget(
                       emailController: _emailController,
@@ -70,13 +70,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 10.h),
                     ForgetPasswordWidget(
                       onTap: () {
-                        context.push(ForgetPasswordScreen());
+                        context.push(const ForgetPasswordScreen());
                       },
                     ),
                     SizedBox(height: 20.h),
                     ButtonWidget(
                       child: isLoading
-                          ? CupertinoActivityIndicator(
+                          ? const CupertinoActivityIndicator(
                               radius: 10,
                               color: Colors.white,
                             )
@@ -101,8 +101,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         }
                       },
                     ),
-                    Spacer(),
-                    DoNotHaveAccountWidget(),
+                    const Spacer(),
+                    const DoNotHaveAccountWidget(),
                   ],
                 ),
               ),

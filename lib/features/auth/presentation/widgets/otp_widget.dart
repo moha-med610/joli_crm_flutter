@@ -26,7 +26,7 @@ class OtpWidget extends StatelessWidget {
         validator: _validator,
         controller: _controller,
         keyboardType: TextInputType.number,
-        animationDuration: Duration(milliseconds: 400),
+        animationDuration: const Duration(milliseconds: 400),
         onCompleted: onComplete,
         length: length,
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],

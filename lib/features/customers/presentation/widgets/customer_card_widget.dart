@@ -13,7 +13,7 @@ class CustomerCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: .all(10),
+      padding: const .all(10),
       width: double.infinity,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.onSecondaryContainer,
@@ -24,7 +24,7 @@ class CustomerCardWidget extends StatelessWidget {
         crossAxisAlignment: .start,
         children: [
           Text(header, style: Theme.of(context).primaryTextTheme.headlineLarge),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           ...fields,
         ],
       ),

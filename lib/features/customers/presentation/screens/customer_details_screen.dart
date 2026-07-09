@@ -34,7 +34,7 @@ class CustomerDetailsScreen extends StatelessWidget {
           },
           builder: (context, state) {
             if (state is CustomerLoading) {
-              return Center(child: CupertinoActivityIndicator());
+              return const Center(child: CupertinoActivityIndicator());
             }
 
             if (state is CustomerSuccess) {
@@ -59,7 +59,7 @@ class CustomerDetailsScreen extends StatelessWidget {
                           fieldName: "phone".tr(),
                           data: customer.phone,
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         CustomerInformationWidget(
                           fieldName: "whatsapp".tr(),
                           data: customer.whatsapp ?? "",
@@ -73,7 +73,7 @@ class CustomerDetailsScreen extends StatelessWidget {
                           fieldName: "address".tr(),
                           data: customer.address,
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         CustomerInformationWidget(
                           fieldName: "city".tr(),
                           data: customer.city,
@@ -99,7 +99,7 @@ class CustomerDetailsScreen extends StatelessWidget {
                             context.locale.toString(),
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         CustomerInformationWidget(
                           fieldName: "last_update".tr(),
                           data: DateFormatHelper.format(
@@ -113,7 +113,7 @@ class CustomerDetailsScreen extends StatelessWidget {
                 ),
               );
             }
-            return SizedBox.shrink();
+            return const SizedBox.shrink();
           },
         ),
       ),

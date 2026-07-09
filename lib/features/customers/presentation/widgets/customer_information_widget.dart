@@ -22,9 +22,9 @@ class CustomerInformationWidget extends StatelessWidget {
         ),
         SizedBox(height: 5.h),
         Container(
-          padding: .all(10),
+          padding: const .all(10),
           width: double.infinity,
-          constraints: BoxConstraints(maxWidth: .infinity),
+          constraints: const BoxConstraints(maxWidth: .infinity),
           decoration: BoxDecoration(
             borderRadius: .circular(10),
             color: Theme.of(context).colorScheme.surface,

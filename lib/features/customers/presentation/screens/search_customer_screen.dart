@@ -49,7 +49,7 @@ class _SearchCustomerScreenState extends State<SearchCustomerScreen> {
             appBar: AppBar(
               titleSpacing: 0,
               title: Container(
-                padding: .symmetric(horizontal: 20),
+                padding: const .symmetric(horizontal: 20),
                 height: 45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
@@ -94,7 +94,7 @@ class _SearchCustomerScreenState extends State<SearchCustomerScreen> {
                     return Center(
                       child: Text(
                         "no_customer_found".tr(),
-                        style: TextStyle(fontWeight: .bold, fontSize: 20),
+                        style: const TextStyle(fontWeight: .bold, fontSize: 20),
                       ),
                     );
                   }

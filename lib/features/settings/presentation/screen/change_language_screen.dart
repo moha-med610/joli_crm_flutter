@@ -15,11 +15,11 @@ class ChangeLanguageScreen extends StatelessWidget {
         children: [
           InkWell(
             onTap: () async {
-              await context.setLocale(Locale("ar"));
+              await context.setLocale(const Locale("ar"));
               if (!context.mounted) return;
               context.pop();
             },
-            child: Directionality(
+            child: const Directionality(
               textDirection: .rtl,
               child: ListTile(
                 title: Text(
@@ -29,14 +29,14 @@ class ChangeLanguageScreen extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           InkWell(
             onTap: () async {
-              await context.setLocale(Locale("en"));
+              await context.setLocale(const Locale("en"));
               if (!context.mounted) return;
               context.pop();
             },
-            child: Directionality(
+            child: const Directionality(
               textDirection: .ltr,
               child: ListTile(
                 title: Text(

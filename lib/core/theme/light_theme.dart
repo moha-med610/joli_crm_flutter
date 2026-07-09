@@ -15,47 +15,47 @@ final ThemeData lightTheme = ThemeData(
     onSecondaryContainer: Colors.white,
   ),
 
-  iconTheme: IconThemeData(color: Colors.black),
+  iconTheme: const IconThemeData(color: Colors.black),
 
-  appBarTheme: AppBarTheme(
-    backgroundColor: const Color(0XFFf5f5f5),
+  appBarTheme: const AppBarTheme(
+    backgroundColor: Color(0XFFf5f5f5),
     surfaceTintColor: Colors.white,
   ),
 
-  switchTheme: SwitchThemeData(
+  switchTheme: const SwitchThemeData(
     overlayColor: WidgetStatePropertyAll(Colors.grey),
   ),
 
-  drawerTheme: DrawerThemeData(
+  drawerTheme: const DrawerThemeData(
     backgroundColor: Color(0XFFf5f5f5),
     elevation: 0.5,
   ),
 
-  bottomSheetTheme: BottomSheetThemeData(
-    backgroundColor: const Color(0XFFf5f5f5),
+  bottomSheetTheme: const BottomSheetThemeData(
+    backgroundColor: Color(0XFFf5f5f5),
   ),
 
-  floatingActionButtonTheme: FloatingActionButtonThemeData(
-    backgroundColor: const Color(0XFF004643),
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    backgroundColor: Color(0XFF004643),
     foregroundColor: Colors.white,
   ),
 
   inputDecorationTheme: InputDecorationTheme(
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(14),
-      borderSide: BorderSide(color: const Color(0XFFC4C4C4), width: 1),
+      borderSide: const BorderSide(color: Color(0XFFC4C4C4), width: 1),
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(14),
-      borderSide: BorderSide(color: const Color(0XFFC4C4C4), width: 1),
+      borderSide: const BorderSide(color: Color(0XFFC4C4C4), width: 1),
     ),
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(14),
-      borderSide: BorderSide(color: Colors.red, width: 1),
+      borderSide: const BorderSide(color: Colors.red, width: 1),
     ),
     focusedErrorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(14),
-      borderSide: BorderSide(color: Colors.red, width: 1),
+      borderSide: const BorderSide(color: Colors.red, width: 1),
     ),
     fillColor: const Color(0XFFFFFFFF),
     filled: true,
@@ -66,7 +66,7 @@ final ThemeData lightTheme = ThemeData(
     ),
   ),
 
-  primaryTextTheme: TextTheme(
+  primaryTextTheme: const TextTheme(
     headlineLarge: TextStyle(color: Colors.black),
     labelLarge: TextStyle(color: Colors.black),
     labelMedium: TextStyle(color: Colors.black),
@@ -76,7 +76,7 @@ final ThemeData lightTheme = ThemeData(
     style: ButtonStyle(
       elevation: const WidgetStatePropertyAll(0.8),
       backgroundColor: const WidgetStatePropertyAll(Color(0XFF004643)),
-      shadowColor: WidgetStatePropertyAll(Colors.black),
+      shadowColor: const WidgetStatePropertyAll(Colors.black),
       shape: WidgetStatePropertyAll(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
       ),

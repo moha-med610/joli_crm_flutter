@@ -46,7 +46,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 children: [
                   InkWell(
                     onTap: () {
-                      context.push(ChangeLanguageScreen());
+                      context.push(const ChangeLanguageScreen());
                     },
                     borderRadius: .circular(15),
                     child: SectionWidget(
@@ -56,9 +56,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           children: [
                             Text(
                               "app_lang".tr(),
-                              style: TextStyle(fontSize: 20, fontWeight: .w500),
+                              style: const TextStyle(fontSize: 20, fontWeight: .w500),
                             ),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             Text(
                               context.locale.languageCode == "ar"
                                   ? "العربيه"
@@ -71,16 +71,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             ),
                           ],
                         ),
-                        Icon(Icons.arrow_forward_ios, size: 16),
+                        const Icon(Icons.arrow_forward_ios, size: 16),
                       ],
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   SectionWidget(
                     children: [
                       Text(
                         "dark_mode".tr(),
-                        style: TextStyle(fontSize: 20, fontWeight: .w500),
+                        style: const TextStyle(fontSize: 20, fontWeight: .w500),
                       ),
                       CupertinoSwitch(
                         value: isDark,
@@ -90,11 +90,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 10),
-                  Spacer(),
+                  const SizedBox(height: 10),
+                  const Spacer(),
                   Text(
                     "Version $_version",
-                    style: TextStyle(fontSize: 18, fontWeight: .bold),
+                    style: const TextStyle(fontSize: 18, fontWeight: .bold),
                   ),
                 ],
               ),

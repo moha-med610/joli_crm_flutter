@@ -29,11 +29,11 @@ class Logout extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.logout, color: Colors.white),
-            SizedBox(width: 30),
+            const Icon(Icons.logout, color: Colors.white),
+            const SizedBox(width: 30),
             Text(
               "logout".tr(),
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,

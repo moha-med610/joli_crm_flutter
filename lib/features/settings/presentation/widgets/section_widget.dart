@@ -8,7 +8,7 @@ class SectionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: .all(15),
+      padding: const .all(15),
       width: .infinity,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,

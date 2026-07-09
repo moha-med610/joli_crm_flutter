@@ -5,9 +5,12 @@ import 'package:joli_crm/core/services/get_it_service.dart';
 import 'package:joli_crm/core/utils/navigator_helper.dart';
 import 'package:joli_crm/core/widgets/app_layout.dart';
 import 'package:joli_crm/core/widgets/floating_button_widget.dart';
+import 'package:joli_crm/core/widgets/snack_bar_widgets.dart';
 import 'package:joli_crm/features/products/presentation/logic/products_cubit.dart';
 import 'package:joli_crm/features/products/presentation/screens/add_product_screen.dart';
+import 'package:joli_crm/features/products/presentation/screens/product_details.dart';
 import 'package:joli_crm/features/products/presentation/widgets/product_card.dart';
+import 'package:joli_crm/features/products/presentation/widgets/product_loading.dart';
 
 class ProductsScreen extends StatefulWidget {
   const ProductsScreen({super.key});
@@ -39,7 +42,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
   @override
   void dispose() {
     _scrollController.dispose();
-
     cubit.close();
     super.dispose();
   }
@@ -52,31 +54,41 @@ class _ProductsScreenState extends State<ProductsScreen> {
         appBar: null,
         floatingActionButton: FloatingButtonWidget(
           onPressed: () {
-            context.push(AddProductScreen());
+            context.push(const AddProductScreen());
           },
           icon: CupertinoIcons.cube,
           label: "add_product".tr(),
         ),
-        child: BlocBuilder<ProductsCubit, ProductsState>(
+        child: BlocConsumer<ProductsCubit, ProductsState>(
+          listener: (context, state) {
+            if (state is ProductsError) {
+              SnackBarWidgets.error(context, state.message);
+            }
+          },
           builder: (context, state) {
+            if (state is GetAllProductsLoading) {
+              return const ProductLoading();
+            }
+
             if (state is GetAllProductsSuccess) {
               if (state.data.data.isEmpty) {
-                return Center(child: Text("No Products Found"));
+                return const Center(child: Text("No Products Found"));
               }
               return GridView.builder(
                 controller: _scrollController,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 0.65,
                 ),
                 itemCount: state.data.data.length,
                 itemBuilder: (context, index) {
                   final product = state.data.data[index];
+
                   return Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: ProductCardWidget(
                       onTap: () {
-                        print("Get Product Details ${product.id}");
+                        context.push(ProductDetails(id: product.id));
                       },
                       imageUrl: product.productImage,
                       productName: product.productName,
@@ -88,7 +100,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 },
               );
             }
-            return SizedBox.shrink();
+            return const SizedBox.shrink();
           },
         ),
       ),

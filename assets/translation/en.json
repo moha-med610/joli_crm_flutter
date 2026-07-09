@@ -56,5 +56,7 @@
   "product_image": "Product Image",
   "select_image_from": "Select Image From",
   "camera": "Camera",
-  "photos": "Photos"
+  "photos": "Photos",
+  "product_details": "Product Details",
+  "product_category": "Product Category"
 }

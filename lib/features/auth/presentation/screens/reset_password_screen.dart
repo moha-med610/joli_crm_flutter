@@ -52,7 +52,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
             if (state is AuthSuccess) {
               SnackBarWidgets.success(context, state.data.message);
-              context.pushAndRemoveUntil(LoginScreen());
+              context.pushAndRemoveUntil(const LoginScreen());
             }
           },
           builder: (context, state) {
@@ -72,8 +72,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         });
                       },
                       icon: showPassword
-                          ? Icon(CupertinoIcons.eye_slash_fill)
-                          : Icon(CupertinoIcons.eye_fill),
+                          ? const Icon(CupertinoIcons.eye_slash_fill)
+                          : const Icon(CupertinoIcons.eye_fill),
                     ),
                   ),
                   SizedBox(height: 10.h),
@@ -92,11 +92,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         });
                       },
                       icon: showPassword
-                          ? Icon(CupertinoIcons.eye_slash_fill)
-                          : Icon(CupertinoIcons.eye_fill),
+                          ? const Icon(CupertinoIcons.eye_slash_fill)
+                          : const Icon(CupertinoIcons.eye_fill),
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   ButtonWidget(
                     child: Text(
                       "reset_password".tr(),

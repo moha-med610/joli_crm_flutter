@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:joli_crm/core/constants/api_constants.dart';
+import 'package:joli_crm/core/models/api_response_model.dart';
 import 'package:joli_crm/features/products/data/models/create_product_model.dart';
 import 'package:joli_crm/features/products/data/models/get_all_products_model.dart';
+import 'package:joli_crm/features/products/data/models/get_product_by_id_model.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 
@@ -27,5 +29,10 @@ abstract class BaseProductsDataSource {
     @Part(name: "productSize") String productSize,
     @Part(name: "productImage") MultipartFile productImage,
     @Part(name: "categoryId") String categoryId,
+  );
+
+  @GET(ApiConstants.getProductsById)
+  Future<ApiResponseModel<GetProductByIdModel>> getProductById(
+    @Path("productId") String id,
   );
 }

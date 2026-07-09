@@ -61,10 +61,10 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     hint: "email".tr(),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 ButtonWidget(
                   child: isLoading
-                      ? CupertinoActivityIndicator(
+                      ? const CupertinoActivityIndicator(
                           radius: 10,
                           color: Colors.white,
                         )

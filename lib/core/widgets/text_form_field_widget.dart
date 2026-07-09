@@ -38,7 +38,7 @@ class TextFormFieldWidget extends StatelessWidget {
             controller: _controller,
             obscureText: isSecureText,
             cursorColor: isDark ? Colors.white54 : Colors.black,
-            cursorRadius: Radius.circular(10),
+            cursorRadius: const Radius.circular(10),
             decoration: InputDecoration(
               hintText: hint,
               suffixIcon: suffixIcon,

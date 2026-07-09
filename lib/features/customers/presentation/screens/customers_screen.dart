@@ -146,7 +146,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
               },
               builder: (context, state) {
                 if (state is CustomerLoading) {
-                  return CustomersLoading();
+                  return const CustomersLoading();
                 }
                 if (state is CustomersSuccess) {
                   if (state.customers.isEmpty) {
@@ -165,11 +165,11 @@ class _CustomersScreenState extends State<CustomersScreen> {
                       SliverToBoxAdapter(
                         child: SearchWidget(
                           onTap: () {
-                            context.push(SearchCustomerScreen());
+                            context.push(const SearchCustomerScreen());
                           },
                         ),
                       ),
-                      SliverPadding(padding: .only(bottom: 10)),
+                      const SliverPadding(padding: .only(bottom: 10)),
                       SliverList(
                         delegate: SliverChildBuilderDelegate((context, index) {
                           final customer = state.customers[index];
@@ -197,7 +197,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
                   );
                 }
 
-                return SizedBox.shrink();
+                return const SizedBox.shrink();
               },
             ),
           );

@@ -13,7 +13,7 @@ class CustomersLoading extends StatelessWidget {
       child: ListView.builder(
         itemCount: 10,
         itemBuilder: (BuildContext context, int index) {
-          return CustomerWidget(
+          return const CustomerWidget(
             customerId: "customerId",
             title: "title",
             subtitle: "subtitle",

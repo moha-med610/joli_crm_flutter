@@ -35,14 +35,14 @@ void main() async {
     EasyLocalization(
       supportedLocales: const [Locale("en"), Locale("ar")],
       path: 'assets/translation',
-      fallbackLocale: Locale("ar"),
+      fallbackLocale: const Locale("ar"),
       saveLocale: true,
       child: MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => AppCubit()),
           BlocProvider(create: (_) => sl<AuthCubit>()),
         ],
-        child: MyApp(),
+        child: const MyApp(),
       ),
     ),
   );
@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
           theme: isDark ? darkTheme : lightTheme,
           darkTheme: darkTheme,
           themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
-          home: isAuthenticated != null ? MainScreen() : LoginScreen(),
+          home: isAuthenticated != null ? const MainScreen() : const LoginScreen(),
         );
       },
     );

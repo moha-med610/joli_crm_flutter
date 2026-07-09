@@ -19,14 +19,14 @@ class SelectImageFromWidget extends StatelessWidget {
       onTap: onTap,
       borderRadius: .circular(10),
       child: Container(
-        padding: .all(10),
+        padding: const .all(10),
         child: Row(
           children: [
             Text(
               title,
               style: TextStyle(fontSize: 20.sp, fontWeight: .bold),
             ),
-            Spacer(),
+            const Spacer(),
             Icon(icon, size: 30),
           ],
         ),

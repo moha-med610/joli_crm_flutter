@@ -53,15 +53,17 @@ class _AddProductScreenState extends State<AddProductScreen> {
       child: BlocConsumer<ProductsCubit, ProductsState>(
         listener: (context, state) {
           if (state is CreateProductSuccess) {
-            SnackBarWidgets.success(context, state.data.message);
-
             cubit.image = null;
+
+            SnackBarWidgets.success(context, state.data.message);
 
             context.pop();
             _productNameController.clear();
             _productPriceController.clear();
             _productDescriptionController.clear();
             _productSizeController.clear();
+
+            context.read<ProductsCubit>().refreshProducts();
           }
         },
         builder: (context, state) {
@@ -72,7 +74,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 child: ButtonWidget(
                   child: cubit.state is CreateProductLoading
-                      ? CupertinoActivityIndicator(
+                      ? const CupertinoActivityIndicator(
                           radius: 10,
                           color: Colors.white,
                         )
@@ -107,7 +109,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 child: Column(
                   spacing: 16.0,
                   children: [
-                    ImageWidget(),
+                    const ImageWidget(),
                     TextFormFieldWidget(
                       controller: _productNameController,
                       hint: "product_name".tr(),
@@ -124,7 +126,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       controller: _productSizeController,
                       hint: "product_size".tr(),
                     ),
-                    SizedBox(height: 30.0),
+                    const SizedBox(height: 30.0),
                   ],
                 ),
               ),

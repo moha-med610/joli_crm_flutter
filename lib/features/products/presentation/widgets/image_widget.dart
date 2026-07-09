@@ -24,7 +24,7 @@ class ImageWidget extends StatelessWidget {
       child: Column(
         children: [
           image == null
-              ? SizedBox.shrink()
+              ? const SizedBox.shrink()
               : Container(
                   width: .infinity,
                   height: 200,
@@ -32,7 +32,7 @@ class ImageWidget extends StatelessWidget {
                     image: DecorationImage(image: FileImage(image)),
                   ),
                 ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           InkWell(
             borderRadius: .circular(20),
             onTap: () {
@@ -48,7 +48,7 @@ class ImageWidget extends StatelessWidget {
                       context.pop();
                     },
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   SelectImageFromWidget(
                     title: "photos".tr(),
                     icon: CupertinoIcons.photo_fill,
@@ -61,7 +61,7 @@ class ImageWidget extends StatelessWidget {
               );
             },
             child: Container(
-              padding: .all(18),
+              padding: const .all(18),
               alignment: .center,
               decoration: BoxDecoration(borderRadius: .circular(20)),
               child: Row(
@@ -70,8 +70,8 @@ class ImageWidget extends StatelessWidget {
                     "product_image".tr(),
                     style: TextStyle(fontWeight: .bold, fontSize: 20.sp),
                   ),
-                  Spacer(),
-                  Icon(CupertinoIcons.photo),
+                  const Spacer(),
+                  const Icon(CupertinoIcons.photo),
                 ],
               ),
             ),

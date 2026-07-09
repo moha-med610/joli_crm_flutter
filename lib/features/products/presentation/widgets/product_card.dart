@@ -37,8 +37,8 @@ class ProductCardWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(20.r),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(
-                  theme.brightness == Brightness.dark ? .35 : .08,
+                color: Colors.black.withValues(
+                  alpha: theme.brightness == Brightness.dark ? .35 : .08,
                 ),
                 blurRadius: 10,
                 offset: const Offset(0, 5),
@@ -51,13 +51,14 @@ class ProductCardWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(3.5),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.vertical(
+                  borderRadius: const BorderRadius.vertical(
                     top: .circular(20),
                     bottom: .circular(10),
                   ),
                   child: CachedNetworkImage(
                     imageUrl: imageUrl,
                     width: double.infinity,
+                    height: 170.h,
                     fit: BoxFit.cover,
                     placeholder: (context, url) => Container(
                       width: double.infinity,

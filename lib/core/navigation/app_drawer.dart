@@ -30,14 +30,14 @@ class AppDrawer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset("assets/svgs/joli_crm_logo.svg", width: 50),
-                  SizedBox(width: 20),
+                  const SizedBox(width: 20),
                   Text(
                     "JOLI CRM",
                     style: TextStyle(fontSize: 24.sp, fontWeight: .bold),
                   ),
                 ],
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               Expanded(
                 flex: 10,
                 child: BlocBuilder<MainCubit, MainState>(
@@ -67,14 +67,14 @@ class AppDrawer extends StatelessWidget {
                   },
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               Logout(
                 onTap: () {
                   context.read<AuthCubit>().logout();
                   secureStorage.delete(key: StorageKeys.accessToken);
                   secureStorage.delete(key: StorageKeys.refreshToken);
                   prefs.remove(key: StorageKeys.role);
-                  context.pushAndRemoveUntil(LoginScreen());
+                  context.pushAndRemoveUntil(const LoginScreen());
                 },
               ),
             ],

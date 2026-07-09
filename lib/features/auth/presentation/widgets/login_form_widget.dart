@@ -48,8 +48,8 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 });
               },
               icon: showPassword
-                  ? Icon(CupertinoIcons.eye_slash_fill)
-                  : Icon(CupertinoIcons.eye_fill),
+                  ? const Icon(CupertinoIcons.eye_slash_fill)
+                  : const Icon(CupertinoIcons.eye_fill),
             ),
           ),
         ],

@@ -12,7 +12,7 @@ class SearchWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         height: 48,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
@@ -21,8 +21,8 @@ class SearchWidget extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(Icons.search),
-            SizedBox(width: 10),
+            const Icon(Icons.search),
+            const SizedBox(width: 10),
             Text(
               "search".tr(),
               style: TextStyle(

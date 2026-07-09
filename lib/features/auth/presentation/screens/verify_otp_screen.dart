@@ -35,7 +35,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
     return BlocProvider(
       create: (context) => sl<AuthCubit>(),
       child: AppLayout(
-        appBar: AppBarWidget(title: "OTP"),
+        appBar: const AppBarWidget(title: "OTP"),
         child: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state is AuthError) {

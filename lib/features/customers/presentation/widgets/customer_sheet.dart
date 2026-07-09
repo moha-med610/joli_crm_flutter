@@ -33,30 +33,30 @@ Future<void> customerSheet(
               hint: "name".tr(),
               validator: AppValidator.name,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextFormFieldWidget(
               controller: cPhoneController,
               hint: "phone".tr(),
               validator: AppValidator.phone,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextFormFieldWidget(
               controller: cAddressController,
               hint: "address".tr(),
               validator: AppValidator.address,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextFormFieldWidget(
               controller: cCityController,
               hint: "city".tr(),
               validator: AppValidator.city,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextFormFieldWidget(
               controller: cWhatsappController,
               hint: "whatsapp".tr(),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextFormFieldWidget(
               controller: cNotsController,
               hint: "notes".tr(),
@@ -66,9 +66,9 @@ Future<void> customerSheet(
           ],
         ),
       ),
-      SizedBox(height: 30),
+      const SizedBox(height: 30),
       isLoading
-          ? CupertinoActivityIndicator()
+          ? const CupertinoActivityIndicator()
           : ButtonWidget(
               onPressed: onSubmit,
               child: Text(

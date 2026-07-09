@@ -5,8 +5,10 @@ import 'package:joli_crm/core/services/image_picker_service.dart';
 import 'package:joli_crm/features/products/data/models/products_req_model.dart';
 import 'package:joli_crm/features/products/domain/entities/create_product_entity.dart';
 import 'package:joli_crm/features/products/domain/entities/get_all_products_entity.dart';
+import 'package:joli_crm/features/products/domain/entities/get_product_by_id_entity.dart';
 import 'package:joli_crm/features/products/domain/entities/product_entity.dart';
 import 'package:joli_crm/features/products/domain/use_cases/create_product_use_case.dart';
+import 'package:joli_crm/features/products/domain/use_cases/get_product_by_id_use_case.dart';
 import 'package:joli_crm/features/products/domain/use_cases/get_products_use_case.dart';
 import 'package:meta/meta.dart';
 
@@ -17,11 +19,13 @@ class ProductsCubit extends Cubit<ProductsState> {
     this._imagePickerService,
     this._createProductUseCase,
     this._getAllProductsUseCase,
+    this._getProductByIdUseCase,
   ) : super(ProductsInitial());
 
   final ImagePickerService _imagePickerService;
   final CreateProductUseCase _createProductUseCase;
   final GetAllProductsUseCase _getAllProductsUseCase;
+  final GetProductByIdUseCase _getProductByIdUseCase;
 
   File? image;
   bool _isLoading = false;
@@ -102,9 +106,7 @@ class ProductsCubit extends Cubit<ProductsState> {
     if (!hasMore || _isLoading) return;
 
     _isLoading = true;
-    emit(LoadMoreLoading());
 
-    // await Future.delayed(Duration(seconds: 5));
     final result = await _getAllProductsUseCase(++_page, _limit);
 
     result.fold((err) => emit(ProductsError(err.message)), (data) {
@@ -132,5 +134,21 @@ class ProductsCubit extends Cubit<ProductsState> {
     products.clear();
 
     await getAllProducts();
+  }
+
+  Future<void> getProductById(String id) async {
+    if (_isLoading) return;
+
+    _isLoading = true;
+    emit(GetProductByIdLoading());
+
+    final result = await _getProductByIdUseCase(id);
+
+    result.fold(
+      (err) => emit(ProductsError(err.message)),
+      (data) => emit(GetProductByIdSuccess(data)),
+    );
+
+    _isLoading = false;
   }
 }

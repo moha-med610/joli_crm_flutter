@@ -18,7 +18,7 @@ class ForgetPasswordWidget extends StatelessWidget {
           return GestureDetector(
             onTap: onTap,
             child: Container(
-              padding: EdgeInsets.only(right: 10),
+              padding: const EdgeInsets.only(right: 10),
               alignment: Alignment.centerRight,
               child: Text(
                 "forget_password".tr(),

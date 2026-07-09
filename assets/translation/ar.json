@@ -57,5 +57,7 @@
   "product_image": "صوره المنتج",
   "select_image_from": "اختيار الصوره من",
   "camera": "الكاميرا",
-  "photos": "الصور"
+  "photos": "الصور",
+  "product_details": "تفاصيل المنتج",
+  "product_category": "فئه المنتج"
 }
