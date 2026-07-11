@@ -1,5 +1,7 @@
+import 'package:context_menu_android/context_menu_android.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:joli_crm/core/services/get_it_service.dart';
 import 'package:joli_crm/core/utils/navigator_helper.dart';
@@ -64,6 +66,12 @@ class _ProductsScreenState extends State<ProductsScreen> {
             if (state is ProductsError) {
               SnackBarWidgets.error(context, state.message);
             }
+
+            if (state is DeleteProductSuccess) {
+              SnackBarWidgets.success(context, state.data.message);
+
+              cubit.refreshProducts();
+            }
           },
           builder: (context, state) {
             if (state is GetAllProductsLoading) {
@@ -86,15 +94,33 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
                   return Padding(
                     padding: const EdgeInsets.all(5.0),
-                    child: ProductCardWidget(
-                      onTap: () {
-                        context.push(ProductDetails(id: product.id));
-                      },
-                      imageUrl: product.productImage,
-                      productName: product.productName,
-                      productPrice: double.parse(
-                        product.productPrice.toString(),
-                      ).toString(),
+                    child: ContextMenuWrapper(
+                      actions: [
+                        ContextMenuItem(
+                          icon: Icons.delete,
+                          label: 'delete'.tr(),
+                          onTap: () {
+                            context.read<ProductsCubit>().deleteProduct(
+                              id: product.id,
+                            );
+                          },
+                        ),
+                        ContextMenuItem(
+                          icon: Icons.edit,
+                          label: 'update'.tr(),
+                          onTap: () {
+                            context.push(const Scaffold());
+                          },
+                        ),
+                      ],
+                      child: ProductCardWidget(
+                        onTap: () {
+                          context.push(ProductDetails(id: product.id));
+                        },
+                        imageUrl: product.productImage,
+                        productName: product.productName,
+                        productPrice: product.productPrice.toString(),
+                      ),
                     ),
                   );
                 },

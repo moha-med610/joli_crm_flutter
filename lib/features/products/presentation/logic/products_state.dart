@@ -35,6 +35,22 @@ final class GetProductByIdSuccess extends ProductsState {
 
 final class GetProductByIdLoading extends ProductsState {}
 
+final class UpdateProductLoading extends ProductsState {}
+
+final class UpdateProductSuccess extends ProductsState {
+  final UpdateProductEntity data;
+
+  UpdateProductSuccess(this.data);
+}
+
+final class DeleteProductLoading extends ProductsState {}
+
+final class DeleteProductSuccess extends ProductsState {
+  final DeleteProductEntity data;
+
+  DeleteProductSuccess(this.data);
+}
+
 final class ProductsError extends ProductsState {
   final String message;
 

@@ -14,11 +14,14 @@ class ProductLoading extends StatelessWidget {
       ),
       itemCount: 10,
       itemBuilder: (BuildContext context, int index) {
-        return const Skeletonizer(
-          child: ProductCardWidget(
-            imageUrl: "",
-            productName: "",
-            productPrice: "",
+        return const Padding(
+          padding: EdgeInsets.all(5.0),
+          child: Skeletonizer(
+            child: ProductCardWidget(
+              imageUrl: "",
+              productName: "1234567890",
+              productPrice: "1234567890",
+            ),
           ),
         );
       },

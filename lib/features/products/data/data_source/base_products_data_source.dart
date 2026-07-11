@@ -1,9 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:joli_crm/core/constants/api_constants.dart';
 import 'package:joli_crm/core/models/api_response_model.dart';
+import 'package:joli_crm/core/models/empty_response_model.dart';
 import 'package:joli_crm/features/products/data/models/create_product_model.dart';
 import 'package:joli_crm/features/products/data/models/get_all_products_model.dart';
 import 'package:joli_crm/features/products/data/models/get_product_by_id_model.dart';
+import 'package:joli_crm/features/products/data/models/update_product_model.dart';
+import 'package:joli_crm/features/products/data/models/update_product_req_model.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 
@@ -33,6 +36,17 @@ abstract class BaseProductsDataSource {
 
   @GET(ApiConstants.getProductsById)
   Future<ApiResponseModel<GetProductByIdModel>> getProductById(
+    @Path("productId") String id,
+  );
+
+  @PATCH(ApiConstants.updateProduct)
+  Future<ApiResponseModel<UpdateProductModel>> updateProduct(
+    @Path("productId") String id,
+    @Body() UpdateProductReqModel data,
+  );
+
+  @DELETE(ApiConstants.deleteProduct)
+  Future<ApiResponseModel<EmptyResponseModel>> deleteProduct(
     @Path("productId") String id,
   );
 }

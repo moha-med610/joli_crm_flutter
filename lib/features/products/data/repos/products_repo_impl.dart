@@ -5,9 +5,12 @@ import 'package:joli_crm/core/errors/failure.dart';
 import 'package:joli_crm/core/utils/build_image.dart';
 import 'package:joli_crm/features/products/data/data_source/base_products_data_source.dart';
 import 'package:joli_crm/features/products/data/models/products_req_model.dart';
+import 'package:joli_crm/features/products/data/models/update_product_req_model.dart';
 import 'package:joli_crm/features/products/domain/entities/create_product_entity.dart';
+import 'package:joli_crm/features/products/domain/entities/delete_product_entity.dart';
 import 'package:joli_crm/features/products/domain/entities/get_all_products_entity.dart';
 import 'package:joli_crm/features/products/domain/entities/get_product_by_id_entity.dart';
+import 'package:joli_crm/features/products/domain/entities/update_product_entity.dart';
 import 'package:joli_crm/features/products/domain/repos/base_products_repo.dart';
 
 class ProductsRepoImpl implements BaseProductsRepo {
@@ -70,6 +73,41 @@ class ProductsRepoImpl implements BaseProductsRepo {
         message: res.message,
         data: res.data.product.toEntity(),
       );
+      return Right(toEntity);
+    } on DioException catch (e) {
+      return Left(DioErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UpdateProductEntity>> updateProduct(
+    String id,
+    UpdateProductReqModel data,
+  ) async {
+    try {
+      final res = await _productsDataSource.updateProduct(id, data);
+
+      UpdateProductEntity toEntity = UpdateProductEntity(
+        message: res.message,
+        data: res.data.product.toEntity(),
+      );
+
+      return Right(toEntity);
+    } on DioException catch (e) {
+      return Left(DioErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, DeleteProductEntity>> deleteProduct(String id) async {
+    try {
+      final res = await _productsDataSource.deleteProduct(id);
+
+      DeleteProductEntity toEntity = DeleteProductEntity(
+        message: res.message,
+        data: res.data.toJson(),
+      );
+
       return Right(toEntity);
     } on DioException catch (e) {
       return Left(DioErrorHandler.handle(e));

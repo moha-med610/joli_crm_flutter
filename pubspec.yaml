@@ -36,6 +36,7 @@ dependencies:
   cached_network_image: ^3.4.1
   flutter_native_splash: ^2.4.8
   flutter_launcher_icons: ^0.14.4
+  context_menu_android: ^1.2.0
 
 flutter_launcher_icons:
   android: "launcher_icon"

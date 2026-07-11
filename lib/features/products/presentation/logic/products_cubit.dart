@@ -3,13 +3,18 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:joli_crm/core/services/image_picker_service.dart';
 import 'package:joli_crm/features/products/data/models/products_req_model.dart';
+import 'package:joli_crm/features/products/data/models/update_product_req_model.dart';
 import 'package:joli_crm/features/products/domain/entities/create_product_entity.dart';
+import 'package:joli_crm/features/products/domain/entities/delete_product_entity.dart';
 import 'package:joli_crm/features/products/domain/entities/get_all_products_entity.dart';
 import 'package:joli_crm/features/products/domain/entities/get_product_by_id_entity.dart';
 import 'package:joli_crm/features/products/domain/entities/product_entity.dart';
+import 'package:joli_crm/features/products/domain/entities/update_product_entity.dart';
 import 'package:joli_crm/features/products/domain/use_cases/create_product_use_case.dart';
+import 'package:joli_crm/features/products/domain/use_cases/delete_product_use_case.dart';
 import 'package:joli_crm/features/products/domain/use_cases/get_product_by_id_use_case.dart';
 import 'package:joli_crm/features/products/domain/use_cases/get_products_use_case.dart';
+import 'package:joli_crm/features/products/domain/use_cases/update_product_use_case.dart';
 import 'package:meta/meta.dart';
 
 part 'products_state.dart';
@@ -20,12 +25,16 @@ class ProductsCubit extends Cubit<ProductsState> {
     this._createProductUseCase,
     this._getAllProductsUseCase,
     this._getProductByIdUseCase,
+    this._updateProductUseCase,
+    this._deleteProductUseCase,
   ) : super(ProductsInitial());
 
   final ImagePickerService _imagePickerService;
   final CreateProductUseCase _createProductUseCase;
   final GetAllProductsUseCase _getAllProductsUseCase;
   final GetProductByIdUseCase _getProductByIdUseCase;
+  final UpdateProductUseCase _updateProductUseCase;
+  final DeleteProductUseCase _deleteProductUseCase;
 
   File? image;
   bool _isLoading = false;
@@ -147,6 +156,55 @@ class ProductsCubit extends Cubit<ProductsState> {
     result.fold(
       (err) => emit(ProductsError(err.message)),
       (data) => emit(GetProductByIdSuccess(data)),
+    );
+
+    _isLoading = false;
+  }
+
+  Future<void> updateProduct({
+    required String id,
+    File? productImage,
+    String? productName,
+    String? productDescription,
+    String? productSize,
+    double? productPrice,
+    String? categoryId,
+  }) async {
+    if (_isLoading) return;
+
+    _isLoading = true;
+    emit(UpdateProductLoading());
+
+    final result = await _updateProductUseCase(
+      id: id,
+      data: UpdateProductReqModel(
+        productName: productName,
+        productImage: productImage,
+        productDescription: productDescription,
+        productPrice: productPrice,
+        productSize: productSize,
+      ),
+    );
+
+    result.fold(
+      (err) => emit(ProductsError(err.message)),
+      (data) => emit(UpdateProductSuccess(data)),
+    );
+
+    _isLoading = false;
+  }
+
+  Future<void> deleteProduct({required String id}) async {
+    if (_isLoading) return;
+
+    _isLoading = true;
+    emit(DeleteProductLoading());
+
+    final result = await _deleteProductUseCase(id);
+
+    result.fold(
+      (err) => emit(ProductsError(err.message)),
+      (data) => emit(DeleteProductSuccess(data)),
     );
 
     _isLoading = false;
