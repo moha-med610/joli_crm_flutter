@@ -69,11 +69,12 @@ class ProductsRepoImpl implements BaseProductsRepo {
     try {
       final res = await _productsDataSource.getProductById(id);
 
-      GetProductByIdEntity toEntity = GetProductByIdEntity(
-        message: res.message,
-        data: res.data.product.toEntity(),
+      return Right(
+        GetProductByIdEntity(
+          message: res.message,
+          data: res.data.product.toEntity(),
+        ),
       );
-      return Right(toEntity);
     } on DioException catch (e) {
       return Left(DioErrorHandler.handle(e));
     }
@@ -87,12 +88,12 @@ class ProductsRepoImpl implements BaseProductsRepo {
     try {
       final res = await _productsDataSource.updateProduct(id, data);
 
-      UpdateProductEntity toEntity = UpdateProductEntity(
-        message: res.message,
-        data: res.data.product.toEntity(),
+      return Right(
+        UpdateProductEntity(
+          message: res.message,
+          data: res.data.product.toEntity(),
+        ),
       );
-
-      return Right(toEntity);
     } on DioException catch (e) {
       return Left(DioErrorHandler.handle(e));
     }
@@ -103,12 +104,9 @@ class ProductsRepoImpl implements BaseProductsRepo {
     try {
       final res = await _productsDataSource.deleteProduct(id);
 
-      DeleteProductEntity toEntity = DeleteProductEntity(
-        message: res.message,
-        data: res.data.toJson(),
+      return Right(
+        DeleteProductEntity(message: res.message, data: res.data.toJson()),
       );
-
-      return Right(toEntity);
     } on DioException catch (e) {
       return Left(DioErrorHandler.handle(e));
     }
