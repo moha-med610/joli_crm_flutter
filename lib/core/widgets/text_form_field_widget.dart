@@ -42,9 +42,7 @@ class TextFormFieldWidget extends StatelessWidget {
             decoration: InputDecoration(
               hintText: hint,
               suffixIcon: suffixIcon,
-              hintStyle: TextStyle(
-                color: isDark ? Colors.grey.shade500 : Colors.black,
-              ),
+              hintStyle: const TextStyle(color: Colors.grey),
               suffixIconColor: isDark ? Colors.white54 : Colors.black,
             ),
             style: TextStyle(color: isDark ? Colors.white : Colors.black),

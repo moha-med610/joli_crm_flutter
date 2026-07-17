@@ -8,15 +8,15 @@ import 'package:joli_crm/core/widgets/text_form_field_widget.dart';
 
 Future<void> customerSheet(
   BuildContext context, {
-  /// Return `true` when operation succeeded and sheet should close.
-  required Future<bool> Function({
+  required Future<void> Function({
     required String name,
     required String phone,
     String? whatsapp,
     required String address,
     required String city,
     String? notes,
-  }) onSubmit,
+  })
+  onSubmit,
   required String initialName,
   required String initialPhone,
   required String initialAddress,
@@ -33,10 +33,12 @@ Future<void> customerSheet(
   final cPhoneController = TextEditingController(text: initialPhone);
   final cAddressController = TextEditingController(text: initialAddress);
   final cCityController = TextEditingController(text: initialCity);
-  final cWhatsappController = TextEditingController(text: initialWhatsapp ?? '');
+  final cWhatsappController = TextEditingController(
+    text: initialWhatsapp ?? '',
+  );
   final cNotsController = TextEditingController(text: initialNotes ?? '');
 
-  await bottomSheetWidget(
+  return bottomSheetWidget(
     context,
     title: header,
     children: [
@@ -100,7 +102,6 @@ Future<void> customerSheet(
                         ? null
                         : cNotsController.text.trim(),
                   );
-                  if (success) Navigator.of(context).pop();
                 }
               },
               child: Text(

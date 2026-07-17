@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:joli_crm/core/utils/navigator_helper.dart';
 import 'package:joli_crm/features/customers/presentation/logic/customer_cubit.dart';
 import 'package:joli_crm/features/customers/presentation/widgets/customer_sheet.dart';
 
-class CustomerWidget extends StatefulWidget {
+class CustomerWidget extends StatelessWidget {
   const CustomerWidget({
     super.key,
     this.onTap,
@@ -37,83 +36,33 @@ class CustomerWidget extends StatefulWidget {
   final String? notes;
 
   @override
-  State<CustomerWidget> createState() => _CustomerWidgetState();
-}
-
-class _CustomerWidgetState extends State<CustomerWidget> {
-  late final TextEditingController _nameController;
-  late final TextEditingController _phoneController;
-  late final TextEditingController _addressController;
-  late final TextEditingController _cityController;
-  late final TextEditingController _whatsappController;
-  late final TextEditingController _notsController;
-
-  final GlobalKey<FormState> _formKey = GlobalKey();
-
-  @override
-  void initState() {
-    super.initState();
-
-    _nameController = TextEditingController(text: widget.name);
-    _phoneController = TextEditingController(text: widget.phone);
-    _addressController = TextEditingController(text: widget.address);
-    _cityController = TextEditingController(text: widget.city);
-    _whatsappController = TextEditingController(text: widget.whatsapp ?? '');
-    _notsController = TextEditingController(text: widget.notes ?? '');
-  }
-
-  @override
-  void didUpdateWidget(covariant CustomerWidget oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    if (oldWidget.customerId != widget.customerId) {
-      _nameController.text = widget.name;
-      _phoneController.text = widget.phone;
-      _whatsappController.text = widget.whatsapp ?? '';
-      _addressController.text = widget.address;
-      _cityController.text = widget.city;
-      _notsController.text = widget.notes ?? '';
-    }
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _phoneController.dispose();
-    _addressController.dispose();
-    _cityController.dispose();
-    _whatsappController.dispose();
-    _notsController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: InkWell(
         borderRadius: .circular(10),
-        onTap: widget.onTap,
+        onTap: onTap,
         child: ClipRRect(
           borderRadius: BorderRadiusGeometry.circular(10),
           child: Slidable(
             closeOnScroll: true,
             dragStartBehavior: .start,
-            key: ValueKey(widget.customerId),
+            key: ValueKey(customerId),
             endActionPane: ActionPane(
               motion: const StretchMotion(),
               children: [
                 SlidableAction(
                   onPressed: (_) {
+                    final cubit = context.read<CustomerCubit>();
                     customerSheet(
                       context,
                       header: "update_customer".tr(),
-                      initialName: widget.name,
-                      initialPhone: widget.phone,
-                      initialAddress: widget.address,
-                      initialCity: widget.city,
-                      initialWhatsapp: widget.whatsapp,
-                      initialNotes: widget.notes,
+                      initialName: name,
+                      initialPhone: phone,
+                      initialAddress: address,
+                      initialCity: city,
+                      initialWhatsapp: whatsapp,
+                      initialNotes: notes,
                       onSubmit:
                           ({
                             required String name,
@@ -123,24 +72,16 @@ class _CustomerWidgetState extends State<CustomerWidget> {
                             required String city,
                             String? notes,
                           }) async {
-                           final cubit = context.read<CustomerCubit>();
-                           cubit.updateCustomer(
-                             customerId: widget.customerId,
-                             name: name.isEmpty ? widget.name : name,
-                             phone: phone.isEmpty ? widget.phone : phone,
-                             whatsapp: whatsapp,
-                             address: address.isEmpty
-                                 ? widget.address
-                                 : address,
-                             city: city.isEmpty ? widget.city : city,
-                             notes: notes,
-                           );
-
-                           final state = await cubit.stream.firstWhere((s) =>
-                               s is UpdateCustomerSuccess || s is CustomerError);
-                           return state is UpdateCustomerSuccess;
-                         },
-
+                            cubit.updateCustomer(
+                              customerId: customerId,
+                              name: name.isEmpty ? this.name : name,
+                              phone: phone.isEmpty ? this.phone : phone,
+                              whatsapp: whatsapp,
+                              address: address.isEmpty ? this.address : address,
+                              city: city.isEmpty ? this.city : city,
+                              notes: notes,
+                            );
+                          },
                       buttonText: "update_customer".tr(),
                     );
                   },
@@ -152,7 +93,7 @@ class _CustomerWidgetState extends State<CustomerWidget> {
                 SlidableAction(
                   onPressed: (_) async {
                     await context.read<CustomerCubit>().deleteCustomer(
-                      customerId: widget.customerId,
+                      customerId: customerId,
                     );
                   },
                   icon: CupertinoIcons.delete_solid,
@@ -164,15 +105,15 @@ class _CustomerWidgetState extends State<CustomerWidget> {
             ),
             child: ListTile(
               title: Text(
-                widget.title,
+                title,
                 style: TextStyle(fontSize: 22.sp, fontWeight: .bold),
               ),
               subtitle: Text(
-                widget.subtitle,
+                subtitle,
                 style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
               ),
               trailing: Text(
-                widget.trailing,
+                trailing,
                 style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
               ),
               shape: RoundedRectangleBorder(

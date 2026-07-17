@@ -33,8 +33,6 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
   final ScrollController _scrollController = ScrollController();
 
-  final GlobalKey<FormState> _formKey = GlobalKey();
-
   late final CustomerCubit cubit;
 
   @override
@@ -78,28 +76,24 @@ class _CustomersScreenState extends State<CustomersScreen> {
       initialCity: '',
       initialWhatsapp: '',
       initialNotes: '',
-      onSubmit: ({
-        required String name,
-        required String phone,
-        String? whatsapp,
-        required String address,
-        required String city,
-        String? notes,
-      }) async {
-        // Trigger create and wait for success/error state to decide closing sheet
-        cubit.createCustomer(
-          name: name.trim(),
-          phone: phone.trim(),
-          address: address.trim(),
-          city: city.trim(),
-          whatsapp: whatsapp?.trim(),
-          notes: notes?.trim(),
-        );
-
-        final state = await cubit.stream.firstWhere((s) =>
-            s is CreateCustomerSuccess || s is CustomerError);
-        return state is CreateCustomerSuccess;
-      },
+      onSubmit:
+          ({
+            required String name,
+            required String phone,
+            String? whatsapp,
+            required String address,
+            required String city,
+            String? notes,
+          }) async {
+            cubit.createCustomer(
+              name: name.trim(),
+              phone: phone.trim(),
+              address: address.trim(),
+              city: city.trim(),
+              whatsapp: whatsapp?.trim(),
+              notes: notes?.trim(),
+            );
+          },
     );
   }
 
@@ -118,14 +112,14 @@ class _CustomersScreenState extends State<CustomersScreen> {
             ),
             child: BlocConsumer<CustomerCubit, CustomerState>(
               listener: (context, state) {
+                if (state is CustomerError) {
+                  SnackBarWidgets.error(context, state.message);
+                }
+
                 if (state is CreateCustomerSuccess) {
                   cubit.refreshCustomers();
 
                   SnackBarWidgets.success(context, state.data.message);
-                }
-
-                if (state is CustomerError) {
-                  SnackBarWidgets.error(context, state.message);
                 }
 
                 if (state is DeleteCustomerSuccess) {
@@ -135,6 +129,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
                 }
 
                 if (state is UpdateCustomerSuccess) {
+                  context.pop();
                   context.read<CustomerCubit>().refreshCustomers();
 
                   SnackBarWidgets.success(context, state.data.message);
