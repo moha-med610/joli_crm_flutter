@@ -8,19 +8,34 @@ import 'package:joli_crm/core/widgets/text_form_field_widget.dart';
 
 Future<void> customerSheet(
   BuildContext context, {
-  required void Function() onSubmit,
-  required TextEditingController cNameController,
-  required TextEditingController cPhoneController,
-  required TextEditingController cAddressController,
-  required TextEditingController cCityController,
-  required TextEditingController cWhatsappController,
-  required TextEditingController cNotsController,
-  required GlobalKey<FormState> formKey,
+  required Future<void> Function({
+    required String name,
+    required String phone,
+    String? whatsapp,
+    required String address,
+    required String city,
+    String? notes,
+  }) onSubmit,
+  required String initialName,
+  required String initialPhone,
+  required String initialAddress,
+  required String initialCity,
+  String? initialWhatsapp,
+  String? initialNotes,
   required String buttonText,
   bool isLoading = false,
   required String header,
-}) {
-  return bottomSheetWidget(
+}) async {
+  final formKey = GlobalKey<FormState>();
+
+  final cNameController = TextEditingController(text: initialName);
+  final cPhoneController = TextEditingController(text: initialPhone);
+  final cAddressController = TextEditingController(text: initialAddress);
+  final cCityController = TextEditingController(text: initialCity);
+  final cWhatsappController = TextEditingController(text: initialWhatsapp ?? '');
+  final cNotsController = TextEditingController(text: initialNotes ?? '');
+
+  await bottomSheetWidget(
     context,
     title: header,
     children: [
@@ -70,7 +85,23 @@ Future<void> customerSheet(
       isLoading
           ? const CupertinoActivityIndicator()
           : ButtonWidget(
-              onPressed: onSubmit,
+              onPressed: () async {
+                if (formKey.currentState!.validate()) {
+                  await onSubmit(
+                    name: cNameController.text.trim(),
+                    phone: cPhoneController.text.trim(),
+                    whatsapp: cWhatsappController.text.trim().isEmpty
+                        ? null
+                        : cWhatsappController.text.trim(),
+                    address: cAddressController.text.trim(),
+                    city: cCityController.text.trim(),
+                    notes: cNotsController.text.trim().isEmpty
+                        ? null
+                        : cNotsController.text.trim(),
+                  );
+                  Navigator.of(context).pop();
+                }
+              },
               child: Text(
                 buttonText,
                 style: Theme.of(
@@ -80,4 +111,12 @@ Future<void> customerSheet(
             ),
     ],
   );
+
+  // dispose controllers after sheet closed
+  cNameController.dispose();
+  cPhoneController.dispose();
+  cAddressController.dispose();
+  cCityController.dispose();
+  cWhatsappController.dispose();
+  cNotsController.dispose();
 }

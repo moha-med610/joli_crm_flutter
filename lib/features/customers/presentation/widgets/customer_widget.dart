@@ -53,12 +53,27 @@ class _CustomerWidgetState extends State<CustomerWidget> {
   @override
   void initState() {
     super.initState();
+
     _nameController = TextEditingController(text: widget.name);
     _phoneController = TextEditingController(text: widget.phone);
-    _whatsappController = TextEditingController(text: widget.whatsapp);
     _addressController = TextEditingController(text: widget.address);
     _cityController = TextEditingController(text: widget.city);
-    _notsController = TextEditingController(text: widget.notes);
+    _whatsappController = TextEditingController(text: widget.whatsapp ?? '');
+    _notsController = TextEditingController(text: widget.notes ?? '');
+  }
+
+  @override
+  void didUpdateWidget(covariant CustomerWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.customerId != widget.customerId) {
+      _nameController.text = widget.name;
+      _phoneController.text = widget.phone;
+      _whatsappController.text = widget.whatsapp ?? '';
+      _addressController.text = widget.address;
+      _cityController.text = widget.city;
+      _notsController.text = widget.notes ?? '';
+    }
   }
 
   @override
@@ -77,12 +92,13 @@ class _CustomerWidgetState extends State<CustomerWidget> {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: InkWell(
-        borderRadius: .circular(20),
+        borderRadius: .circular(10),
         onTap: widget.onTap,
         child: ClipRRect(
-          borderRadius: BorderRadiusGeometry.circular(20),
+          borderRadius: BorderRadiusGeometry.circular(10),
           child: Slidable(
             closeOnScroll: true,
+            dragStartBehavior: .start,
             key: ValueKey(widget.customerId),
             endActionPane: ActionPane(
               motion: const StretchMotion(),
@@ -91,44 +107,33 @@ class _CustomerWidgetState extends State<CustomerWidget> {
                   onPressed: (_) {
                     print(widget.phone);
                     customerSheet(
-                      header: "update_customer".tr(),
                       context,
-                      onSubmit: () {
-                        if (_formKey.currentState!.validate()) {
-                          context.read<CustomerCubit>().updateCustomer(
-                            customerId: widget.customerId,
-                            name: _nameController.text.trim().isEmpty
-                                ? widget.name
-                                : _nameController.text.trim(),
-                            phone: _phoneController.text.trim().isEmpty
-                                ? widget.phone
-                                : _phoneController.text.trim(),
-                            whatsapp: _whatsappController.text.trim().isEmpty
-                                ? null
-                                : _whatsappController.text.trim(),
-                            address: _addressController.text.trim().isEmpty
-                                ? widget.address
-                                : _addressController.text.trim(),
-                            city: _cityController.text.trim().isEmpty
-                                ? widget.city
-                                : _cityController.text.trim(),
-                            notes: _notsController.text.trim().isEmpty
-                                ? null
-                                : _notsController.text.trim(),
-                          );
-                        } else {
-                          context.pop();
-                        }
-                        context.pop();
+                      header: "update_customer".tr(),
+                      initialName: widget.name,
+                      initialPhone: widget.phone,
+                      initialAddress: widget.address,
+                      initialCity: widget.city,
+                      initialWhatsapp: widget.whatsapp,
+                      initialNotes: widget.notes,
+                      onSubmit: ({
+                        required String name,
+                        required String phone,
+                        String? whatsapp,
+                        required String address,
+                        required String city,
+                        String? notes,
+                      }) async {
+                        await context.read<CustomerCubit>().updateCustomer(
+                          customerId: widget.customerId,
+                          name: name.isEmpty ? widget.name : name,
+                          phone: phone.isEmpty ? widget.phone : phone,
+                          whatsapp: whatsapp,
+                          address: address.isEmpty ? widget.address : address,
+                          city: city.isEmpty ? widget.city : city,
+                          notes: notes,
+                        );
                       },
                       buttonText: "update_customer".tr(),
-                      cNameController: _nameController,
-                      cPhoneController: _phoneController,
-                      cAddressController: _addressController,
-                      cCityController: _cityController,
-                      cWhatsappController: _whatsappController,
-                      cNotsController: _notsController,
-                      formKey: _formKey,
                     );
                   },
                   icon: CupertinoIcons.pen,
@@ -163,7 +168,7 @@ class _CustomerWidgetState extends State<CustomerWidget> {
                 style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
               ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(10),
                 side: BorderSide(width: .3, color: Colors.grey.shade600),
               ),
               contentPadding: const EdgeInsets.all(14),

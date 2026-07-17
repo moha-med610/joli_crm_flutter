@@ -68,41 +68,32 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
   void _formSubmit() {
     customerSheet(
+      context,
       header: "add_new_customer".tr(),
       isLoading: cubit.state is CreateCustomerLoading,
-      context,
       buttonText: "add_customer".tr(),
-      cNameController: _nameController,
-      cPhoneController: _phoneController,
-      cAddressController: _addressController,
-      cCityController: _cityController,
-      cWhatsappController: _whatsappController,
-      cNotsController: _notsController,
-      formKey: _formKey,
-      onSubmit: () {
-        if (_formKey.currentState!.validate()) {
-          cubit.createCustomer(
-            name: _nameController.text.trim(),
-            phone: _phoneController.text.trim(),
-            address: _addressController.text.trim(),
-            city: _cityController.text.trim(),
-            whatsapp: _whatsappController.text.trim().isEmpty
-                ? null
-                : _whatsappController.text.trim(),
-            notes: _notsController.text.trim().isEmpty
-                ? null
-                : _notsController.text.trim(),
-          );
-          _nameController.clear();
-          _phoneController.clear();
-          _addressController.clear();
-          _cityController.clear();
-          _whatsappController.clear();
-          _notsController.clear();
-        } else {
-          context.pop();
-        }
-        context.pop();
+      initialName: '',
+      initialPhone: '',
+      initialAddress: '',
+      initialCity: '',
+      initialWhatsapp: '',
+      initialNotes: '',
+      onSubmit: ({
+        required String name,
+        required String phone,
+        String? whatsapp,
+        required String address,
+        required String city,
+        String? notes,
+      }) async {
+        cubit.createCustomer(
+          name: name.trim(),
+          phone: phone.trim(),
+          address: address.trim(),
+          city: city.trim(),
+          whatsapp: whatsapp?.trim(),
+          notes: notes?.trim(),
+        );
       },
     );
   }
