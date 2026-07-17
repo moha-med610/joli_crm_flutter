@@ -86,6 +86,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
         required String city,
         String? notes,
       }) async {
+        // Trigger create and wait for success/error state to decide closing sheet
         cubit.createCustomer(
           name: name.trim(),
           phone: phone.trim(),
@@ -94,6 +95,10 @@ class _CustomersScreenState extends State<CustomersScreen> {
           whatsapp: whatsapp?.trim(),
           notes: notes?.trim(),
         );
+
+        final state = await cubit.stream.firstWhere((s) =>
+            s is CreateCustomerSuccess || s is CustomerError);
+        return state is CreateCustomerSuccess;
       },
     );
   }

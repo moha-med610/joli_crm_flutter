@@ -105,7 +105,6 @@ class _CustomerWidgetState extends State<CustomerWidget> {
               children: [
                 SlidableAction(
                   onPressed: (_) {
-                    print(widget.phone);
                     customerSheet(
                       context,
                       header: "update_customer".tr(),
@@ -115,24 +114,33 @@ class _CustomerWidgetState extends State<CustomerWidget> {
                       initialCity: widget.city,
                       initialWhatsapp: widget.whatsapp,
                       initialNotes: widget.notes,
-                      onSubmit: ({
-                        required String name,
-                        required String phone,
-                        String? whatsapp,
-                        required String address,
-                        required String city,
-                        String? notes,
-                      }) async {
-                        await context.read<CustomerCubit>().updateCustomer(
-                          customerId: widget.customerId,
-                          name: name.isEmpty ? widget.name : name,
-                          phone: phone.isEmpty ? widget.phone : phone,
-                          whatsapp: whatsapp,
-                          address: address.isEmpty ? widget.address : address,
-                          city: city.isEmpty ? widget.city : city,
-                          notes: notes,
-                        );
-                      },
+                      onSubmit:
+                          ({
+                            required String name,
+                            required String phone,
+                            String? whatsapp,
+                            required String address,
+                            required String city,
+                            String? notes,
+                          }) async {
+                           final cubit = context.read<CustomerCubit>();
+                           cubit.updateCustomer(
+                             customerId: widget.customerId,
+                             name: name.isEmpty ? widget.name : name,
+                             phone: phone.isEmpty ? widget.phone : phone,
+                             whatsapp: whatsapp,
+                             address: address.isEmpty
+                                 ? widget.address
+                                 : address,
+                             city: city.isEmpty ? widget.city : city,
+                             notes: notes,
+                           );
+
+                           final state = await cubit.stream.firstWhere((s) =>
+                               s is UpdateCustomerSuccess || s is CustomerError);
+                           return state is UpdateCustomerSuccess;
+                         },
+
                       buttonText: "update_customer".tr(),
                     );
                   },
