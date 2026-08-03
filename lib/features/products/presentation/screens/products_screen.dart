@@ -11,6 +11,7 @@ import 'package:joli_crm/core/widgets/snack_bar_widgets.dart';
 import 'package:joli_crm/features/products/presentation/logic/products_cubit.dart';
 import 'package:joli_crm/features/products/presentation/screens/add_product_screen.dart';
 import 'package:joli_crm/features/products/presentation/screens/product_details.dart';
+import 'package:joli_crm/features/products/presentation/screens/update_product_screen.dart';
 import 'package:joli_crm/features/products/presentation/widgets/product_card.dart';
 import 'package:joli_crm/features/products/presentation/widgets/product_loading.dart';
 
@@ -109,7 +110,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                           icon: Icons.edit,
                           label: 'update'.tr(),
                           onTap: () {
-                            context.push(const Scaffold());
+                            context.push(const UpdateProductScreen());
                           },
                         ),
                       ],

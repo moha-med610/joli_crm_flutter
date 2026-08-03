@@ -58,5 +58,6 @@
   "camera": "Camera",
   "photos": "Photos",
   "product_details": "Product Details",
-  "product_category": "Product Category"
+  "product_category": "Product Category",
+  "update_product": "Update Product"
 }

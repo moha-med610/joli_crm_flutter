@@ -20,6 +20,12 @@ class AuthInterceptor implements Interceptor {
           data: {"refreshToken": refreshToken},
         );
 
+        if (res.statusCode == 401) {
+          await secureStorage.delete(key: StorageKeys.accessToken);
+          await secureStorage.delete(key: StorageKeys.refreshToken);
+          prefs.remove(key: StorageKeys.role);
+        }
+
         final newAccessToken = res.data["accessToken"];
         final newRefreshToken = res.data["refreshToken"];
 

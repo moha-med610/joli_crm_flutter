@@ -68,7 +68,9 @@ class MyApp extends StatelessWidget {
           theme: isDark ? darkTheme : lightTheme,
           darkTheme: darkTheme,
           themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
-          home: isAuthenticated != null ? const MainScreen() : const LoginScreen(),
+          home: isAuthenticated != null
+              ? const MainScreen()
+              : const LoginScreen(),
         );
       },
     );

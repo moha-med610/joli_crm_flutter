@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:joli_crm/core/enum/role_enum.dart';
 import 'package:joli_crm/core/navigation/app_screens.dart';
 import 'package:joli_crm/features/customers/presentation/screens/customers_screen.dart';
@@ -7,6 +8,7 @@ import 'package:joli_crm/features/products/presentation/screens/products_screen.
 import 'package:joli_crm/features/settings/presentation/screen/settings_screen.dart';
 
 List<AppScreens> getDrawerItems() => [
+  // Company Dashboard
   AppScreens(
     title: "dashboard",
     icon: const Icon(CupertinoIcons.home, fontWeight: FontWeight.bold),
@@ -14,6 +16,15 @@ List<AppScreens> getDrawerItems() => [
     id: "dashboard",
     roles: [RoleEnum.COMPANY],
   ),
+  // Admin Dashboard
+  AppScreens(
+    title: "dashboard",
+    icon: const Icon(CupertinoIcons.home, fontWeight: FontWeight.bold),
+    screen: const Scaffold(),
+    id: "dashboard",
+    roles: [RoleEnum.ADMIN],
+  ),
+  // Company Screens
   AppScreens(
     title: "customers",
     icon: const Icon(CupertinoIcons.group_solid, fontWeight: FontWeight.bold),
@@ -28,11 +39,14 @@ List<AppScreens> getDrawerItems() => [
     id: "products",
     roles: [RoleEnum.COMPANY],
   ),
+  // Admin Screens
+
+  // Company & Admin Screens
   AppScreens(
     title: "settings",
     icon: const Icon(CupertinoIcons.settings),
     screen: const SettingsScreen(),
     id: "settings",
-    roles: [RoleEnum.COMPANY],
+    roles: [RoleEnum.COMPANY, RoleEnum.ADMIN],
   ),
 ];

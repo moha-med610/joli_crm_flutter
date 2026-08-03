@@ -23,6 +23,11 @@ class MainCubit extends Cubit<MainState> {
         .where((e) => e.roles.contains(role))
         .toList();
 
+    if (screens.isEmpty) {
+      emit(state.copyWith(screens: [], currentId: ''));
+      return;
+    }
+
     emit(state.copyWith(screens: screens, currentId: screens.first.id));
   }
 }
