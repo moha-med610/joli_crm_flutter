@@ -25,6 +25,7 @@ class ApiConstants {
   static const String getProductsById = "products/{productId}";
   static const String updateProduct = "products/update/{productId}";
   static const String deleteProduct = "products/delete/{productId}";
-  static const String createCategory = "products/add-category";
-  static const String getAllCategories = "products/categories";
+
+  static const String createCategory = "categories/add-category";
+  static const String getAllCategories = "categories/all";
 }

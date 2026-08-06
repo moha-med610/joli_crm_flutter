@@ -51,6 +51,20 @@ final class DeleteProductSuccess extends ProductsState {
   DeleteProductSuccess(this.data);
 }
 
+final class GetAllCategoriesSuccess extends ProductsState {
+  final List<CategoryEntity> data;
+
+  GetAllCategoriesSuccess(this.data);
+}
+
+final class GetAllCategoriesLoading extends ProductsState {}
+
+final class SelectedCategory extends ProductsState {
+  final CategoryEntity category;
+
+  SelectedCategory(this.category);
+}
+
 final class ProductsError extends ProductsState {
   final String message;
 

@@ -12,7 +12,8 @@ final ThemeData lightTheme = ThemeData(
     primary: Color(0xFF004643),
     secondary: Color(0xFFABD1C6),
     surface: Color(0XFFdadada),
-    onSecondaryContainer: Colors.white,
+    onPrimary: Colors.black,
+    onSecondary: Colors.white,
   ),
 
   iconTheme: const IconThemeData(color: Colors.black),

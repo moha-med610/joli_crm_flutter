@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:joli_crm/core/services/image_picker_service.dart';
 import 'package:joli_crm/features/products/data/models/products_req_model.dart';
 import 'package:joli_crm/features/products/data/models/update_product_req_model.dart';
+import 'package:joli_crm/features/products/domain/entities/category_entity.dart';
 import 'package:joli_crm/features/products/domain/entities/create_product_entity.dart';
 import 'package:joli_crm/features/products/domain/entities/delete_product_entity.dart';
 import 'package:joli_crm/features/products/domain/entities/get_all_products_entity.dart';
@@ -12,6 +13,7 @@ import 'package:joli_crm/features/products/domain/entities/product_entity.dart';
 import 'package:joli_crm/features/products/domain/entities/update_product_entity.dart';
 import 'package:joli_crm/features/products/domain/use_cases/create_product_use_case.dart';
 import 'package:joli_crm/features/products/domain/use_cases/delete_product_use_case.dart';
+import 'package:joli_crm/features/products/domain/use_cases/get_all_categories_use_case.dart';
 import 'package:joli_crm/features/products/domain/use_cases/get_product_by_id_use_case.dart';
 import 'package:joli_crm/features/products/domain/use_cases/get_products_use_case.dart';
 import 'package:joli_crm/features/products/domain/use_cases/update_product_use_case.dart';
@@ -27,6 +29,7 @@ class ProductsCubit extends Cubit<ProductsState> {
     this._getProductByIdUseCase,
     this._updateProductUseCase,
     this._deleteProductUseCase,
+    this._allCategoriesUseCase,
   ) : super(ProductsInitial());
 
   final ImagePickerService _imagePickerService;
@@ -35,6 +38,7 @@ class ProductsCubit extends Cubit<ProductsState> {
   final GetProductByIdUseCase _getProductByIdUseCase;
   final UpdateProductUseCase _updateProductUseCase;
   final DeleteProductUseCase _deleteProductUseCase;
+  final GetAllCategoriesUseCase _allCategoriesUseCase;
 
   File? image;
   bool _isLoading = false;
@@ -42,6 +46,7 @@ class ProductsCubit extends Cubit<ProductsState> {
   final int _limit = 20;
   bool hasMore = true;
   List<ProductEntity> products = [];
+  CategoryEntity? selectedCategory;
 
   Future<void> pickImageFromGallery() async {
     image = await _imagePickerService.pickImageFromGallery();
@@ -208,5 +213,26 @@ class ProductsCubit extends Cubit<ProductsState> {
     );
 
     _isLoading = false;
+  }
+
+  Future<void> getAllCategories() async {
+    if (_isLoading) return;
+
+    _isLoading = true;
+    emit(GetAllCategoriesLoading());
+
+    final result = await _allCategoriesUseCase();
+
+    result.fold(
+      (err) => emit(ProductsError(err.message)),
+      (data) => emit(GetAllCategoriesSuccess(data)),
+    );
+
+    _isLoading = false;
+  }
+
+  void selectCategory(CategoryEntity category) {
+    selectedCategory = category;
+    emit(SelectedCategory(category));
   }
 }

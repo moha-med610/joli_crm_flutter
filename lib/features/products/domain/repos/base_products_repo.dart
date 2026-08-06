@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:joli_crm/core/errors/failure.dart';
 import 'package:joli_crm/features/products/data/models/products_req_model.dart';
 import 'package:joli_crm/features/products/data/models/update_product_req_model.dart';
+import 'package:joli_crm/features/products/domain/entities/category_entity.dart';
 import 'package:joli_crm/features/products/domain/entities/create_product_entity.dart';
 import 'package:joli_crm/features/products/domain/entities/delete_product_entity.dart';
 import 'package:joli_crm/features/products/domain/entities/get_all_products_entity.dart';
@@ -26,4 +27,6 @@ abstract class BaseProductsRepo {
   );
 
   Future<Either<Failure, DeleteProductEntity>> deleteProduct(String id);
+
+  Future<Either<Failure, List<CategoryEntity>>> getAllCategories();
 }

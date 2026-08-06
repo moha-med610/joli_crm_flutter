@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:joli_crm/core/logic/app_cubit.dart';
 
 class CustomerInformationWidget extends StatelessWidget {
   const CustomerInformationWidget({
@@ -27,7 +29,9 @@ class CustomerInformationWidget extends StatelessWidget {
           constraints: const BoxConstraints(maxWidth: .infinity),
           decoration: BoxDecoration(
             borderRadius: .circular(10),
-            color: Theme.of(context).colorScheme.surface,
+            color: context.read<AppCubit>().state.isDark
+                ? Colors.grey.shade800
+                : Colors.grey.shade400,
           ),
           child: Text(
             data,

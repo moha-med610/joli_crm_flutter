@@ -6,6 +6,7 @@ import 'package:joli_crm/core/utils/build_image.dart';
 import 'package:joli_crm/features/products/data/data_source/base_products_data_source.dart';
 import 'package:joli_crm/features/products/data/models/products_req_model.dart';
 import 'package:joli_crm/features/products/data/models/update_product_req_model.dart';
+import 'package:joli_crm/features/products/domain/entities/category_entity.dart';
 import 'package:joli_crm/features/products/domain/entities/create_product_entity.dart';
 import 'package:joli_crm/features/products/domain/entities/delete_product_entity.dart';
 import 'package:joli_crm/features/products/domain/entities/get_all_products_entity.dart';
@@ -106,6 +107,21 @@ class ProductsRepoImpl implements BaseProductsRepo {
 
       return Right(
         DeleteProductEntity(message: res.message, data: res.data.toJson()),
+      );
+    } on DioException catch (e) {
+      return Left(DioErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<CategoryEntity>>> getAllCategories() async {
+    try {
+      final res = await _productsDataSource.getAllCategories();
+
+      return Right(
+        res.data
+            .map((e) => CategoryEntity(categoryName: e.categoryName, id: e.id))
+            .toList(),
       );
     } on DioException catch (e) {
       return Left(DioErrorHandler.handle(e));

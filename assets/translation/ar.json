@@ -60,5 +60,7 @@
   "photos": "الصور",
   "product_details": "تفاصيل المنتج",
   "product_category": "فئه المنتج",
-  "update_product": "تعديل المنتج"
+  "update_product": "تعديل المنتج",
+  "categories": "الفئه",
+  "choose_category": "اختر الفئه"
 }

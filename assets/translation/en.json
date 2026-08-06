@@ -59,5 +59,7 @@
   "photos": "Photos",
   "product_details": "Product Details",
   "product_category": "Product Category",
-  "update_product": "Update Product"
+  "update_product": "Update Product",
+  "categories": "Categories",
+  "choose_category": "Choose Category"
 }
