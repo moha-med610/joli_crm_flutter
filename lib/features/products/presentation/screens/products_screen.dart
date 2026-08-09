@@ -57,7 +57,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
         appBar: null,
         floatingActionButton: FloatingButtonWidget(
           onPressed: () {
-            context.push(const AddProductScreen());
+            context.push(AddProductScreen(cubit: cubit));
           },
           icon: CupertinoIcons.cube,
           label: "add_product".tr(),
@@ -110,7 +110,17 @@ class _ProductsScreenState extends State<ProductsScreen> {
                           icon: Icons.edit,
                           label: 'update'.tr(),
                           onTap: () {
-                            context.push(const UpdateProductScreen());
+                            context.push(
+                              UpdateProductScreen(
+                                cubit: cubit,
+                                id: product.id,
+                                productName: product.productName,
+                                productDescription: product.productDescription,
+                                productPrice: product.productPrice,
+                                productSize: product.productSize,
+                                productCategory: product.category.categoryName,
+                              ),
+                            );
                           },
                         ),
                       ],

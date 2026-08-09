@@ -113,12 +113,4 @@ Future<void> customerSheet(
             ),
     ],
   );
-
-  // dispose controllers after sheet closed
-  cNameController.dispose();
-  cPhoneController.dispose();
-  cAddressController.dispose();
-  cCityController.dispose();
-  cWhatsappController.dispose();
-  cNotsController.dispose();
 }

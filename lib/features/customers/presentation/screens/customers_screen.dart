@@ -93,6 +93,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
               whatsapp: whatsapp?.trim(),
               notes: notes?.trim(),
             );
+            context.pop();
           },
     );
   }

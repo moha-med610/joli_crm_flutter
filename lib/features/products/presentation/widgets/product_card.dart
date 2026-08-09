@@ -91,7 +91,7 @@ class ProductCardWidget extends StatelessWidget {
                   children: [
                     Text(
                       productName,
-                      maxLines: 2,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: theme.textTheme.labelLarge?.copyWith(
                         fontSize: 16.sp,

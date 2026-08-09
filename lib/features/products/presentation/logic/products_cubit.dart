@@ -72,7 +72,11 @@ class ProductsCubit extends Cubit<ProductsState> {
     emit(CreateProductLoading());
     _isLoading = true;
 
-    if (image == null) return;
+    if (image == null) {
+      _isLoading = false;
+      emit(ProductsError("Image Is Required"));
+      return;
+    }
 
     final result = await _createProductUseCase(
       ProductsReqModel(
@@ -85,11 +89,11 @@ class ProductsCubit extends Cubit<ProductsState> {
       ),
     );
 
+    _isLoading = false;
+
     result.fold((err) => emit(ProductsError(err.message)), (data) {
       emit(CreateProductSuccess(data));
     });
-
-    _isLoading = false;
   }
 
   Future<void> getAllProducts() async {
@@ -183,8 +187,8 @@ class ProductsCubit extends Cubit<ProductsState> {
     final result = await _updateProductUseCase(
       id: id,
       data: UpdateProductReqModel(
-        productName: productName,
         productImage: productImage,
+        productName: productName,
         productDescription: productDescription,
         productPrice: productPrice,
         productSize: productSize,
@@ -195,7 +199,6 @@ class ProductsCubit extends Cubit<ProductsState> {
       (err) => emit(ProductsError(err.message)),
       (data) => emit(UpdateProductSuccess(data)),
     );
-
     _isLoading = false;
   }
 
@@ -207,12 +210,12 @@ class ProductsCubit extends Cubit<ProductsState> {
 
     final result = await _deleteProductUseCase(id);
 
+    _isLoading = false;
+
     result.fold(
       (err) => emit(ProductsError(err.message)),
       (data) => emit(DeleteProductSuccess(data)),
     );
-
-    _isLoading = false;
   }
 
   Future<void> getAllCategories() async {

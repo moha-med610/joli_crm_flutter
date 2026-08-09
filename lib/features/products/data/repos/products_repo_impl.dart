@@ -87,7 +87,17 @@ class ProductsRepoImpl implements BaseProductsRepo {
     UpdateProductReqModel data,
   ) async {
     try {
-      final res = await _productsDataSource.updateProduct(id, data);
+      final res = await _productsDataSource.updateProduct(
+        id,
+        data.productName,
+        data.productDescription,
+        data.productPrice,
+        data.productSize,
+        data.productImage != null
+            ? await buildImage(data.productImage!.path)
+            : null,
+        data.categoryId,
+      );
 
       return Right(
         UpdateProductEntity(

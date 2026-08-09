@@ -128,12 +128,36 @@ class _BaseProductsDataSource implements BaseProductsDataSource {
   @override
   Future<ApiResponseModel<UpdateProductModel>> updateProduct(
     String id,
-    UpdateProductReqModel data,
+    String? productName,
+    String? productDescription,
+    double? productPrice,
+    String? productSize,
+    MultipartFile? productImage,
+    String? categoryId,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = data;
+    final _data = FormData();
+    if (productName != null) {
+      _data.fields.add(MapEntry('productName', productName));
+    }
+    if (productDescription != null) {
+      _data.fields.add(MapEntry('productDescription', productDescription));
+    }
+    if (productPrice != null) {
+      _data.fields.add(MapEntry('productPrice', productPrice.toString()));
+    }
+    if (productSize != null) {
+      _data.fields.add(MapEntry('productSize', productSize));
+    }
+    if (productImage != null) {
+      _data.files.add(MapEntry('productImage', productImage));
+    }
+    if (categoryId != null) {
+      _data.fields.add(MapEntry('categoryId', categoryId));
+    }
     final _options = _setStreamType<ApiResponseModel<UpdateProductModel>>(
       Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
