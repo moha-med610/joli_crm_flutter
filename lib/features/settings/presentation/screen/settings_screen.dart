@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:joli_crm/core/logic/app_cubit.dart';
 import 'package:joli_crm/core/utils/navigator_helper.dart';
 import 'package:joli_crm/features/settings/presentation/screen/change_language_screen.dart';
+import 'package:joli_crm/features/settings/presentation/screen/change_password_screen.dart';
 import 'package:joli_crm/features/settings/presentation/widgets/section_widget.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -56,7 +57,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           children: [
                             Text(
                               "app_lang".tr(),
-                              style: const TextStyle(fontSize: 20, fontWeight: .w500),
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: .w500,
+                              ),
                             ),
                             const SizedBox(height: 4),
                             Text(
@@ -91,6 +95,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ],
                   ),
                   const SizedBox(height: 10),
+                  InkWell(
+                    onTap: () {
+                      context.push(const ChangePasswordScreen());
+                    },
+                    child: SectionWidget(
+                      children: [
+                        Text(
+                          "change_password".tr(),
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: .w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   const Spacer(),
                   Text(
                     "Version $_version",

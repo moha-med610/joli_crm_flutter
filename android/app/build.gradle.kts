@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.joli_crm"
+    namespace = "com.mohakhaled324.wasla_crm"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 

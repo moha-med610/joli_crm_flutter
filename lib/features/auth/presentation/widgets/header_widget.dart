@@ -12,11 +12,14 @@ class HeaderWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SvgPicture.asset("assets/svgs/joli_crm_logo.svg", width: 100.w),
+        SvgPicture.asset("assets/svgs/new_logo.svg", width: 100.w),
         SizedBox(height: 30.h),
         Text(
           "Login_to_your_account".tr(),
-          style: Theme.of(context).primaryTextTheme.headlineLarge,
+          style: Theme
+              .of(context)
+              .primaryTextTheme
+              .headlineLarge,
         ),
       ],
     );

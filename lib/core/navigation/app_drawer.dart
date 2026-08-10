@@ -29,7 +29,7 @@ class AppDrawer extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SvgPicture.asset("assets/svgs/joli_crm_logo.svg", width: 50),
+                  SvgPicture.asset("assets/svgs/new_logo.svg", width: 50),
                   const SizedBox(width: 20),
                   Text(
                     "JOLI CRM",

@@ -29,6 +29,12 @@ void main() async {
   // Secure Storage Service
   secureStorage = SecureStorageService.getInstance();
 
+  final role = prefs.getString(key: StorageKeys.role);
+
+  if (role == null) {
+    await secureStorage.deleteAll();
+  }
+
   isAuthenticated = await secureStorage.read(key: StorageKeys.accessToken);
 
   runApp(

@@ -61,5 +61,7 @@
   "product_category": "Product Category",
   "update_product": "Update Product",
   "categories": "Categories",
-  "choose_category": "Choose Category"
+  "choose_category": "Choose Category",
+  "change_password": "Change Password",
+  "old_password": "Old Password"
 }

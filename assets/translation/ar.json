@@ -62,5 +62,7 @@
   "product_category": "فئه المنتج",
   "update_product": "تعديل المنتج",
   "categories": "الفئه",
-  "choose_category": "اختر الفئه"
+  "choose_category": "اختر الفئه",
+  "change_password": "تغيير كلمه المرور",
+  "old_password": "كلمه المرور القديمه"
 }

@@ -24,6 +24,7 @@ class AuthInterceptor implements Interceptor {
           await secureStorage.delete(key: StorageKeys.accessToken);
           await secureStorage.delete(key: StorageKeys.refreshToken);
           prefs.remove(key: StorageKeys.role);
+          return handler.next(err);
         }
 
         final newAccessToken = res.data["accessToken"];
