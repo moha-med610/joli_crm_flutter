@@ -3,9 +3,11 @@ import 'package:dio/dio.dart';
 import 'package:joli_crm/core/constants/storage_keys.dart';
 import 'package:joli_crm/core/errors/error_handler.dart';
 import 'package:joli_crm/core/errors/failure.dart';
+import 'package:joli_crm/core/models/api_response_model.dart';
 import 'package:joli_crm/features/auth/data/data_source/base_auth_data_source.dart';
 import 'package:joli_crm/features/auth/data/models/auth_req_model.dart';
 import 'package:joli_crm/features/auth/data/models/auth_res_model.dart';
+import 'package:joli_crm/features/auth/data/models/change_password_req_model.dart';
 import 'package:joli_crm/features/auth/domain/entities/auth_res_entity.dart';
 import 'package:joli_crm/features/auth/domain/entities/login_res_entity.dart';
 import 'package:joli_crm/features/auth/domain/entities/user_entity.dart';
@@ -98,6 +100,19 @@ class AuthRepoImpl implements BaseAuthRepo {
       final res = await dataSource.profile();
 
       return Right(res.toEntity());
+    } on DioException catch (e) {
+      return Left(DioErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ApiResponseModel<dynamic>>> changePassword(
+    ChangePasswordReqModel data,
+  ) async {
+    try {
+      final res = await dataSource.changePassword(data);
+
+      return Right(res);
     } on DioException catch (e) {
       return Left(DioErrorHandler.handle(e));
     }

@@ -73,7 +73,7 @@ class ProductsRepoImpl implements BaseProductsRepo {
       return Right(
         GetProductByIdEntity(
           message: res.message,
-          data: res.data.product.toEntity(),
+          data: res.data!.product.toEntity(),
         ),
       );
     } on DioException catch (e) {
@@ -102,7 +102,7 @@ class ProductsRepoImpl implements BaseProductsRepo {
       return Right(
         UpdateProductEntity(
           message: res.message,
-          data: res.data.product.toEntity(),
+          data: res.data!.product.toEntity(),
         ),
       );
     } on DioException catch (e) {
@@ -116,7 +116,7 @@ class ProductsRepoImpl implements BaseProductsRepo {
       final res = await _productsDataSource.deleteProduct(id);
 
       return Right(
-        DeleteProductEntity(message: res.message, data: res.data.toJson()),
+        DeleteProductEntity(message: res.message, data: res.data!.toJson()),
       );
     } on DioException catch (e) {
       return Left(DioErrorHandler.handle(e));
@@ -129,7 +129,7 @@ class ProductsRepoImpl implements BaseProductsRepo {
       final res = await _productsDataSource.getAllCategories();
 
       return Right(
-        res.data
+        res.data!
             .map((e) => CategoryEntity(categoryName: e.categoryName, id: e.id))
             .toList(),
       );

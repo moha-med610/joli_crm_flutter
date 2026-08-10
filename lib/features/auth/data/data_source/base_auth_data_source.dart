@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:joli_crm/core/constants/api_constants.dart';
+import 'package:joli_crm/core/models/api_response_model.dart';
 import 'package:joli_crm/features/auth/data/models/auth_req_model.dart';
 import 'package:joli_crm/features/auth/data/models/auth_res_model.dart';
+import 'package:joli_crm/features/auth/data/models/change_password_req_model.dart';
 import 'package:joli_crm/features/auth/data/models/login_res_model.dart';
 import 'package:joli_crm/features/auth/data/models/user_model.dart';
 import 'package:retrofit/retrofit.dart';
@@ -31,4 +33,7 @@ abstract class BaseAuthDataSource {
 
   @GET(ApiConstants.profile)
   Future<UserResModel> profile();
+
+  @POST(ApiConstants.changePassword)
+  Future<ApiResponseModel> changePassword(@Body() ChangePasswordReqModel data);
 }

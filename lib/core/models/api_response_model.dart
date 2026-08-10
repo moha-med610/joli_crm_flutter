@@ -6,7 +6,7 @@ part 'api_response_model.g.dart';
 class ApiResponseModel<T> {
   @JsonKey(name: "msg")
   final String message;
-  final T data;
+  final T? data;
 
   ApiResponseModel(this.message, this.data);
 

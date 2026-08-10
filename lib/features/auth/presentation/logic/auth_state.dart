@@ -25,6 +25,12 @@ class UserSuccess extends AuthState {
   UserSuccess(this.data);
 }
 
+class ChangePasswordSuccess extends AuthState {
+  final String message;
+
+  ChangePasswordSuccess(this.message);
+}
+
 final class AuthError extends AuthState {
   final String error;
 

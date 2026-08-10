@@ -2,6 +2,7 @@ import 'package:joli_crm/core/services/get_it_service.dart';
 import 'package:joli_crm/features/auth/data/data_source/base_auth_data_source.dart';
 import 'package:joli_crm/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:joli_crm/features/auth/domain/repos/base_auth_repo.dart';
+import 'package:joli_crm/features/auth/domain/use_cases/change_password_use_case.dart';
 import 'package:joli_crm/features/auth/domain/use_cases/forget_password_use_case.dart';
 import 'package:joli_crm/features/auth/domain/use_cases/login_use_case.dart';
 import 'package:joli_crm/features/auth/domain/use_cases/logout_use_case.dart';
@@ -25,8 +26,11 @@ class AuthDi {
     sl.registerLazySingleton(() => ResetPasswordUseCase(sl()));
     sl.registerLazySingleton(() => LogoutUseCase(sl()));
     sl.registerLazySingleton(() => ProfileUseCase(sl()));
+    sl.registerLazySingleton(() => ChangePasswordUseCase(sl()));
 
     // Cubit
-    sl.registerFactory(() => AuthCubit(sl(), sl(), sl(), sl(), sl(), sl()));
+    sl.registerFactory(
+      () => AuthCubit(sl(), sl(), sl(), sl(), sl(), sl(), sl()),
+    );
   }
 }

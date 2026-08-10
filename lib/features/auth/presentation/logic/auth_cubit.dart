@@ -1,9 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:joli_crm/features/auth/data/models/auth_req_model.dart';
+import 'package:joli_crm/features/auth/data/models/change_password_req_model.dart';
 import 'package:joli_crm/features/auth/domain/entities/auth_res_entity.dart';
 import 'package:joli_crm/features/auth/domain/entities/login_res_entity.dart';
 import 'package:joli_crm/features/auth/domain/entities/user_entity.dart';
+import 'package:joli_crm/features/auth/domain/use_cases/change_password_use_case.dart';
 import 'package:joli_crm/features/auth/domain/use_cases/forget_password_use_case.dart';
 import 'package:joli_crm/features/auth/domain/use_cases/login_use_case.dart';
 import 'package:joli_crm/features/auth/domain/use_cases/logout_use_case.dart';
@@ -20,6 +22,7 @@ class AuthCubit extends Cubit<AuthState> {
   final ResetPasswordUseCase resetPasswordUseCase;
   final LogoutUseCase logoutUseCase;
   final ProfileUseCase profileUseCase;
+  final ChangePasswordUseCase changePasswordUseCase;
 
   AuthCubit(
     this.loginUseCase,
@@ -28,6 +31,7 @@ class AuthCubit extends Cubit<AuthState> {
     this.resetPasswordUseCase,
     this.logoutUseCase,
     this.profileUseCase,
+    this.changePasswordUseCase,
   ) : super(AuthInitial());
 
   bool _isLoading = false;
@@ -146,5 +150,31 @@ class AuthCubit extends Cubit<AuthState> {
     result.fold((err) => emit(AuthError(err.message)), (data) {
       emit(UserSuccess(data));
     });
+  }
+
+  Future<void> changePassword({
+    required String oldPassword,
+    required String newPassword,
+    required String confirmNewPassword,
+  }) async {
+    if (_isLoading) return;
+
+    _isLoading = true;
+    emit(AuthLoading());
+
+    final result = await changePasswordUseCase(
+      ChangePasswordReqModel(
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+        confirmNewPassword: confirmNewPassword,
+      ),
+    );
+
+    result.fold(
+      (err) => emit(AuthError(err.message)),
+      (data) => emit(ChangePasswordSuccess(data.message)),
+    );
+
+    _isLoading = false;
   }
 }
