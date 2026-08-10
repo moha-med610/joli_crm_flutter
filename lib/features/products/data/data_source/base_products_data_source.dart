@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:joli_crm/core/constants/api_constants.dart';
 import 'package:joli_crm/core/models/api_response_model.dart';
@@ -48,7 +46,7 @@ abstract class BaseProductsDataSource {
     @Part(name: "productDescription") String? productDescription,
     @Part(name: "productPrice") double? productPrice,
     @Part(name: "productSize") String? productSize,
-    @Part(name: "productImage") MultipartFile? productImage,
+    @Part(name: "newProductImage") MultipartFile? productImage,
     @Part(name: "categoryId") String? categoryId,
   );
 

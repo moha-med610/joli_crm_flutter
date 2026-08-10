@@ -153,7 +153,7 @@ class _BaseProductsDataSource implements BaseProductsDataSource {
       _data.fields.add(MapEntry('productSize', productSize));
     }
     if (productImage != null) {
-      _data.files.add(MapEntry('productImage', productImage));
+      _data.files.add(MapEntry('newProductImage', productImage));
     }
     if (categoryId != null) {
       _data.fields.add(MapEntry('categoryId', categoryId));

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:joli_crm/core/services/get_it_service.dart';
@@ -8,16 +9,17 @@ import 'package:joli_crm/core/utils/navigator_helper.dart';
 import 'package:joli_crm/core/widgets/app_bar_widget.dart';
 import 'package:joli_crm/core/widgets/app_layout.dart';
 import 'package:joli_crm/core/widgets/button_widget.dart';
+import 'package:joli_crm/core/widgets/snack_bar_widgets.dart';
 import 'package:joli_crm/core/widgets/text_form_field_widget.dart';
 import 'package:joli_crm/features/products/presentation/logic/products_cubit.dart';
 import 'package:joli_crm/features/products/presentation/widgets/show_category_widget.dart';
 import 'package:joli_crm/features/products/presentation/widgets/update_image_widget.dart';
-import 'package:joli_crm/core/widgets/snack_bar_widgets.dart';
 
 import '../widgets/categories_widget.dart';
 
 class UpdateProductScreen extends StatefulWidget {
   final ProductsCubit? cubit;
+
   const UpdateProductScreen({
     super.key,
     this.cubit,
@@ -109,13 +111,18 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: ButtonWidget(
-                  child: Text(
-                    "update_product".tr(),
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSecondary,
-                      fontSize: 16,
-                    ),
-                  ),
+                  child: cubit.state is UpdateProductLoading
+                      ? const CupertinoActivityIndicator(
+                          radius: 10,
+                          color: Colors.white,
+                        )
+                      : Text(
+                          "update_product".tr(),
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSecondary,
+                            fontSize: 16,
+                          ),
+                        ),
                   onPressed: () {
                     log(state.toString());
                     context.read<ProductsCubit>().updateProduct(
