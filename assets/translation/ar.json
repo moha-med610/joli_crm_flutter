@@ -64,5 +64,6 @@
   "categories": "الفئه",
   "choose_category": "اختر الفئه",
   "change_password": "تغيير كلمه المرور",
-  "old_password": "كلمه المرور القديمه"
+  "old_password": "كلمه المرور القديمه",
+  "no_products_found": "لا توجد منتجات"
 }

@@ -81,7 +81,13 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
             if (state is GetAllProductsSuccess) {
               if (state.data.data.isEmpty) {
-                return const Center(child: Text("No Products Found"));
+                return Center(
+                  child: Text(
+                    "no_products_found".tr(),
+                    style: Theme.of(context).primaryTextTheme.headlineLarge!
+                        .copyWith(color: Colors.grey),
+                  ),
+                );
               }
               return GridView.builder(
                 controller: _scrollController,

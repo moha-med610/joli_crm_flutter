@@ -95,6 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             email: _emailController.text.trim(),
                             password: _passwordController.text.trim(),
                           );
+                          context.pushAndRemoveUntil(const MainScreen());
                         } else {
                           _emailController.clear();
                           _passwordController.clear();

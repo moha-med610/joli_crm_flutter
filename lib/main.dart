@@ -18,9 +18,8 @@ late final SecureStorageService secureStorage;
 late final String? isAuthenticated;
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  await WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-
   await DependencyInjection.init();
 
   // Shared Preferences Service
@@ -67,7 +66,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'JOLI CRM',
+          title: 'WASLA_CRM',
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,

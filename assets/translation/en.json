@@ -63,5 +63,6 @@
   "categories": "Categories",
   "choose_category": "Choose Category",
   "change_password": "Change Password",
-  "old_password": "Old Password"
+  "old_password": "Old Password",
+  "no_products_found": "No Products Found"
 }
